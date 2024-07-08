@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 
 public class Entity : MonoBehaviour
@@ -17,6 +18,8 @@ public class Entity : MonoBehaviour
 
     [SerializeField] private Transform wallCheck;
     [SerializeField] private Transform groundCheck;
+    [SerializeField] private Transform[] patrollPoints;
+    protected int currentPatrollPoint { get; private set; }
 
     private Vector2 velocityWorkspace;
 
@@ -28,6 +31,7 @@ public class Entity : MonoBehaviour
         rb = aliveGO.GetComponent<Rigidbody2D>();
         anim = aliveGO.GetComponent<Animator>();
 
+        currentPatrollPoint = 0;
         stateController = new StateController();
     }
 
@@ -61,6 +65,17 @@ public class Entity : MonoBehaviour
     {
         facingDirection *= -1;
         aliveGO.transform.Rotate(0, 180, 0);
+    }
+
+    public virtual void NextPatrollPoint()
+    {
+        if (currentPatrollPoint == 0) { currentPatrollPoint = 1; }
+        else if (currentPatrollPoint == 1) { currentPatrollPoint = 0; }
+    }
+
+    public virtual Transform GetCurrectPatrollPoint()
+    {
+        return patrollPoints[currentPatrollPoint];
     }
 
     //public virtual void OnDrawGizmos()

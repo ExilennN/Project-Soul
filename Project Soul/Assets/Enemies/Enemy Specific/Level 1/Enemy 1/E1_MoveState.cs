@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class E1_MoveState : MoveState
@@ -24,7 +25,14 @@ public class E1_MoveState : MoveState
     {
         base.LogicUpdate();
 
-        if(isDetectingWall || !isDetectingGround)
+        if (Vector2.Distance(enemy.aliveGO.transform.position, enemy.GetCurrectPatrollPoint().transform.position) <= 0.5f)
+        {
+            enemy.idleState.SetFlipAfterIdle(true);
+            stateController.ChangeState(enemy.idleState);
+        }
+
+
+        else if (isDetectingWall || !isDetectingGround)
         {
             enemy.idleState.SetFlipAfterIdle(true);
             stateController.ChangeState(enemy.idleState);

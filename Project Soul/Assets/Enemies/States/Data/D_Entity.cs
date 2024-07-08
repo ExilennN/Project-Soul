@@ -10,4 +10,5 @@ public class D_Entity :ScriptableObject
 
     public LayerMask whatIsGround;
     public LayerMask whatIsWall;
+
 }
