@@ -20,6 +20,7 @@ public class Entity : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Transform[] patrollPoints;
     protected int currentPatrollPoint { get; private set; }
+    private int pointStep;
 
     private Vector2 velocityWorkspace;
 
@@ -32,6 +33,7 @@ public class Entity : MonoBehaviour
         anim = aliveGO.GetComponent<Animator>();
 
         currentPatrollPoint = 0;
+        pointStep = 1;
         stateController = new StateController();
     }
 
@@ -69,8 +71,9 @@ public class Entity : MonoBehaviour
 
     public virtual void NextPatrollPoint()
     {
-        if (currentPatrollPoint == 0) { currentPatrollPoint = 1; }
-        else if (currentPatrollPoint == 1) { currentPatrollPoint = 0; }
+        if (currentPatrollPoint == patrollPoints.Length - 1) { pointStep = -1; currentPatrollPoint += pointStep; }
+        else if (currentPatrollPoint == 0) { pointStep = 1; currentPatrollPoint += pointStep; }
+        else { currentPatrollPoint += pointStep;  }
     }
 
     public virtual Transform GetCurrectPatrollPoint()
