@@ -25,6 +25,11 @@ public class E1_MoveState : MoveState
     {
         base.LogicUpdate();
 
+        if (isPlayerMinAggroRange)
+        {
+            stateController.ChangeState(enemy.playerDetectedState);
+        }
+
         if (Vector2.Distance(enemy.aliveGO.transform.position, enemy.GetCurrectPatrollPoint().transform.position) <= 0.5f)
         {
             enemy.idleState.SetFlipAfterIdle(true);

@@ -26,6 +26,11 @@ public class E1_IdleState : IdleState
     {
         base.LogicUpdate();
 
+        if (isPlayerInMinAggroRange)
+        {
+            stateController.ChangeState(enemy.playerDetectedState);
+        }
+
         if (isIdleTimeOver)
         {
             stateController.ChangeState(enemy.moveState);

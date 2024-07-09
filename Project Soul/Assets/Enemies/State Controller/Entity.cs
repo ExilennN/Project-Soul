@@ -19,6 +19,8 @@ public class Entity : MonoBehaviour
     [SerializeField] private Transform wallCheck;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Transform[] patrollPoints;
+    [SerializeField] private Transform playerCheck;
+    [SerializeField] private Transform homePoint;
     protected int currentPatrollPoint { get; private set; }
     private int pointStep;
 
@@ -81,9 +83,22 @@ public class Entity : MonoBehaviour
         return patrollPoints[currentPatrollPoint];
     }
 
-    //public virtual void OnDrawGizmos()
-    //{
-    //    Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * facingDirection * entityData.wallCheckDistance));
-    //    Gizmos.DrawLine(groundCheck.position, groundCheck.position + (Vector3)(Vector2.down * entityData.groundCheckDistance));
-    //}
+    public virtual bool CheckPlayerInMinAggroRange()
+    {
+        return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.minAggroDistance, entityData.whatIsPlayer);
+    }
+
+    public virtual bool CheckPlayerInBaseAggroAreaRange()
+    {
+        return Physics2D.CircleCast(homePoint.position, entityData.maxAggroDistance, Vector2.up, entityData.maxAggroDistance, entityData.whatIsPlayer);
+    }
+
+    public virtual void OnDrawGizmos()
+    {
+        //    Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * facingDirection * entityData.wallCheckDistance));
+        //    Gizmos.DrawLine(groundCheck.position, groundCheck.position + (Vector3)(Vector2.down * entityData.groundCheckDistance));
+        Gizmos.DrawLine(playerCheck.position, playerCheck.position + (Vector3)(Vector2.right * facingDirection * entityData.minAggroDistance));
+        Gizmos.DrawWireSphere(homePoint.position, entityData.maxAggroDistance);
+
+    }
 }
