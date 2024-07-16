@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class Entity : MonoBehaviour
 {
@@ -15,12 +17,16 @@ public class Entity : MonoBehaviour
     public Rigidbody2D rb {  get; private set; }
     public Animator anim { get; private set; }  
     public GameObject aliveGO { get;private set; }
+    public Seeker seeker { get; private set; }
 
+    [SerializeField] private GridController gridController;
     [SerializeField] private Transform wallCheck;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Transform[] patrollPoints;
     [SerializeField] private Transform playerCheck;
     [SerializeField] private Transform homePoint;
+    [SerializeField] private Transform playerPosition;
+    
     protected int currentPatrollPoint { get; private set; }
     private int pointStep;
 
@@ -33,15 +39,18 @@ public class Entity : MonoBehaviour
         aliveGO = transform.Find("Alive").gameObject;
         rb = aliveGO.GetComponent<Rigidbody2D>();
         anim = aliveGO.GetComponent<Animator>();
-
         currentPatrollPoint = 0;
         pointStep = 1;
         stateController = new StateController();
+        seeker = new Seeker(gridController.pathGrid);
     }
+
+
 
     public virtual void Update()
     {
         stateController.currentState.LogicUpdate();
+
     }
 
     public virtual void FixedUpdate()
@@ -82,7 +91,10 @@ public class Entity : MonoBehaviour
     {
         return patrollPoints[currentPatrollPoint];
     }
-
+    public virtual Vector3 GetPlayerPosition()
+    {
+        return playerPosition.position;
+    }
     public virtual bool CheckPlayerInMinAggroRange()
     {
         return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.minAggroDistance, entityData.whatIsPlayer);

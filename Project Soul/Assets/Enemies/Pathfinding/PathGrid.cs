@@ -1,24 +1,24 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using Unity.Mathematics;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Diagnostics;
 using UnityEngine.Rendering.Universal.Internal;
-
-
-public class PathGrid : MonoBehaviour
+[System.Serializable]
+public class PathGrid
 {
-    private int width;
-    private float cellSize;
-    private int height;
-    private int[,] gridArray;
-    private List<PathNode> wallkableCells = new List<PathNode>();
-    private LayerMask whatIsGround;
-    private Vector3 originPosition;
-    private bool showDebug;
-    public PathGrid(int width, int height, float cellSize, LayerMask whatIsGround, Vector3 originPosition, bool showDebug = false)
+    public int width;
+    public float cellSize;
+    public int height;
+    public int[,] gridArray;
+    public List<PathNode> wallkableCells = new List<PathNode>();
+    public LayerMask whatIsGround;
+    public Vector3 originPosition;
+    public PathGrid(int width, int height, float cellSize, LayerMask whatIsGround, Vector3 originPosition)
     {
         this.width = width;
         this.height = height;
@@ -29,123 +29,129 @@ public class PathGrid : MonoBehaviour
         gridArray = new int[width, height];
 
         CalculateWalkableGrid();
+        CalculateJumpEdges();
 
-        //CalculateJumpEdges();
-        if (showDebug)
+    }
+    public PathGrid() { }
+    public void ShowDebug()
+    {
+        Utils.DeleteObjectsByTag("WorldTextDebug");
+        foreach (PathNode node in wallkableCells)
         {
-            foreach (PathNode node in wallkableCells)
+            Utils.CreateWorldText(null, node.nodeText, GetCenterOfNode(GetWorldPosition(node.x, node.y)), Color.white, new Vector3(0.3f,0.3f,0.3f) ,40, TextAnchor.MiddleCenter);
+            Debug.DrawLine(GetWorldPosition(node.x, node.y), GetWorldPosition(node.x, node.y + 1), Color.white);
+            Debug.DrawLine(GetWorldPosition(node.x, node.y), GetWorldPosition(node.x + 1, node.y), Color.white);
+            Debug.DrawLine(GetWorldPosition(node.x, node.y + 1), GetWorldPosition(node.x + 1, node.y + 1), Color.white);
+            Debug.DrawLine(GetWorldPosition(node.x + 1, node.y), GetWorldPosition(node.x + 1, node.y + 1), Color.white);
+        }
+    }
+    private void CalculateWalkableGrid()
+    {
+        for (int x = 0; x < gridArray.GetLength(0); x++)
+        {
+            for (int y = 0; y < gridArray.GetLength(1); y++)
             {
-                CreateWorldText(null, node.nodeText, GetWorldPosition(node.X, node.Y) + new Vector3(cellSize, cellSize) * .5f, Color.white, 40, TextAnchor.MiddleCenter);
-                Debug.DrawLine(GetWorldPosition(node.X, node.Y), GetWorldPosition(node.X, node.Y + 1), Color.white, 100f);
-                Debug.DrawLine(GetWorldPosition(node.X, node.Y), GetWorldPosition(node.X + 1, node.Y), Color.white, 100f);
-                Debug.DrawLine(GetWorldPosition(node.X, node.Y + 1), GetWorldPosition(node.X + 1, node.Y + 1), Color.white, 100f);
-                Debug.DrawLine(GetWorldPosition(node.X + 1, node.Y), GetWorldPosition(node.X + 1, node.Y + 1), Color.white, 100f);
+                if (Physics2D.Raycast(GetCenterOfNode(GetWorldPosition(x, y)), Vector2.down, 3f, whatIsGround)
+                    && !Physics2D.Raycast(GetCenterOfNode(GetWorldPosition(x, y)), Vector2.up, 3f, whatIsGround))
+                {
+                    wallkableCells.Add(new PathNode("W", x, y));
+                }
+
             }
         }
     }
-
     private void CalculateJumpEdges()
     {
         List<PathNode> temp = new List<PathNode>(wallkableCells);
         foreach (PathNode node in temp)
         {
-            if (!wallkableCells.Contains(new PathNode(node.X-1, node.Y)))
+            if (!wallkableCells.Contains(new PathNode(node.x-1, node.y)))
             {
-                if (!Physics2D.Raycast(GetWorldPosition(node.X - 1, node.Y) + new Vector3(0.5f, 0.5f), Vector2.up, 1f, whatIsGround))
+                if (!Physics2D.Raycast(GetCenterOfNode(GetWorldPosition(node.x - 1, node.y)), Vector2.up, 3f, whatIsGround))
                 {
                     bool isThereGroundUnder = false;
                     for (int i = 1; i < 5; i++)
                     {
-                        if (wallkableCells.Contains(new PathNode(node.X - 1, node.Y - i))) { 
+                        if (wallkableCells.Contains(new PathNode(node.x - 1, node.y - i))) { 
                             isThereGroundUnder = true;
-                            BuildBridgeBetweeenCells(new PathNode(node.X - 1, node.Y), new PathNode(node.X - 1, node.Y - i));
+                            BuildBridgeBetweeenCells(new PathNode(node.x - 1, node.y), new PathNode(node.x - 1, node.y - i));
                             break; 
                         }
                     }
                     if (isThereGroundUnder) 
                     {
                         node.isEdge = true; node.nodeText = "E";
-                        wallkableCells.Add(new PathNode("A",node.X - 1, node.Y, false, true)); 
+                        wallkableCells.Add(new PathNode("A",node.x - 1, node.y, false, true)); 
                     }
                 }
                     
             }
-            if (!wallkableCells.Contains(new PathNode(node.X+1, node.Y)))
+            if (!wallkableCells.Contains(new PathNode(node.x+1, node.y)))
             {
-                if (!Physics2D.Raycast(GetWorldPosition(node.X + 1, node.Y) + new Vector3(0.5f, 0.5f), Vector2.up, 1f, whatIsGround))
+                if (!Physics2D.Raycast(GetCenterOfNode(GetWorldPosition(node.x + 1, node.y)), Vector2.up, 3f, whatIsGround))
                 {
                     bool isThereGroundUnder = false;
                     for (int i = 1; i < 5; i++)
                     {
-                        if (wallkableCells.Contains(new PathNode(node.X + 1, node.Y - i))) { 
+                        if (wallkableCells.Contains(new PathNode(node.x + 1, node.y - i))) { 
                             isThereGroundUnder = true;
-                            BuildBridgeBetweeenCells(new PathNode(node.X + 1, node.Y), new PathNode(node.X + 1, node.Y - i));
+                            BuildBridgeBetweeenCells(new PathNode(node.x + 1, node.y), new PathNode(node.x + 1, node.y - i));
                             break; 
                         }
                     }
                     if (isThereGroundUnder) 
                     {
                         node.isEdge = true; node.nodeText = "E";
-                        wallkableCells.Add(new PathNode("A", node.X + 1, node.Y, false, true)); 
+                        wallkableCells.Add(new PathNode("A", node.x + 1, node.y, false, true)); 
                     }
                 }
                 
             }
         }
     }
-
-    private Vector3 GetWorldPosition(int x, int y)
+    private void BuildBridgeBetweeenCells(PathNode start, PathNode end)
     {
-        return new Vector3(x, y) * cellSize + originPosition ;
+        if (start.x != end.x) return;
+        int currenty = start.y - 1;
+        while (currenty != end.y)
+        {
+            wallkableCells.Add(new PathNode("A", start.x, currenty, false, true));
+            currenty--;
+        }
+    }
+    public List<PathNode> GetWalkableList() { return wallkableCells; }
+
+    public void SaveGrid(string path, string fileName)
+    {
+        string json = JsonUtility.ToJson(this);
+        File.WriteAllText(path + "\\" + fileName, json);
+    }
+    static public PathGrid DowloadGrid(string path)
+    {
+        return JsonUtility.FromJson<PathGrid>(File.ReadAllText("./"+path));
     }
 
-    public void CalculateWalkableGrid()
+    public Vector3 GetCenterOfNode(PathNode node)
     {
-        for (int x = 0; x < gridArray.GetLength(0); x++)
-        {
-            for (int y = 0; y < gridArray.GetLength(1); y++)
-            {
-                //if (Physics2D.Raycast(GetWorldPosition(x, y) + new Vector3(0.5f, 0.5f), Vector2.down, 1f, whatIsGround)
-                //    && !Physics2D.Raycast(GetWorldPosition(x, y) + new Vector3(0.5f, 0.5f), Vector2.up, 1f, whatIsGround))
-                //{
-                    wallkableCells.Add(new PathNode("W",x, y));
-                //}
+        return new Vector3(node.x, node.y) + new Vector3(cellSize, cellSize) * .5f;
+    }
+    public Vector3 GetCenterOfNode(int x, int y)
+    {
+        return new Vector3(x, y) + new Vector3(cellSize, cellSize) * .5f;
+    }
+    public Vector3 GetCenterOfNode(Vector3 nodePosition)
+    {
+        return nodePosition + new Vector3(cellSize, cellSize) * .5f;
+    }
 
-            }
-        }          
+    public Vector3 GetWorldPosition(int x, int y)
+    {
+        return new Vector3(x, y) * cellSize + originPosition ;
     }
     public void GetXY(Vector3 worldPos, out int x, out int y)
     {
         x = Mathf.FloorToInt((worldPos - originPosition).x / cellSize);
         y = Mathf.FloorToInt((worldPos - originPosition).y / cellSize);
     }
-    private void BuildBridgeBetweeenCells(PathNode start, PathNode end) {
-        if (start.X != end.X) return;
-        int currentY = start.Y-1;
-        while (currentY != end.Y)
-        {
-            wallkableCells.Add(new PathNode("A", start.X, currentY, false, true));
-            currentY--;
-        }
-    }
 
-    private static TextMesh CreateWorldText(Transform parent, string text, Vector3 localPosition, Color color, int fontSize = 40, TextAnchor textAnchor = TextAnchor.UpperLeft, TextAlignment textAlignment = TextAlignment.Left, int sortingOrder = 5000 )
-    {
-        GameObject gameObject = new GameObject("World_Text", typeof(TextMesh));
-        Transform transform = gameObject.transform;
-        transform.SetParent(parent, false);
-        transform.localPosition = localPosition;
-        TextMesh textMesh = gameObject.GetComponent<TextMesh>();
-        textMesh.anchor = textAnchor;
-        textMesh.color = color;
-        textMesh.alignment = textAlignment;
-        textMesh.fontSize = fontSize;
-        textMesh.text = text;
-        textMesh.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        textMesh.GetComponent<MeshRenderer>().sortingOrder = sortingOrder;
-        return textMesh;
-    }
-
-
-    public List<PathNode> GetWalkableList() { return wallkableCells; }
 }

@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class PathNode 
 {
-    public int X { get; set; }
-    public int Y { get; set; }
+    public int x;
+    public int y;
 
     public int gCost;
     public int hCost;
     public int fCost;
-    public string nodeText { get; set; }
+    public string nodeText;
     public PathNode cameFrom;
 
     public bool isWalkable;
@@ -19,18 +20,19 @@ public class PathNode
 
     public PathNode(int x, int y, bool isWalkable = true, bool isAir = false, bool isEdge = false)
     {
-        X = x; Y = y;
+        this.x = x; this.y = y;
         this.isWalkable = isWalkable;
         this.isAir = isAir;
         this.isEdge = isEdge;
     }
     public PathNode(string text, int x, int y, bool isWalkable = true, bool isAir = false, bool isEdge = false)
     {
-        X = x; Y = y; nodeText = text;
+        this.x = x; this.y = y; nodeText = text;
         this.isWalkable = isWalkable;
         this.isAir = isAir;
         this.isEdge = isEdge;
     }
+
     public void CalculateFCost()
     {
         fCost = gCost + hCost;
@@ -40,7 +42,7 @@ public class PathNode
     {
         if (!(obj is PathNode)) return false;
         PathNode compare = (PathNode)obj;
-        return compare.X == X && compare.Y == Y;
+        return compare.x == this.x && compare.y == this.y;
     }
 
     public override int GetHashCode()

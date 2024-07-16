@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Seeker
 {
@@ -29,6 +30,7 @@ public class Seeker
             node.gCost = int.MaxValue;
             node.CalculateFCost();
             node.cameFrom = null;
+            
         }
 
         start.gCost = 0;
@@ -38,7 +40,7 @@ public class Seeker
         while (openList.Count > 0)
         {
             PathNode currentNode = GetLowestFCostNode(openList);
-            if (currentNode.X == end.X && currentNode.Y == end.Y)
+            if (currentNode.x == end.x && currentNode.y == end.y)
             {
                 return CalculatePath(currentNode);
             }
@@ -59,20 +61,20 @@ public class Seeker
                 }
             }
         }
-        // Out of nodes in opeenList
+        //Out of nodes in opeenList
         return null;
     }
     private List<PathNode> GetNeighbourList(PathNode originNode)
     {
         List<PathNode> neighbourList = new List<PathNode>();
         //Left
-        if (walkableCells.Contains(new PathNode(originNode.X - 1, originNode.Y))) { neighbourList.Add(walkableCells.Find(elem=>elem.X == originNode.X - 1 && elem.Y == originNode.Y)); }
+        if (walkableCells.Contains(new PathNode(originNode.x - 1, originNode.y))) { neighbourList.Add(walkableCells.Find(elem=> elem.x == originNode.x - 1 && elem.y == originNode.y)); }
         //Right
-        if (walkableCells.Contains(new PathNode(originNode.X + 1, originNode.Y))) { neighbourList.Add(walkableCells.Find(elem => elem.X == originNode.X + 1 && elem.Y == originNode.Y)); }
+        if (walkableCells.Contains(new PathNode(originNode.x + 1, originNode.y))) { neighbourList.Add(walkableCells.Find(elem => elem.x == originNode.x + 1 && elem.y == originNode.y)); }
         //Down
-        if (walkableCells.Contains(new PathNode(originNode.X, originNode.Y - 1))) { neighbourList.Add(walkableCells.Find(elem => elem.X == originNode.X && elem.Y == originNode.Y - 1)); }
+        if (walkableCells.Contains(new PathNode(originNode.x, originNode.y - 1))) { neighbourList.Add(walkableCells.Find(elem => elem.x == originNode.x && elem.y == originNode.y - 1)); }
         //Up
-        if (walkableCells.Contains(new PathNode(originNode.X, originNode.Y + 1))) { neighbourList.Add(walkableCells.Find(elem => elem.X == originNode.X && elem.Y == originNode.Y + 1)); }
+        if (walkableCells.Contains(new PathNode(originNode.x, originNode.y + 1))) { neighbourList.Add(walkableCells.Find(elem => elem.x == originNode.x && elem.y == originNode.y + 1)); }
 
         return neighbourList;
     }
@@ -90,10 +92,10 @@ public class Seeker
         return path;
 
     }
-    public int CalculateDistance(PathNode start, PathNode end)
+    private int CalculateDistance(PathNode start, PathNode end)
     {
-        int xDistance = Mathf.Abs(start.X - end.X);
-        int yDistance = Mathf.Abs(start.Y - end.Y);
+        int xDistance = Mathf.Abs(start.x - end.x);
+        int yDistance = Mathf.Abs(start.y - end.y);
         int remainig = Mathf.Abs(xDistance - yDistance);
         return Mathf.Min(xDistance, yDistance) + MOVE_COST * remainig;
     }
