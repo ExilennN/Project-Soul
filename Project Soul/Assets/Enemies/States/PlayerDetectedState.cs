@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
-using static UnityEngine.UI.Image;
 
 public class PlayerDetectedState : State
 {
@@ -11,6 +9,8 @@ public class PlayerDetectedState : State
 
     protected bool isPlayerInMinAggroRange;
     protected bool isPlayerInBaseAggroArea;
+    protected bool performCloseRangeAction;
+
     protected PathAgent agent;
     protected float jumpTime;
     protected bool isJumping;
@@ -20,13 +20,21 @@ public class PlayerDetectedState : State
         this.stateData = stateData;
     }
 
+    public override void DoChecks()
+    {
+        base.DoChecks();
+
+        isPlayerInMinAggroRange = entity.CheckPlayerInMinAggroRange();
+        isPlayerInBaseAggroArea = entity.CheckPlayerInBaseAggroAreaRange();
+        performCloseRangeAction = entity.CheckPlayerInCloseRangeAction();
+    }
+
     public override void Enter()
     {
         base.Enter();
         entity.SetVelocity(0f);
         isJumping = false;
-        isPlayerInMinAggroRange = entity.CheckPlayerInMinAggroRange();
-        isPlayerInBaseAggroArea = entity.CheckPlayerInBaseAggroAreaRange();
+        
     }
 
     public override void Exit()
@@ -42,8 +50,6 @@ public class PlayerDetectedState : State
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        isPlayerInMinAggroRange = entity.CheckPlayerInMinAggroRange();
-        isPlayerInBaseAggroArea = entity.CheckPlayerInBaseAggroAreaRange();
 
         entity.seeker.GetGrid().GetXY(entity.GetPlayerPosition(), out int xT, out int yT);
         entity.seeker.GetGrid().GetXY(entity.aliveGO.transform.position, out int xO, out int yO);
@@ -54,7 +60,7 @@ public class PlayerDetectedState : State
 
     protected virtual void FollowPath()
     {
-        DrawDebugPath();
+        //DrawDebugPath();
         
         //Check if path is finised
         if (agent.isPathFinished) { Debug.Log("Path is finished"); entity.SetVelocity(0f); return; }

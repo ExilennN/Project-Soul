@@ -16,12 +16,18 @@ public class IdleState : State
         this.stateData = stateData;
     }
 
+    public override void DoChecks()
+    {
+        base.DoChecks();
+        isPlayerInMinAggroRange = entity.CheckPlayerInMinAggroRange();
+    }
+
     public override void Enter()
     {
         base.Enter();
         entity.SetVelocity(0f);
         isIdleTimeOver = false;
-        isPlayerInMinAggroRange = entity.CheckPlayerInMinAggroRange();
+        
         SetRandomIdleTime();
     }
 
@@ -40,7 +46,6 @@ public class IdleState : State
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        isPlayerInMinAggroRange = entity.CheckPlayerInMinAggroRange();
     }
 
     public void SetFlipAfterIdle(bool flipAfterIdle)

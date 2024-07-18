@@ -8,9 +8,23 @@ using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class Entity : MonoBehaviour
 {
-    public StateController stateController;
-
+    [Header("Entity Data")]
     public D_Entity entityData;
+
+    [Header("Checks Positions")]
+    [SerializeField] private Transform wallCheck;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private Transform playerCheck;
+
+    [Header("Other Positions")]
+    [SerializeField] private Transform[] patrollPoints;
+    [SerializeField] private Transform homePoint;
+    [SerializeField] private Transform playerPosition;
+
+    [Header("Grid Controller")]
+    [SerializeField] private GridController gridController;
+
+    public StateController stateController;
 
     public int facingDirection { get; private set; }
 
@@ -18,14 +32,8 @@ public class Entity : MonoBehaviour
     public Animator anim { get; private set; }  
     public GameObject aliveGO { get;private set; }
     public Seeker seeker { get; private set; }
+    public AnimationToStatecontroller atsc { get; private set; }
 
-    [SerializeField] private GridController gridController;
-    [SerializeField] private Transform wallCheck;
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private Transform[] patrollPoints;
-    [SerializeField] private Transform playerCheck;
-    [SerializeField] private Transform homePoint;
-    [SerializeField] private Transform playerPosition;
     
     protected int currentPatrollPoint { get; private set; }
     private int pointStep;
@@ -39,6 +47,8 @@ public class Entity : MonoBehaviour
         aliveGO = transform.Find("Alive").gameObject;
         rb = aliveGO.GetComponent<Rigidbody2D>();
         anim = aliveGO.GetComponent<Animator>();
+        atsc = aliveGO.GetComponent<AnimationToStatecontroller>();
+
         currentPatrollPoint = 0;
         pointStep = 1;
         stateController = new StateController();
@@ -104,6 +114,11 @@ public class Entity : MonoBehaviour
     {
         return Physics2D.CircleCast(homePoint.position, entityData.maxAggroDistance, Vector2.up, entityData.maxAggroDistance, entityData.whatIsPlayer);
     }
+
+    public virtual bool CheckPlayerInCloseRangeAction()
+    {
+        return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.closeRangeActionDistance, entityData.whatIsPlayer);
+    } 
 
     public virtual void OnDrawGizmos()
     {

@@ -24,11 +24,18 @@ public class E1_PlayerDetectedState : PlayerDetectedState
     {
         base.LogicUpdate();
 
-        if (!isPlayerInBaseAggroArea)
+        if (performCloseRangeAction)
+        {
+            stateController.ChangeState(enemy.meleeAttackState);
+        }
+
+        else if (!isPlayerInBaseAggroArea)
         {
             enemy.idleState.SetFlipAfterIdle(true);
             stateController.ChangeState(enemy.idleState);
         }
+
+        
     }
 
     public override void PhysicsUpdate()
