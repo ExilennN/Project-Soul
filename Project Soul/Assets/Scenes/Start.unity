@@ -633,6 +633,7 @@ GameObject:
   - component: {fileID: 381471208}
   - component: {fileID: 381471211}
   - component: {fileID: 381471210}
+  - component: {fileID: 381471212}
   m_Layer: 0
   m_Name: Alive
   m_TagString: Untagged
@@ -656,6 +657,7 @@ Transform:
   - {fileID: 1650995502}
   - {fileID: 1216797266}
   - {fileID: 344618835}
+  - {fileID: 1801341635}
   m_Father: {fileID: 568538209}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &381471208
@@ -803,6 +805,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &381471212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381471206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8687f0a160c53da4caba0dccb4b514fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &438486262
 GameObject:
   m_ObjectHideFlags: 0
@@ -1296,7 +1310,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 8.1875
+  orthographic size: 8.359375
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1381,18 +1395,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityData: {fileID: 11400000, guid: d5fcd27757998c54b823222e9bf9f9aa, type: 2}
-  gridController: {fileID: 1797198726}
   wallCheck: {fileID: 1650995502}
   groundCheck: {fileID: 1216797266}
+  playerCheck: {fileID: 344618835}
   patrollPoints:
   - {fileID: 308381851}
   - {fileID: 787920960}
-  playerCheck: {fileID: 344618835}
   homePoint: {fileID: 1239035079}
   playerPosition: {fileID: 334920241}
+  gridController: {fileID: 1797198726}
   idleStateData: {fileID: 11400000, guid: f76427c37e9b5ab45a3bdb86692ed33e, type: 2}
   moveStateData: {fileID: 11400000, guid: 3d32bba966d117542b4b650f3883a37c, type: 2}
   playerDetectedStateData: {fileID: 11400000, guid: 4b09e4eca546785489bc27cc3a22d494, type: 2}
+  meleeAttackStateData: {fileID: 11400000, guid: 3d1608f91c3cb1746b13be9838d53928, type: 2}
+  meleeAttackPosition: {fileID: 1801341635}
 --- !u!4 &568538209
 Transform:
   m_ObjectHideFlags: 0
@@ -1902,7 +1918,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1308244375}
   - component: {fileID: 1308244376}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Wall Check
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1978,7 +1994,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1412292688}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Ground Check
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2218,6 +2234,37 @@ MonoBehaviour:
   fileName: gridData2
   directoryPath: Assets/Enemies/Pathfinding/gridSaves
   save: 0
+--- !u!1 &1801341634
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1801341635}
+  m_Layer: 0
+  m_Name: MeleeAttackPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1801341635
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801341634}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.497, y: -0.126, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 381471207}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1982936903
 GameObject:
   m_ObjectHideFlags: 0
