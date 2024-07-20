@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bdb9884864ee06429c6515e8d5978d7, type: 3}
   m_Name: E1_PlayerDetectedState
   m_EditorClassIdentifier: 
-  chaseSpeed: 6
+  chaseSpeed: 5
   jumpForce: 14
   jumpHeightInCells: 4

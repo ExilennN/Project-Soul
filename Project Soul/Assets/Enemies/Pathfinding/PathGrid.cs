@@ -38,7 +38,7 @@ public class PathGrid
         Utils.DeleteObjectsByTag("WorldTextDebug");
         foreach (PathNode node in wallkableCells)
         {
-            Utils.CreateWorldText(null, node.nodeText, GetCenterOfNode(GetWorldPosition(node.x, node.y)), Color.white, new Vector3(0.3f,0.3f,0.3f) ,40, TextAnchor.MiddleCenter);
+            Utils.CreateWorldText(null, node.nodeText, GetCenterOfNode(GetWorldPosition(node.x, node.y)), Color.white, new Vector3(0.3f,0.3f,0.3f) ,15, TextAnchor.MiddleCenter);
             Debug.DrawLine(GetWorldPosition(node.x, node.y), GetWorldPosition(node.x, node.y + 1), Color.white);
             Debug.DrawLine(GetWorldPosition(node.x, node.y), GetWorldPosition(node.x + 1, node.y), Color.white);
             Debug.DrawLine(GetWorldPosition(node.x, node.y + 1), GetWorldPosition(node.x + 1, node.y + 1), Color.white);
@@ -51,8 +51,8 @@ public class PathGrid
         {
             for (int y = 0; y < gridArray.GetLength(1); y++)
             {
-                if (Physics2D.Raycast(GetCenterOfNode(GetWorldPosition(x, y)), Vector2.down, 3f, whatIsGround)
-                    && !Physics2D.Raycast(GetCenterOfNode(GetWorldPosition(x, y)), Vector2.up, 3f, whatIsGround))
+                if (Physics2D.Raycast(GetCenterOfNode(GetWorldPosition(x, y)), Vector2.down, cellSize, whatIsGround)
+                    && !Physics2D.Raycast(GetCenterOfNode(GetWorldPosition(x, y)), Vector2.up, cellSize, whatIsGround))
                 {
                     wallkableCells.Add(new PathNode("W", x, y));
                 }
@@ -67,7 +67,7 @@ public class PathGrid
         {
             if (!wallkableCells.Contains(new PathNode(node.x-1, node.y)))
             {
-                if (!Physics2D.Raycast(GetCenterOfNode(GetWorldPosition(node.x - 1, node.y)), Vector2.up, 3f, whatIsGround))
+                if (!Physics2D.Raycast(GetCenterOfNode(GetWorldPosition(node.x - 1, node.y)), Vector2.up, cellSize, whatIsGround))
                 {
                     bool isThereGroundUnder = false;
                     for (int i = 1; i < 5; i++)
@@ -88,7 +88,7 @@ public class PathGrid
             }
             if (!wallkableCells.Contains(new PathNode(node.x+1, node.y)))
             {
-                if (!Physics2D.Raycast(GetCenterOfNode(GetWorldPosition(node.x + 1, node.y)), Vector2.up, 3f, whatIsGround))
+                if (!Physics2D.Raycast(GetCenterOfNode(GetWorldPosition(node.x + 1, node.y)), Vector2.up, cellSize, whatIsGround))
                 {
                     bool isThereGroundUnder = false;
                     for (int i = 1; i < 5; i++)

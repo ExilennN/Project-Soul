@@ -12,8 +12,6 @@ public class PlayerDetectedState : State
     protected bool performCloseRangeAction;
 
     protected PathAgent agent;
-    protected float jumpTime;
-    protected bool isJumping;
     PathNode currentNode;
     public PlayerDetectedState(Entity entity, StateController stateController, string animBoolName, D_PlayerDetectedState stateData) : base(entity, stateController, animBoolName)
     {
@@ -33,8 +31,6 @@ public class PlayerDetectedState : State
     {
         base.Enter();
         entity.SetVelocity(0f);
-        isJumping = false;
-        
     }
 
     public override void Exit()
@@ -52,6 +48,7 @@ public class PlayerDetectedState : State
         base.PhysicsUpdate();
 
         entity.seeker.GetGrid().GetXY(entity.GetPlayerPosition(), out int xT, out int yT);
+        yT--;
         entity.seeker.GetGrid().GetXY(entity.aliveGO.transform.position, out int xO, out int yO);
         List<PathNode> localPath = entity.seeker.FindPath(new PathNode(xO, yO), new PathNode(xT, yT));
         if (localPath != null) { agent = new PathAgent(localPath); }
@@ -60,7 +57,7 @@ public class PlayerDetectedState : State
 
     protected virtual void FollowPath()
     {
-        //DrawDebugPath();
+        DrawDebugPath();
         
         //Check if path is finised
         if (agent.isPathFinished) { Debug.Log("Path is finished"); entity.SetVelocity(0f); return; }
