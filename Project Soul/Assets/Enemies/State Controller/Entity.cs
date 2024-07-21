@@ -139,7 +139,7 @@ public class Entity : MonoBehaviour
 
     public virtual bool CheckPlayerInBaseAggroAreaRange()
     {
-        return Physics2D.CircleCast(homePoint.position, entityData.maxAggroDistance, Vector2.up, 0, entityData.whatIsPlayer);
+        return Physics2D.CircleCast(homePoint.position, entityData.baseRadius, Vector2.up, 0, entityData.whatIsPlayer);
     }   
 
     public virtual bool CheckPlayerInCloseRangeAction()
@@ -152,6 +152,6 @@ public class Entity : MonoBehaviour
         Gizmos.DrawWireSphere(wallCheck.position + (Vector3)(Vector2.right * facingDirection * entityData.wallCheckDistance), 0.2f);
         Gizmos.DrawLine(groundCheck.position, groundCheck.position + (Vector3)(Vector2.down * entityData.groundCheckDistance));
         Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * facingDirection * entityData.minAggroDistance), 0.2f);
-        Gizmos.DrawWireSphere(homePoint.position, entityData.maxAggroDistance);
+        Gizmos.DrawWireSphere(homePoint.position, entityData.baseRadius);
     }
 }

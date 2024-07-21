@@ -12,7 +12,7 @@ public class D_Entity :ScriptableObject
     public float groundCheckDistance = 0.4f;
 
     public float minAggroDistance = 7f;
-    public float maxAggroDistance = 10f;
+    public float baseRadius = 10f;
 
     public float closeRangeActionDistance = 2f;
 

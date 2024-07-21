@@ -1,14 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 
-public class E1_MoveState : MoveState
+public class E2_MoveState : MoveState
 {
-    private Enemy1 enemy;
-    public E1_MoveState(Entity entity, StateController stateController, string animBoolName, D_MoveState stateData, Enemy1 enemy) : base(entity, stateController, animBoolName, stateData)
+    private Enemy2 enemy;
+
+    public E2_MoveState(Entity entity, StateController stateController, string animBoolName, D_MoveState stateData, Enemy2 enemy) : base(entity, stateController, animBoolName, stateData)
     {
         this.enemy = enemy;
+    }
+
+    public override void DoChecks()
+    {
+        base.DoChecks();
     }
 
     public override void Enter()
@@ -24,12 +29,14 @@ public class E1_MoveState : MoveState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
         if (isPlayerMinAggroRange)
         {
             stateController.ChangeState(enemy.playerDetectedState);
         }
         if (!enemy.isTrackingBack)
         {
+
             if (Vector2.Distance(enemy.aliveGO.transform.position, enemy.GetCurrectPatrollPoint().transform.position) <= 0.5f)
             {
                 stateController.ChangeState(enemy.idleState);
