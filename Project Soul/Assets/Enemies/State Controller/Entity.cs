@@ -34,15 +34,23 @@ public class Entity : MonoBehaviour
     public Seeker seeker { get; private set; }
     public AnimationToStatecontroller atsc { get; private set; }
 
-    
+    private float currentHealth;
+
     protected int currentPatrollPoint { get; private set; }
     private int pointStep;
 
     private Vector2 velocityWorkspace;
 
+    protected bool isDead;
+    public bool isTrackingBack { get; private set; }
+
     public virtual void Start()
     {
         facingDirection = 1;
+        currentHealth = entityData.maxHealth;
+
+        isDead = false;
+        isTrackingBack = false;
 
         aliveGO = transform.Find("Alive").gameObject;
         rb = aliveGO.GetComponent<Rigidbody2D>();
@@ -84,11 +92,20 @@ public class Entity : MonoBehaviour
         return Physics2D.Raycast(groundCheck.position, Vector2.down, entityData.groundCheckDistance, entityData.whatIsGround);
     }
 
+    public virtual void Damage(AttackDetails attackDetails)
+    {
+        currentHealth -= attackDetails.damageAmout;
+
+        if (currentHealth <= 0) { isDead = true; }
+    }
+
     public virtual void Flip()
     {
         facingDirection *= -1;
         aliveGO.transform.Rotate(0, 180, 0);
     }
+
+    public void SetTrakingBack(bool isTrackingBack) { this.isTrackingBack = isTrackingBack; }
 
     public virtual void NextPatrollPoint()
     {
@@ -105,15 +122,25 @@ public class Entity : MonoBehaviour
     {
         return playerPosition.position;
     }
+    public virtual Transform GetBasePosition()
+    {
+        return homePoint;
+    }
     public virtual bool CheckPlayerInMinAggroRange()
     {
-        return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.minAggroDistance, entityData.whatIsPlayer);
+        bool isPlayerInRange = false;
+        RaycastHit2D hit = Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.minAggroDistance, entityData.whatIsGround | entityData.whatIsPlayer);
+        if (hit.collider != null)
+        {
+            if ((entityData.whatIsPlayer.value & (1 << hit.collider.gameObject.layer)) != 0) { isPlayerInRange = true; }
+        }
+        return isPlayerInRange;
     }
 
     public virtual bool CheckPlayerInBaseAggroAreaRange()
     {
-        return Physics2D.CircleCast(homePoint.position, entityData.maxAggroDistance, Vector2.up, entityData.maxAggroDistance, entityData.whatIsPlayer);
-    }
+        return Physics2D.CircleCast(homePoint.position, entityData.maxAggroDistance, Vector2.up, 0, entityData.whatIsPlayer);
+    }   
 
     public virtual bool CheckPlayerInCloseRangeAction()
     {
@@ -122,9 +149,9 @@ public class Entity : MonoBehaviour
 
     public virtual void OnDrawGizmos()
     {
-        Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * facingDirection * entityData.wallCheckDistance));
+        Gizmos.DrawWireSphere(wallCheck.position + (Vector3)(Vector2.right * facingDirection * entityData.wallCheckDistance), 0.2f);
         Gizmos.DrawLine(groundCheck.position, groundCheck.position + (Vector3)(Vector2.down * entityData.groundCheckDistance));
-        Gizmos.DrawLine(playerCheck.position, playerCheck.position + (Vector3)(Vector2.right * facingDirection * entityData.minAggroDistance));
+        Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * facingDirection * entityData.minAggroDistance), 0.2f);
         Gizmos.DrawWireSphere(homePoint.position, entityData.maxAggroDistance);
     }
 }

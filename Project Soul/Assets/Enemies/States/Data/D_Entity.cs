@@ -5,6 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "newEntiteData", menuName = "Data/Entity Data/Base Data")]
 public class D_Entity :ScriptableObject
 {
+    public float maxHealth = 5;
+    public float jumpForce = 10f;
+
     public float wallCheckDistance = 0.2f;
     public float groundCheckDistance = 0.4f;
 

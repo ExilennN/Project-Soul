@@ -31,8 +31,8 @@ public class E1_PlayerDetectedState : PlayerDetectedState
 
         else if (!isPlayerInBaseAggroArea)
         {
-            enemy.idleState.SetFlipAfterIdle(true);
-            stateController.ChangeState(enemy.idleState);
+            enemy.SetTrakingBack(true);
+            stateController.ChangeState(enemy.moveState);
         }
 
         

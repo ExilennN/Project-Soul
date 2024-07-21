@@ -13,7 +13,6 @@ public class E1_IdleState : IdleState
     public override void Enter()
     {
         base.Enter();
-        enemy.NextPatrollPoint();
     }
 
     public override void Exit()

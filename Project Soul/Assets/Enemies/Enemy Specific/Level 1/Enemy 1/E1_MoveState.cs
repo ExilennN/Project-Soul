@@ -25,22 +25,23 @@ public class E1_MoveState : MoveState
     {
         base.LogicUpdate();
 
-        if (isPlayerMinAggroRange)
+        if (!enemy.isTrackingBack)
         {
-            stateController.ChangeState(enemy.playerDetectedState);
-        }
+            if (isPlayerMinAggroRange)
+            {
+                stateController.ChangeState(enemy.playerDetectedState);
+            }
 
-        if (Vector2.Distance(enemy.aliveGO.transform.position, enemy.GetCurrectPatrollPoint().transform.position) <= 0.5f)
-        {
-            enemy.idleState.SetFlipAfterIdle(true);
-            stateController.ChangeState(enemy.idleState);
-        }
+            if (Vector2.Distance(enemy.aliveGO.transform.position, enemy.GetCurrectPatrollPoint().transform.position) <= 0.5f)
+            {
+                stateController.ChangeState(enemy.idleState);
+            }
 
-
-        else if (isDetectingWall || !isDetectingGround)
-        {
-            enemy.idleState.SetFlipAfterIdle(true);
-            stateController.ChangeState(enemy.idleState);
+            else if (isDetectingWall || !isDetectingGround)
+            {
+                enemy.idleState.SetFlipAfterIdle(true);
+                stateController.ChangeState(enemy.idleState);
+            }
         }
     }
 

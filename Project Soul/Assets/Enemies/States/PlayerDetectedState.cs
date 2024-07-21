@@ -55,12 +55,12 @@ public class PlayerDetectedState : State
         FollowPath();
     }
 
-    protected virtual void FollowPath()
+    protected void FollowPath()
     {
         DrawDebugPath();
         
         //Check if path is finised
-        if (agent.isPathFinished) { Debug.Log("Path is finished"); entity.SetVelocity(0f); return; }
+        if (agent.isPathFinished) { entity.SetVelocity(0f); return; }
 
         //Set current node
         if (currentNode == null || currentNode != agent.currentNode) { currentNode = agent.GetNode();  }
@@ -86,16 +86,17 @@ public class PlayerDetectedState : State
         {
             if (currentNode.y < agent.GetNode(2).y && entity.CheckGround())
             {
-                entity.rb.velocity = new Vector2(entity.rb.velocity.x, stateData.jumpForce);
+                entity.rb.velocity = new Vector2(entity.rb.velocity.x, entity.entityData.jumpForce);
             }
         }
 
     }
-    public void DrawDebugPath()
+    private void DrawDebugPath()
     {
         for (int i = 0; i < agent.path.Count - 1; i++)
         {
             Debug.DrawLine(entity.seeker.GetGrid().GetCenterOfNode(entity.seeker.GetGrid().GetWorldPosition(agent.path[i].x, agent.path[i].y)), entity.seeker.GetGrid().GetCenterOfNode(entity.seeker.GetGrid().GetWorldPosition(agent.path[i + 1].x, agent.path[i + 1].y)), Color.red);
         }
     }
+
 }

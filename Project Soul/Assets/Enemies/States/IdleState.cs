@@ -11,6 +11,8 @@ public class IdleState : State
     protected bool isPlayerInMinAggroRange;
 
     protected float idleTime;
+
+    protected int desiredFacingDirection;
     public IdleState(Entity entity, StateController stateController, string animBoolName, D_IdleState stateData) : base(entity, stateController, animBoolName)
     {
         this.stateData = stateData;
@@ -26,6 +28,8 @@ public class IdleState : State
     {
         base.Enter();
         entity.SetVelocity(0f);
+
+        desiredFacingDirection = 1;
         isIdleTimeOver = false;
         
         SetRandomIdleTime();
@@ -35,6 +39,7 @@ public class IdleState : State
     {
         base.Exit();
         if (flipAfterIdle) { entity.Flip(); }
+        NextPatrolPointHandle();
     }
 
     public override void LogicUpdate()
@@ -48,6 +53,14 @@ public class IdleState : State
         base.PhysicsUpdate();
     }
 
+    protected virtual void NextPatrolPointHandle()
+    {
+        entity.NextPatrollPoint();
+        if (entity.aliveGO.transform.position.x > entity.GetCurrectPatrollPoint().position.x) { desiredFacingDirection = -1; }
+        else { desiredFacingDirection = 1; }
+        if (entity.facingDirection != desiredFacingDirection) { entity.Flip(); }
+    }
+
     public void SetFlipAfterIdle(bool flipAfterIdle)
     {
         this.flipAfterIdle = flipAfterIdle;
@@ -57,4 +70,6 @@ public class IdleState : State
     {
         idleTime = Random.Range(stateData.minIdleTime, stateData.maxIdleTime);
     }
+
+ 
 }
