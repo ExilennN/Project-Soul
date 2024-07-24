@@ -15,6 +15,7 @@ public class Entity : MonoBehaviour
     [SerializeField] private Transform wallCheck;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Transform playerCheck;
+    [SerializeField] private Transform gridPosition;
 
     [Header("Other Positions")]
     [SerializeField] private Transform[] patrollPoints;
@@ -125,6 +126,10 @@ public class Entity : MonoBehaviour
     public virtual Transform GetBasePosition()
     {
         return homePoint;
+    }
+    public virtual Transform GetEntityPositionOnGrid()
+    {
+        return gridPosition;
     }
     public virtual bool CheckPlayerInMinAggroRange()
     {

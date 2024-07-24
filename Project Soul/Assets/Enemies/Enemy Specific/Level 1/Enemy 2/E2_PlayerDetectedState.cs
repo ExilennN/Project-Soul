@@ -29,16 +29,20 @@ public class E2_PlayerDetectedState : PlayerDetectedState
     {
         base.LogicUpdate();
 
-        if (!isPlayerInBaseAggroArea)
+        if (!isPlayerInBaseAggroArea && !isPlayerInMinAggroRange)
         {
             enemy.SetTrakingBack(true);
             stateController.ChangeState(enemy.moveState);
         }
-
-        if (isPlayerInMinAggroRange)
+        if (isPlayerInBaseAggroArea)
         {
-            stateController.ChangeState(enemy.rangedAttackState);
+            stateController.ChangeState(enemy.chaseState);
         }
+        else if (isPlayerInMinAggroRange)
+        {
+            if (Time.time >= startTime + 2f) { stateController.ChangeState(enemy.rangedAttackState); }
+        }
+        
     }
 
     public override void PhysicsUpdate()

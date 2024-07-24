@@ -8,6 +8,8 @@ public class ArrowProjectile : MonoBehaviour
     private float speed;
 
     private Rigidbody2D rb;
+    private float startTime;
+    private float livingTime = 10f;
 
     [SerializeField] private float damageRadius;
 
@@ -18,13 +20,15 @@ public class ArrowProjectile : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-
+        startTime = Time.time;
         rb.gravityScale = 0f;
         rb.velocity = transform.right * speed;
     }
 
     private void FixedUpdate()
     {
+        if (Time.time >= startTime+livingTime) { Destroy(gameObject); }
+
         Collider2D damageHit = Physics2D.OverlapCircle(damagePoint.position, damageRadius, whatIsPlayer);
         Collider2D groundHit = Physics2D.OverlapCircle(damagePoint.position, damageRadius, whatIsGround);
 

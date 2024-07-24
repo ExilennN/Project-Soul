@@ -1,20 +1,19 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveState : State
+public class ChaseState : State
 {
-    protected D_MoveState stateData;
+    D_ChaseState stateData;
 
-    protected bool isDetectingWall;
-    protected bool isDetectingGround;
-    protected bool isPlayerMinAggroRange;
+    protected bool isPlayerInMinAggroRange;
+    protected bool isPlayerInBaseAggroArea;
+    protected bool performCloseRangeAction;
 
     protected PathAgent agent;
     PathNode currentNode;
 
-    public MoveState(Entity entity, StateController stateController, string animBoolName, D_MoveState stateData) : base(entity, stateController, animBoolName)
+    public ChaseState(Entity entity, StateController stateController, string animBoolName, D_ChaseState stateData) : base(entity, stateController, animBoolName)
     {
         this.stateData = stateData;
     }
@@ -22,25 +21,15 @@ public class MoveState : State
     public override void DoChecks()
     {
         base.DoChecks();
-        isDetectingGround = entity.CheckGround();
-        isDetectingWall = entity.CheckWall();
-        isPlayerMinAggroRange = entity.CheckPlayerInMinAggroRange();
+
+        isPlayerInMinAggroRange = entity.CheckPlayerInMinAggroRange();
+        isPlayerInBaseAggroArea = entity.CheckPlayerInBaseAggroAreaRange();
+        performCloseRangeAction = entity.CheckPlayerInCloseRangeAction();
     }
 
     public override void Enter()
     {
         base.Enter();
-        entity.SetVelocity(stateData.movementSpeed);
-
-        if (entity.isTrackingBack)
-        {
-            entity.seeker.GetGrid().GetXY(entity.GetEntityPositionOnGrid().position, out int xO, out int yO);
-            entity.seeker.GetGrid().GetXY(entity.GetBasePosition().position, out int xT, out int yT);
-
-            List<PathNode> localPath = entity.seeker.FindPath(new PathNode(xO, yO), new PathNode(xT, yT));
-            agent = new PathAgent(localPath);
-            TrackToBase();
-        }
     }
 
     public override void Exit()
@@ -56,21 +45,24 @@ public class MoveState : State
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-
-        if (entity.isTrackingBack)
+        if (isPlayerInMinAggroRange) { entity.SetVelocity(0); }
+        else
         {
-            entity.seeker.GetGrid().GetXY(entity.aliveGO.transform.position, out int xO, out int yO);
-            entity.seeker.GetGrid().GetXY(entity.GetBasePosition().position, out int xT, out int yT);
-
+            entity.seeker.GetGrid().GetXY(entity.GetPlayerPosition(), out int xT, out int yT);
+            yT--;
+            entity.seeker.GetGrid().GetXY(entity.GetEntityPositionOnGrid().position, out int xO, out int yO);
             List<PathNode> localPath = entity.seeker.FindPath(new PathNode(xO, yO), new PathNode(xT, yT));
-            agent = new PathAgent(localPath);
-            TrackToBase();
+            if (localPath != null) { agent = new PathAgent(localPath); }
+            FollowPath();
         }
     }
-    protected void TrackToBase()
+
+    protected void FollowPath()
     {
+        DrawDebugPath();
+
         //Check if path is finised
-        if (agent.isPathFinished || agent.path[agent.path.Count-1] == agent.GetNextNode()) { entity.SetTrakingBack(false); return; }
+        if (agent.isPathFinished) { entity.SetVelocity(0f); return; }
 
         //Set current node
         if (currentNode == null || currentNode != agent.currentNode) { currentNode = agent.GetNode(); }
@@ -90,7 +82,7 @@ public class MoveState : State
         //Handle behavior depending on on which node entity currently is
         if (currentNode.isWalkable)
         {
-            entity.SetVelocity(stateData.movementSpeed);
+            entity.SetVelocity(stateData.chaseSpeed);
         }
         if (agent.GetNextNode().isAir)
         {
@@ -99,6 +91,13 @@ public class MoveState : State
                 entity.rb.velocity = new Vector2(entity.rb.velocity.x, entity.entityData.jumpForce);
             }
         }
-    }
 
+    }
+    private void DrawDebugPath()
+    {
+        for (int i = 0; i < agent.path.Count - 1; i++)
+        {
+            Debug.DrawLine(entity.seeker.GetGrid().GetCenterOfNode(entity.seeker.GetGrid().GetWorldPosition(agent.path[i].x, agent.path[i].y)), entity.seeker.GetGrid().GetCenterOfNode(entity.seeker.GetGrid().GetWorldPosition(agent.path[i + 1].x, agent.path[i + 1].y)), Color.red);
+        }
+    }
 }

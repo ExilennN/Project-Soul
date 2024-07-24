@@ -48,4 +48,5 @@ public class AttackState : State
     {
         isAnimationFinished = true;
     }
+    
 }

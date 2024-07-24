@@ -2,12 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class E1_PlayerDetectedState : PlayerDetectedState
+public class E2_ChaseState : ChaseState
 {
-    private Enemy1 enemy;
-    public E1_PlayerDetectedState(Entity entity, StateController stateController, string animBoolName, D_PlayerDetectedState stateData, Enemy1 enemy) : base(entity, stateController, animBoolName, stateData)
+    private Enemy2 enemy;
+
+    public E2_ChaseState(Entity entity, StateController stateController, string animBoolName, D_ChaseState stateData, Enemy2 enemy) : base(entity, stateController, animBoolName, stateData)
     {
         this.enemy = enemy;
+    }
+
+    public override void DoChecks()
+    {
+        base.DoChecks();
     }
 
     public override void Enter()
@@ -24,23 +30,18 @@ public class E1_PlayerDetectedState : PlayerDetectedState
     {
         base.LogicUpdate();
 
-
-        if (performCloseRangeAction)
-        {
-            stateController.ChangeState(enemy.meleeAttackState);
-        }
-
         if (!isPlayerInBaseAggroArea && !isPlayerInMinAggroRange)
         {
             enemy.SetTrakingBack(true);
             stateController.ChangeState(enemy.moveState);
         }
-        else if (isPlayerInBaseAggroArea || isPlayerInMinAggroRange)
+
+        if (isPlayerInMinAggroRange)
         {
-            stateController.ChangeState(enemy.chaseState);
+            if (Time.time >= startTime + 2f) { stateController.ChangeState(enemy.rangedAttackState); }
         }
 
-        
+
     }
 
     public override void PhysicsUpdate()
