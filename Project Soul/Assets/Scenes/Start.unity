@@ -758,7 +758,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &660900966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1386,7 +1386,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1359857300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1403,6 +1403,7 @@ MonoBehaviour:
   wallCheck: {fileID: 1943001134}
   groundCheck: {fileID: 878463773}
   playerCheck: {fileID: 1467075735}
+  gridPosition: {fileID: 0}
   patrollPoints:
   - {fileID: 2135916652}
   - {fileID: 1067391356}
@@ -1413,6 +1414,7 @@ MonoBehaviour:
   moveStateData: {fileID: 11400000, guid: 3d32bba966d117542b4b650f3883a37c, type: 2}
   playerDetectedStateData: {fileID: 11400000, guid: 4b09e4eca546785489bc27cc3a22d494, type: 2}
   meleeAttackStateData: {fileID: 11400000, guid: 3d1608f91c3cb1746b13be9838d53928, type: 2}
+  chaseStateData: {fileID: 0}
   meleeAttackPosition: {fileID: 1258052930}
 --- !u!4 &1359857301
 Transform:
