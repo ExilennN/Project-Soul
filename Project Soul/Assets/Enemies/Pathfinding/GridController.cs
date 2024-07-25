@@ -13,6 +13,7 @@ public class GridController : MonoBehaviour
 
     [Header("Grid Data (if file not selected)")]
     public bool generateNewGrid;
+    public bool isFlyGrid;
     public int width;
     public float cellSize;
     public int height;
@@ -26,7 +27,11 @@ public class GridController : MonoBehaviour
     public bool save;
     private void Awake()
     {
-        if (gridDataFile == null || gridDataFile.Length == 0 || generateNewGrid) { pathGrid = new PathGrid(width, height, cellSize, whatIsGround, originPosition); }
+        if (gridDataFile == null || gridDataFile.Length == 0 || generateNewGrid) 
+        { 
+            if (!isFlyGrid) { pathGrid = new GroudPathGrid(width, height, cellSize, whatIsGround, originPosition); }
+            else { pathGrid = new FlyPathGrid(width, height, cellSize, whatIsGround, originPosition); }
+        }
         else { pathGrid = PathGrid.DowloadGrid(gridDataFile); } 
     }
 
