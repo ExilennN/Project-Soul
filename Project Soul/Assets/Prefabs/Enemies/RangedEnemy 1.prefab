@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 796064610231950501}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3243710292290936802}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3032354458036487263}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: HomePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8443050881334831211}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PatrollPoint1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6512126710479036615}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RangedAtackPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,7 +164,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2365660782585767475}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PatrollPoint2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -196,7 +196,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1404497220534341517}
   - component: {fileID: 8990747892775143003}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RangedEnemy 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3491686321345189718}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 7087980212379554097}
   - component: {fileID: 4622786771438348617}
   - component: {fileID: 8729649313221480384}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Alive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -489,7 +489,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9020440931219137990}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GridPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
