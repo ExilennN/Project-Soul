@@ -38,7 +38,7 @@ public class E2_ChaseState : ChaseState
 
         if (isPlayerInMinAggroRange)
         {
-            if (Time.time >= startTime + 2f) { stateController.ChangeState(enemy.rangedAttackState); }
+           stateController.ChangeState(enemy.rangedAttackState); 
         }
 
 

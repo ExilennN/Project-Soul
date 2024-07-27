@@ -82,7 +82,10 @@ public class Entity : MonoBehaviour
         velocityWorkspace.Set(facingDirection * velocity, rb.velocity.y);
         rb.velocity = velocityWorkspace;
     }
-
+    public virtual void SetVelocity(float velocity, Vector2 angle, float direction)
+    {
+        
+    }
     public virtual bool CheckWall()
     {
         return Physics2D.Raycast(wallCheck.position, aliveGO.transform.right, entityData.wallCheckDistance, entityData.whatIsWall);
@@ -150,13 +153,27 @@ public class Entity : MonoBehaviour
     public virtual bool CheckPlayerInCloseRangeAction()
     {
         return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.closeRangeActionDistance, entityData.whatIsPlayer);
-    } 
+    }
 
+    public virtual bool CheckPlayerInMidRangeAction()
+    {
+        return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.midRangeActionDistance, entityData.whatIsPlayer);
+    }
+
+    public virtual bool CheckDistanceFromHorizontalPointToPlayer(float distance)
+    {
+        return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, distance, entityData.whatIsPlayer);
+    }
     public virtual void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(wallCheck.position + (Vector3)(Vector2.right * facingDirection * entityData.wallCheckDistance), 0.2f);
         Gizmos.DrawLine(groundCheck.position, groundCheck.position + (Vector3)(Vector2.down * entityData.groundCheckDistance));
         Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * facingDirection * entityData.minAggroDistance), 0.2f);
         Gizmos.DrawWireSphere(homePoint.position, entityData.baseRadius);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * facingDirection * entityData.closeRangeActionDistance), 0.2f);
+        Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * facingDirection * entityData.midRangeActionDistance), 0.2f);
+        Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * facingDirection * entityData.longRangeActionDistance), 0.2f);
     }
 }

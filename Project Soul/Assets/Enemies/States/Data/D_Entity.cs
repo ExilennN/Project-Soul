@@ -15,6 +15,8 @@ public class D_Entity :ScriptableObject
     public float baseRadius = 10f;
 
     public float closeRangeActionDistance = 2f;
+    public float midRangeActionDistance = 4f;
+    public float longRangeActionDistance = 8f;
 
     public LayerMask whatIsGround;
     public LayerMask whatIsWall;
