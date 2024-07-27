@@ -40,7 +40,7 @@ public class E2_PlayerDetectedState : PlayerDetectedState
         }
         else if (isPlayerInMinAggroRange)
         {
-            if (Time.time >= startTime + 2f) { stateController.ChangeState(enemy.rangedAttackState); }
+            stateController.ChangeState(enemy.rangedAttackState);
         }
         
     }

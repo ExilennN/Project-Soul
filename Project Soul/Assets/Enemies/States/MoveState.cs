@@ -56,7 +56,6 @@ public class MoveState : State
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        Debug.Log(entity.isTrackingBack);
         if (entity.isTrackingBack)
         {
             entity.seeker.GetGrid().GetXY(entity.aliveGO.transform.position, out int xO, out int yO);

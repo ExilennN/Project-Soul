@@ -10,7 +10,7 @@ public class PlayerDetectedState : State
     protected bool isPlayerInMinAggroRange;
     protected bool isPlayerInBaseAggroArea;
     protected bool performCloseRangeAction;
-
+    protected bool performMidRangeAction;
     public PlayerDetectedState(Entity entity, StateController stateController, string animBoolName, D_PlayerDetectedState stateData) : base(entity, stateController, animBoolName)
     {
         this.stateData = stateData;
@@ -23,6 +23,7 @@ public class PlayerDetectedState : State
         isPlayerInMinAggroRange = entity.CheckPlayerInMinAggroRange();
         isPlayerInBaseAggroArea = entity.CheckPlayerInBaseAggroAreaRange();
         performCloseRangeAction = entity.CheckPlayerInCloseRangeAction();
+        performMidRangeAction = entity.CheckPlayerInMidRangeAction();
     }
 
     public override void Enter()
