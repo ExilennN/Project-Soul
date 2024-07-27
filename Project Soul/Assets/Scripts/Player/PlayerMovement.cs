@@ -16,8 +16,14 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 17f; // Швидкість руху
-    [SerializeField] private float acceleration = 65f; // Прискорення
     [SerializeField] private float deceleration = 65f; // Уповільнення
+
+    [Header("Dash")]
+    [SerializeField] private float dashSpeed = 30f; // Швидкість ривка
+    [SerializeField] private float dashTime = 0.2f; // Час ривка
+    [SerializeField] private float dashCooldown = 1f; // Час перезарядки ривка
+    private bool isDashing = false; // Чи робить гравець ривок
+    private bool canDash = true; // Чи може гравець робити ривок
 
     // Викликається перед першим оновленням кадру
     void Start()
@@ -41,8 +47,16 @@ public class PlayerMovement : MonoBehaviour
     // Викликається з фіксованою частотою для фізичних обчислень
     void FixedUpdate()
     {
-        // Виконання руху
-        Move();
+        if (isDashing)
+        {
+            // Під час ривка рухатися зі швидкістю ривка
+            rb.velocity = new Vector2((facingRight ? 1 : -1) * dashSpeed, rb.velocity.y);
+        }
+        else
+        {
+            // Виконання руху
+            Move();
+        }
     }
 
     // Перевірка вводу
@@ -50,6 +64,12 @@ public class PlayerMovement : MonoBehaviour
     {
         // Отримання значення по горизонтальній осі (A/D або стрілки)
         xAxis = Input.GetAxisRaw("Horizontal");
+
+        // Перевірка вводу для ривка (ліва клавіша Shift)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+        {
+            StartCoroutine(Dash());
+        }
     }
 
     // Рух гравця
@@ -57,8 +77,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (xAxis != 0)
         {
-            // Розрахунок нової швидкості з урахуванням прискорення
-            currentVelocity = Mathf.MoveTowards(currentVelocity, xAxis * moveSpeed, acceleration * Time.fixedDeltaTime);
+            // Розрахунок нової швидкості без урахування прискорення
+            currentVelocity = xAxis * moveSpeed;
             if (playerCollision.IsGrounded)
             {
                 // Встановлення анімації бігу
@@ -102,5 +122,18 @@ public class PlayerMovement : MonoBehaviour
         facingRight = faceRight;
         // Оновити масштаб об'єкта для відображення напрямку
         transform.localScale = new Vector3(faceRight ? originalScale.x : -originalScale.x, originalScale.y, originalScale.z);
+    }
+
+    // Виконання ривка
+    private IEnumerator Dash()
+    {
+        isDashing = true;
+        canDash = false;
+
+        yield return new WaitForSeconds(dashTime);
+        isDashing = false;
+
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
     }
 }

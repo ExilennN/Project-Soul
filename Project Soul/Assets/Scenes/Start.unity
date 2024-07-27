@@ -455,9 +455,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c047fa419bd869848b8821f8c7180383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 17
-  acceleration: 65
-  deceleration: 65
+  moveSpeed: 9
+  deceleration: 70
+  dashSpeed: 20
+  dashTime: 0.2
+  dashCooldown: 1
 --- !u!114 &334920246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -773,6 +775,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridDataFile: Assets/Enemies/Pathfinding/gridSaves/gridData1.json
   generateNewGrid: 0
+  isFlyGrid: 0
   width: 40
   cellSize: 1
   height: 40
