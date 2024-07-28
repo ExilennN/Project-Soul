@@ -4,136 +4,129 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Компоненти Rigidbody2D, PlayerAnimation та PlayerCollision
-    private Rigidbody2D rb;
-    private PlayerAnimation playerAnimation;
-    private PlayerCollision playerCollision;
-    
-    private float xAxis; // Значення вводу по горизонталі
-    private float currentVelocity; // Поточна швидкість гравця
-    private bool facingRight = true; // Чи дивиться гравець вправо
-    private Vector3 originalScale; // Оригінальний масштаб об'єкта
+    private Rigidbody2D rb; // Компонент Rigidbody2D
+    private PlayerAnimation playerAnimation; // Анімації гравця
+    private PlayerCollision playerCollision; // Взаємодії зіткнень гравця
+
+    private float xAxis; // Вісь X для руху
+    private float currentVelocity; // Поточна швидкість
+    private bool facingRight = true; // Напрямок обличчям вправо
+    private Vector3 originalScale; // Початковий масштаб
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 17f; // Швидкість руху
-    [SerializeField] private float deceleration = 65f; // Уповільнення
+    [SerializeField] private float deceleration = 65f; // Сповільнення
 
     [Header("Dash")]
     [SerializeField] private float dashSpeed = 30f; // Швидкість ривка
     [SerializeField] private float dashTime = 0.2f; // Час ривка
     [SerializeField] private float dashCooldown = 1f; // Час перезарядки ривка
-    private bool isDashing = false; // Чи робить гравець ривок
-    private bool canDash = true; // Чи може гравець робити ривок
+    private bool isDashing = false; // Статус ривка
+    private bool canDash = true; // Можливість зробити ривок
 
-    // Викликається перед першим оновленням кадру
     void Start()
     {
-        // Ініціалізація компонентів
-        rb = GetComponent<Rigidbody2D>();
-        playerAnimation = GetComponent<PlayerAnimation>();
-        playerCollision = GetComponent<PlayerCollision>();
-        originalScale = transform.localScale;
+        rb = GetComponent<Rigidbody2D>(); // Ініціалізація Rigidbody2D
+        playerAnimation = GetComponent<PlayerAnimation>(); // Ініціалізація анімацій
+        playerCollision = GetComponent<PlayerCollision>(); // Ініціалізація взаємодій зіткнень
+        originalScale = transform.localScale; // Збереження початкового масштабу
     }
 
-    // Викликається кожного кадру
     void Update()
     {
-        // Перевірка вводу
-        CheckInput();
-        // Перевірка напрямку руху
-        CheckMovingDirection();
+        CheckInput(); // Перевірка вводу
+        CheckMovingDirection(); // Перевірка напрямку руху
     }
 
-    // Викликається з фіксованою частотою для фізичних обчислень
     void FixedUpdate()
     {
         if (isDashing)
         {
-            // Під час ривка рухатися зі швидкістю ривка
-            rb.velocity = new Vector2((facingRight ? 1 : -1) * dashSpeed, rb.velocity.y);
+            rb.velocity = new Vector2((facingRight ? 1 : -1) * dashSpeed, rb.velocity.y); // Рух під час ривка
         }
         else
         {
-            // Виконання руху
-            Move();
+            Move(); // Звичайний рух
         }
     }
 
-    // Перевірка вводу
     private void CheckInput()
     {
-        // Отримання значення по горизонтальній осі (A/D або стрілки)
-        xAxis = Input.GetAxisRaw("Horizontal");
+        xAxis = Input.GetAxisRaw("Horizontal"); // Отримання вводу осі X
 
-        // Перевірка вводу для ривка (ліва клавіша Shift)
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
-            StartCoroutine(Dash());
+            StartCoroutine(Dash()); // Початок ривка
         }
     }
 
-    // Рух гравця
     private void Move()
     {
         if (xAxis != 0)
         {
-            // Розрахунок нової швидкості без урахування прискорення
-            currentVelocity = xAxis * moveSpeed;
+            currentVelocity = xAxis * moveSpeed; // Розрахунок швидкості
             if (playerCollision.IsGrounded)
             {
-                // Встановлення анімації бігу
-                playerAnimation.SetRunAnimation();
+                playerAnimation.SetRunAnimation(); // Установка анімації бігу
             }
         }
         else
         {
-            // Уповільнення до повної зупинки
-            currentVelocity = Mathf.MoveTowards(currentVelocity, 0, deceleration * Time.fixedDeltaTime);
+            currentVelocity = Mathf.MoveTowards(currentVelocity, 0, deceleration * Time.fixedDeltaTime); // Сповільнення до зупинки
             if (playerCollision.IsGrounded)
             {
-                // Встановлення анімації очікування
-                playerAnimation.SetIdleAnimation();
+                playerAnimation.SetIdleAnimation(); // Установка анімації спокою
             }
         }
 
-        // Оновлення швидкості Rigidbody2D
-        rb.velocity = new Vector2(currentVelocity, rb.velocity.y);
+        rb.velocity = new Vector2(currentVelocity, rb.velocity.y); // Застосування швидкості
     }
 
-    // Перевірка напрямку руху
     private void CheckMovingDirection()
     {
         if (xAxis > 0 && !facingRight)
         {
-            // Якщо рухається вправо, а гравець дивиться вліво, перевернути
-            Flip(true);
+            Flip(true); // Поворот вправо
         }
         else if (xAxis < 0 && facingRight)
         {
-            // Якщо рухається вліво, а гравець дивиться вправо, перевернути
-            Flip(false);
+            Flip(false); // Поворот вліво
         }
     }
 
-    // Перевернути гравця
     private void Flip(bool faceRight)
     {
-        // Змінити напрямок, куди дивиться гравець
         facingRight = faceRight;
-        // Оновити масштаб об'єкта для відображення напрямку
-        transform.localScale = new Vector3(faceRight ? originalScale.x : -originalScale.x, originalScale.y, originalScale.z);
+        transform.localScale = new Vector3(faceRight ? originalScale.x : -originalScale.x, originalScale.y, originalScale.z); // Зміна масштабу для відображення напрямку
     }
 
-    // Виконання ривка
     private IEnumerator Dash()
     {
         isDashing = true;
         canDash = false;
 
+        StartCoroutine(SpawnAfterImages()); // Початок створення післяобразів
+
         yield return new WaitForSeconds(dashTime);
         isDashing = false;
 
         yield return new WaitForSeconds(dashCooldown);
-        canDash = true;
+        canDash = true; // Перезарядка ривка завершена
+    }
+
+    private IEnumerator SpawnAfterImages()
+    {
+        while (isDashing)
+        {
+            GameObject afterImage = PlayerAfterImagePool.Instance.GetFromPool();
+            afterImage.transform.position = transform.position;
+            afterImage.transform.localScale = transform.localScale;
+            afterImage.GetComponent<SpriteRenderer>().sprite = GetComponent<SpriteRenderer>().sprite;
+
+            PlayerAfterImageSprite afterImageScript = afterImage.GetComponent<PlayerAfterImageSprite>();
+            afterImageScript.enabled = true; // Увімкнення скрипта для запуску процесу зникнення
+
+            yield return new WaitForSeconds(0.05f); // Інтервал між післяобразами
+        }
     }
 }
