@@ -64,6 +64,7 @@ MonoBehaviour:
   playerDetectedStateData: {fileID: 11400000, guid: e73cb03882ac4d64f9fb48dd2c959760, type: 2}
   chaseStateData: {fileID: 11400000, guid: 3e83567a0306fb34e8bdf8ae3b60a713, type: 2}
   clawAttackStateData: {fileID: 11400000, guid: 4e1fd6f8bc467cc4f90f828c8d2cdf53, type: 2}
+  chargeLeapStateData: {fileID: 11400000, guid: eaabdff690d22464c8e47079f123c393, type: 2}
   clawAttackPosition: {fileID: 8788680912067520942}
 --- !u!1 &1836951313099656277
 GameObject:
@@ -165,6 +166,7 @@ Transform:
   - {fileID: 7039648354307338321}
   - {fileID: 8788680912067520942}
   - {fileID: 7659345261067449873}
+  - {fileID: 6187757759993371455}
   m_Father: {fileID: 4956928908230230138}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3081043909529537030
@@ -290,7 +292,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0112385005, y: -0.057305694}
+  m_Offset: {x: 0, y: -0.08969569}
   m_SpriteTilingProperty:
     border: {x: 0.25, y: 0.25, z: 0.25, w: 0.25}
     pivot: {x: 0.5, y: 0.5}
@@ -301,7 +303,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8682687, y: 0.89049363}
+  m_Size: {x: 0.82439315, y: 0.8091855}
   m_EdgeRadius: 0
 --- !u!95 &2927788182271777032
 Animator:
@@ -448,6 +450,97 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4956928908230230138}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8706947099403131058
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6187757759993371455}
+  - component: {fileID: 6541372007525008332}
+  - component: {fileID: 5467725952386638376}
+  m_Layer: 8
+  m_Name: ColideZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6187757759993371455
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8706947099403131058}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5501128556239099437}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &6541372007525008332
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8706947099403131058}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.03289473}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.95906395, y: 0.93421054}
+  m_EdgeRadius: 0
+--- !u!114 &5467725952386638376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8706947099403131058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc72b42c4f9d5524bbed211627a70303, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colideDamge: 1
 --- !u!1 &8737176767828689300
 GameObject:
   m_ObjectHideFlags: 0

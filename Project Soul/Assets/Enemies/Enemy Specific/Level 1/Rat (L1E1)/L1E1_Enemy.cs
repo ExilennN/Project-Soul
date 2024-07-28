@@ -39,6 +39,7 @@ public class L1E1_Enemy : Entity
         stateController.Initialize(moveState);
     }
 
+    public D_ChargeLeapStateData GetChargeLeapData() { return chargeLeapStateData; }
 
     public override void OnDrawGizmos()
     {

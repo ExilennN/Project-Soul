@@ -7,7 +7,7 @@ public class State
     protected StateController stateController;
     protected Entity entity;
 
-    protected float startTime { get; private set; }
+    public float startTime { get; private set; } = 0;
 
     protected string animBoolName;
 

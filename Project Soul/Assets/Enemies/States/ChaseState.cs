@@ -11,6 +11,7 @@ public class ChaseState : State
     protected bool isPlayerInBaseAggroArea;
     protected bool performCloseRangeAction;
     protected bool performMidRangeAction;
+    protected bool isDetectingGround;
 
     protected PathAgent agent;
     PathNode currentNode;
@@ -28,6 +29,7 @@ public class ChaseState : State
         isPlayerInBaseAggroArea = entity.CheckPlayerInBaseAggroAreaRange();
         performCloseRangeAction = entity.CheckPlayerInCloseRangeAction();
         performMidRangeAction = entity.CheckPlayerInMidRangeAction();
+        isDetectingGround = entity.CheckGround();
     }
 
     public override void Enter()

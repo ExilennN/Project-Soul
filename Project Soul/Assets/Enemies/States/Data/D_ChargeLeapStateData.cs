@@ -9,4 +9,7 @@ public class D_ChargeLeapStateData : ScriptableObject
     public float chargeSpeed = 8f;
     public float leapDistance = 3f;
     public float leapForce = 20f;
+
+    public float leapTime = 0.5f;
+    public float chargeCooldown = 4f;
 }

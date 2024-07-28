@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f31882e2208a3f4aad4da57536434b6, type: 3}
   m_Name: L1E1_ClawAttackStateData
   m_EditorClassIdentifier: 
-  attackRadius: 0.5
+  attackRadius: 1
   attackDamage: 1
   whatIsPlayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8

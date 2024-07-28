@@ -10,6 +10,7 @@ public class ChargeLeapState : State
     protected bool performMidRangeAction;
     protected bool isChargeOver;
     private bool isCharging;
+    private float leapStart;
     public ChargeLeapState(Entity entity, StateController stateController, string animBoolName, D_ChargeLeapStateData stateData) : base(entity, stateController, animBoolName)
     {
         this.stateData = stateData;
@@ -45,9 +46,14 @@ public class ChargeLeapState : State
     {
         base.PhysicsUpdate();
 
+        if (isCharging)
+        {
+            if (Time.time >= leapStart + stateData.leapTime) { isChargeOver = true; isCharging = false; }
+        }
+
         if (entity.CheckDistanceFromHorizontalPointToPlayer(stateData.leapDistance) && !isCharging)
         {
-            isCharging = true;
+            isCharging = true; leapStart = Time.time;
             entity.SetVelocity(0f);
             entity.rb.AddForce(new Vector2(stateData.leapForce*entity.facingDirection, 2f), ForceMode2D.Impulse);
         }

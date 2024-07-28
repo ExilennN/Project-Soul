@@ -7,6 +7,7 @@ public class PlayerDetectedState : State
 {
     protected D_PlayerDetectedState stateData;
 
+    protected bool isDetectingGround;
     protected bool isPlayerInMinAggroRange;
     protected bool isPlayerInBaseAggroArea;
     protected bool performCloseRangeAction;
@@ -24,6 +25,7 @@ public class PlayerDetectedState : State
         isPlayerInBaseAggroArea = entity.CheckPlayerInBaseAggroAreaRange();
         performCloseRangeAction = entity.CheckPlayerInCloseRangeAction();
         performMidRangeAction = entity.CheckPlayerInMidRangeAction();
+        isDetectingGround = entity.CheckGround();
     }
 
     public override void Enter()

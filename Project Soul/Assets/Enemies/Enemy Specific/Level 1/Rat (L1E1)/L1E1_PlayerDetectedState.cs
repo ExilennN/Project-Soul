@@ -28,11 +28,12 @@ public class L1E1_PlayerDetectedState : PlayerDetectedState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if (performCloseRangeAction)
+
+        if (performCloseRangeAction && isDetectingGround)
         {
             stateController.ChangeState(enemy.clawAttackState);
         }
-        if (performMidRangeAction)
+        else if (performMidRangeAction && isDetectingGround && Time.time >= enemy.chargeLeapState.startTime + enemy.GetChargeLeapData().chargeCooldown) 
         {
             stateController.ChangeState(enemy.chargeLeapState);
         }
