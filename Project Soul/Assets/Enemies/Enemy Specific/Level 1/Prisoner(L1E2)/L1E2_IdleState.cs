@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class L1E1_ChargeLeapState : ChargeLeapState
+public class L1E2_IdleState : IdleState
 {
-    private L1E1_Enemy enemy;
+    private L1E2_Enemy enemy;
 
-    public L1E1_ChargeLeapState(Entity entity, StateController stateController, string animBoolName, D_ChargeLeapStateData stateData, L1E1_Enemy enemy) : base(entity, stateController, animBoolName, stateData)
+    public L1E2_IdleState(Entity entity, StateController stateController, string animBoolName, D_IdleState stateData, L1E2_Enemy enemy) : base(entity, stateController, animBoolName, stateData)
     {
         this.enemy = enemy;
     }
@@ -30,18 +30,24 @@ public class L1E1_ChargeLeapState : ChargeLeapState
     {
         base.LogicUpdate();
 
-        if (isChargeOver)
+        if (isPlayerInMinAggroRange)
         {
             stateController.ChangeState(enemy.playerDetectedState);
         }
-        if (!enemy.CheckPlayerInLongRangeAction() && leapStart == -1)
+
+        if (isIdleTimeOver)
         {
-            stateController.ChangeState(enemy.playerDetectedState);
+            stateController.ChangeState(enemy.moveState);
         }
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+    }
+
+    protected override void NextPatrolPointHandle()
+    {
+        base.NextPatrolPointHandle();
     }
 }

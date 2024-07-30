@@ -2,15 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class L1E1_ChargeLeapState : ChargeLeapState
+public class L1E2_MeleeAttackState : MeleeAttackState
 {
-    private L1E1_Enemy enemy;
-
-    public L1E1_ChargeLeapState(Entity entity, StateController stateController, string animBoolName, D_ChargeLeapStateData stateData, L1E1_Enemy enemy) : base(entity, stateController, animBoolName, stateData)
+    private L1E2_Enemy enemy;
+    public L1E2_MeleeAttackState(Entity entity, StateController stateController, string animBoolName, Transform attackPosition, D_MeleeAttackState stateData, L1E2_Enemy enemy) : base(entity, stateController, animBoolName, attackPosition, stateData)
     {
         this.enemy = enemy;
     }
-
     public override void DoChecks()
     {
         base.DoChecks();
@@ -19,6 +17,7 @@ public class L1E1_ChargeLeapState : ChargeLeapState
     public override void Enter()
     {
         base.Enter();
+        
     }
 
     public override void Exit()
@@ -26,15 +25,15 @@ public class L1E1_ChargeLeapState : ChargeLeapState
         base.Exit();
     }
 
+    public override void FinishAtack()
+    {
+        base.FinishAtack();
+    }
+
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
-        if (isChargeOver)
-        {
-            stateController.ChangeState(enemy.playerDetectedState);
-        }
-        if (!enemy.CheckPlayerInLongRangeAction() && leapStart == -1)
+        if (isAnimationFinished)
         {
             stateController.ChangeState(enemy.playerDetectedState);
         }
@@ -43,5 +42,10 @@ public class L1E1_ChargeLeapState : ChargeLeapState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+    }
+
+    public override void TriggerAttack()
+    {
+        base.TriggerAttack();
     }
 }

@@ -33,7 +33,7 @@ public class L1E1_PlayerDetectedState : PlayerDetectedState
         {
             stateController.ChangeState(enemy.clawAttackState);
         }
-        else if (performMidRangeAction && isDetectingGround && Time.time >= enemy.chargeLeapState.startTime + enemy.GetChargeLeapData().chargeCooldown) 
+        else if (performLongRangeAction && isDetectingGround && Time.time >= enemy.chargeLeapState.startTime + enemy.GetChargeLeapData().chargeCooldown) 
         {
             stateController.ChangeState(enemy.chargeLeapState);
         }

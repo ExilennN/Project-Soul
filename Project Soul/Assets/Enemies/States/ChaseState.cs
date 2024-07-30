@@ -11,6 +11,7 @@ public class ChaseState : State
     protected bool isPlayerInBaseAggroArea;
     protected bool performCloseRangeAction;
     protected bool performMidRangeAction;
+    protected bool performLongRangeAction;
     protected bool isDetectingGround;
 
     protected PathAgent agent;
@@ -29,6 +30,7 @@ public class ChaseState : State
         isPlayerInBaseAggroArea = entity.CheckPlayerInBaseAggroAreaRange();
         performCloseRangeAction = entity.CheckPlayerInCloseRangeAction();
         performMidRangeAction = entity.CheckPlayerInMidRangeAction();
+        performLongRangeAction = entity.CheckPlayerInLongRangeAction();
         isDetectingGround = entity.CheckGround();
     }
 

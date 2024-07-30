@@ -461,7 +461,7 @@ GameObject:
   - component: {fileID: 6187757759993371455}
   - component: {fileID: 6541372007525008332}
   - component: {fileID: 5467725952386638376}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: ColideZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}

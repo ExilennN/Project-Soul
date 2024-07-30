@@ -160,6 +160,10 @@ public class Entity : MonoBehaviour
         return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.midRangeActionDistance, entityData.whatIsPlayer);
     }
 
+    public virtual bool CheckPlayerInLongRangeAction()
+    {
+        return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.longRangeActionDistance, entityData.whatIsPlayer);
+    }
     public virtual bool CheckDistanceFromHorizontalPointToPlayer(float distance)
     {
         return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, distance, entityData.whatIsPlayer);

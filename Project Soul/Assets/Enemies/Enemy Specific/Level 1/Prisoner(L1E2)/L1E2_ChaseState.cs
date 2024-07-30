@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class L1E1_ChaseState : ChaseState
+public class L1E2_ChaseState : ChaseState
 {
-    private L1E1_Enemy enemy;
-    public L1E1_ChaseState(Entity entity, StateController stateController, string animBoolName, D_ChaseState stateData, L1E1_Enemy enemy) : base(entity, stateController, animBoolName, stateData)
+    private L1E2_Enemy enemy;
+    public L1E2_ChaseState(Entity entity, StateController stateController, string animBoolName, D_ChaseState stateData, L1E2_Enemy enemy) : base(entity, stateController, animBoolName, stateData)
     {
         this.enemy = enemy;
     }
@@ -28,14 +28,12 @@ public class L1E1_ChaseState : ChaseState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
         if (performCloseRangeAction && isDetectingGround)
         {
-            stateController.ChangeState(enemy.clawAttackState);
+            stateController.ChangeState(enemy.meleeAttackState);
         }
-        else if (performLongRangeAction && isDetectingGround && Time.time >= enemy.chargeLeapState.startTime + enemy.GetChargeLeapData().chargeCooldown)
-        {
-            stateController.ChangeState(enemy.chargeLeapState);
-        }
+
         if (!isPlayerInBaseAggroArea & !isPlayerInMinAggroRange)
         {
             enemy.SetTrakingBack(true);
