@@ -1,9 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public static class Utils
 {
+    public static int RoundedNumberFromFloatToInt(float number)
+    {
+        int floorValue = (int)number;
+        float fractionalPart = number - floorValue;
+
+        if (Mathf.Abs(fractionalPart) >= 0.4f && Mathf.Abs(fractionalPart) <= 0.6f)
+        {
+            return floorValue;
+        }
+        else
+        {
+            return 999999;
+        }
+    }
     public static void DeleteObjectsByTag(string tag)
     {
         GameObject[] objects = GameObject.FindGameObjectsWithTag(tag);

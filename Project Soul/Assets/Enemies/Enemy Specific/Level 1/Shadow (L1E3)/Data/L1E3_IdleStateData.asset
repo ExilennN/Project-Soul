@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c923f8c1701b1e54294be6cb505b248f, type: 3}
-  m_Name: L1E2_MoveStateData
+  m_Script: {fileID: 11500000, guid: fc0f2c31dc65e74419628b5a80c7324b, type: 3}
+  m_Name: L1E3_IdleStateData
   m_EditorClassIdentifier: 
-  movementSpeed: 16
+  minIdleTime: 1
+  maxIdleTime: 2

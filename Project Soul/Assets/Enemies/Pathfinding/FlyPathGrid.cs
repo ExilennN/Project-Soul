@@ -27,11 +27,21 @@ public class FlyPathGrid : PathGrid
             for (int y = 0; y < gridArray.GetLength(1); y++)
             {
                 if (!Physics2D.Raycast(GetCenterOfNode(GetWorldPosition(x, y)), Vector2.down, cellSize, whatIsGround)
-                    || !Physics2D.Raycast(GetCenterOfNode(GetWorldPosition(x, y)), Vector2.up, cellSize, whatIsGround))
+                    && !Physics2D.Raycast(GetCenterOfNode(GetWorldPosition(x, y)), Vector2.up, cellSize, whatIsGround)
+                    && !Physics2D.Raycast(GetCenterOfNode(GetWorldPosition(x, y)), Vector2.left, cellSize, whatIsGround)
+                    && !Physics2D.Raycast(GetCenterOfNode(GetWorldPosition(x, y)), Vector2.right, cellSize, whatIsGround)
+                    && !Physics2D.Raycast(GetCenterOfNode(GetWorldPosition(x, y)), new Vector2(1,1), cellSize + 0.5f, whatIsGround)
+                    && !Physics2D.Raycast(GetCenterOfNode(GetWorldPosition(x, y)), new Vector2(-1, 1), cellSize + 0.5f, whatIsGround)
+                    && !Physics2D.Raycast(GetCenterOfNode(GetWorldPosition(x, y)), new Vector2(1, -1), cellSize + 0.5f, whatIsGround)
+                    && !Physics2D.Raycast(GetCenterOfNode(GetWorldPosition(x, y)), new Vector2(-1, -1), cellSize + 0.5f, whatIsGround))
                 {
                     wallkableCells.Add(new PathNode("F", x, y));
                 }
-
+                //else if (Physics2D.Raycast(GetCenterOfNode(GetWorldPosition(x, y)), Vector2.down, cellSize, whatIsGround)
+                //    && !Physics2D.Raycast(GetCenterOfNode(GetWorldPosition(x, y)), Vector2.up, cellSize, whatIsGround))
+                //{
+                //    wallkableCells.Add(new PathNode("F", x, y));
+                //}
             }
         }
     }

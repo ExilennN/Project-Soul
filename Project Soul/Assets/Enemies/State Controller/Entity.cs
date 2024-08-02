@@ -17,6 +17,7 @@ public class Entity : MonoBehaviour
     [SerializeField] private Transform playerCheck;
     [SerializeField] private Transform gridPosition;
 
+
     [Header("Other Positions")]
     [SerializeField] private Transform[] patrollPoints;
     [SerializeField] private Transform homePoint;
@@ -29,9 +30,9 @@ public class Entity : MonoBehaviour
 
     public int facingDirection { get; private set; }
 
-    public Rigidbody2D rb {  get; private set; }
-    public Animator anim { get; private set; }  
-    public GameObject aliveGO { get;private set; }
+    public Rigidbody2D rb { get; private set; }
+    public Animator anim { get; private set; }
+    public GameObject aliveGO { get; private set; }
     public Seeker seeker { get; private set; }
     public AnimationToStatecontroller atsc { get; private set; }
 
@@ -79,12 +80,19 @@ public class Entity : MonoBehaviour
 
     public virtual void SetVelocity(float velocity)
     {
-        velocityWorkspace.Set(facingDirection * velocity, rb.velocity.y);
+        velocityWorkspace.Set(facingDirection * velocity * Time.deltaTime * 10, rb.velocity.y);
         rb.velocity = velocityWorkspace;
     }
-    public virtual void SetVelocity(float velocity, Vector2 angle, float direction)
+    public virtual void SetVelocity(float velocity, Vector2 direction)
     {
-        
+        velocityWorkspace = direction * velocity * Time.deltaTime * 10;
+        rb.velocity = velocityWorkspace;
+    }
+
+    public virtual void ResetVelocity()
+    {
+        velocityWorkspace.Set(0f, 0f);
+        rb.velocity = velocityWorkspace;
     }
     public virtual bool CheckWall()
     {
@@ -95,6 +103,8 @@ public class Entity : MonoBehaviour
     {
         return Physics2D.Raycast(groundCheck.position, Vector2.down, entityData.groundCheckDistance, entityData.whatIsGround);
     }
+
+
 
     public virtual void Damage(AttackDetails attackDetails)
     {
@@ -167,6 +177,10 @@ public class Entity : MonoBehaviour
     public virtual bool CheckDistanceFromHorizontalPointToPlayer(float distance)
     {
         return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, distance, entityData.whatIsPlayer);
+    }
+    public virtual bool CheckDistanceFromHorizontalPointToWall(float distance)
+    {
+        return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, distance, entityData.whatIsGround);
     }
     public virtual void OnDrawGizmos()
     {

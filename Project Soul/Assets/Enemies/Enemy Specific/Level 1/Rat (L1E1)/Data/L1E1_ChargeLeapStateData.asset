@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chargeSpeed: 8
   leapDistance: 3
+  leapForce: 10
+  leapTime: 0.6
+  chargeCooldown: 3

@@ -38,7 +38,7 @@ public class PathGrid
         Utils.DeleteObjectsByTag("WorldTextDebug");
         foreach (PathNode node in wallkableCells)
         {
-            Utils.CreateWorldText(null, node.nodeText, GetCenterOfNode(GetWorldPosition(node.x, node.y)), Color.white, new Vector3(0.3f,0.3f,0.3f) ,15, TextAnchor.MiddleCenter);
+            Utils.CreateWorldText(null, $"{node.x},{node.y}", GetCenterOfNode(GetWorldPosition(node.x, node.y)), Color.white, new Vector3(0.3f,0.3f,0.3f) ,15, TextAnchor.MiddleCenter);
             Debug.DrawLine(GetWorldPosition(node.x, node.y), GetWorldPosition(node.x, node.y + 1), Color.white);
             Debug.DrawLine(GetWorldPosition(node.x, node.y), GetWorldPosition(node.x + 1, node.y), Color.white);
             Debug.DrawLine(GetWorldPosition(node.x, node.y + 1), GetWorldPosition(node.x + 1, node.y + 1), Color.white);
@@ -91,5 +91,10 @@ public class PathGrid
         x = Mathf.FloorToInt((worldPos - originPosition).x / cellSize);
         y = Mathf.FloorToInt((worldPos - originPosition).y / cellSize);
     }
-
+    public void GetXYFlyGrid(Vector3 worldPos, out int x, out int y)
+    {
+        x = Utils.RoundedNumberFromFloatToInt((worldPos - originPosition).x / cellSize);
+        y = Utils.RoundedNumberFromFloatToInt((worldPos - originPosition).y / cellSize);
+        
+    }
 }
