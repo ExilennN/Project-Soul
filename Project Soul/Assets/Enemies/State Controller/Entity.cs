@@ -154,7 +154,21 @@ public class Entity : MonoBehaviour
         }
         return isPlayerInRange;
     }
-
+    public virtual Vector3 GetPlayerLosPosition()
+    {
+        return GameObject.Find("LOS").gameObject.transform.position;
+    }
+    public virtual bool CheckIfPlayerInLineOfSight()
+    {
+        bool isPlayerInLOS = false;
+        Vector3 direction = GetPlayerLosPosition() - transform.position;
+        RaycastHit2D hit = Physics2D.CircleCast(playerCheck.position, 0.5f, new Vector2(direction.x, direction.y).normalized, entityData.longRangeActionDistance, entityData.whatIsGround | entityData.whatIsPlayer);
+        if (hit.collider != null)
+        {
+            if ((entityData.whatIsPlayer.value & (1 << hit.collider.gameObject.layer)) != 0) { isPlayerInLOS = true; }
+        }
+        return isPlayerInLOS;
+    }
     public virtual bool CheckPlayerInBaseAggroAreaRange()
     {
         return Physics2D.CircleCast(homePoint.position, entityData.baseRadius, Vector2.up, 0, entityData.whatIsPlayer);

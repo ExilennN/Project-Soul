@@ -29,6 +29,18 @@ public class L1E3_FlyChaseState : FlyChaseState
     {
         base.LogicUpdate();
 
+        if (isPlayerInLOS)
+        {
+            if (Time.time >= enemy.rangedMagicAttackState.startTime + enemy.GetRangedAttackData().attackCooldowm)
+            {
+                stateController.ChangeState(enemy.rangedMagicAttackState);
+            }
+            else
+            {
+                entity.ResetVelocity();
+            }
+        }
+
         if (!isPlayerInBaseAggroArea && !isPlayerInMinAggroRange)
         {
             enemy.SetTrakingBack(true);

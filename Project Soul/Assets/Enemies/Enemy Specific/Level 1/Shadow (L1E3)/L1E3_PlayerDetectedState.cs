@@ -29,7 +29,19 @@ public class L1E3_PlayerDetectedState : PlayerDetectedState
     {
         base.LogicUpdate();
 
-        if (isPlayerInBaseAggroArea || isPlayerInMinAggroRange)
+        if (isPlayerInLOS)
+        {
+            if (Time.time >= enemy.rangedMagicAttackState.startTime + enemy.GetRangedAttackData().attackCooldowm)
+            {
+                stateController.ChangeState(enemy.rangedMagicAttackState);
+            }
+            else
+            {
+                entity.ResetVelocity();
+            }
+        }
+
+        else if (isPlayerInBaseAggroArea || isPlayerInMinAggroRange)
         {
             stateController.ChangeState(enemy.chaseState);
         }

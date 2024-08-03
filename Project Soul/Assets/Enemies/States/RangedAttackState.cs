@@ -6,7 +6,8 @@ public class RangedAttackState : AttackState
 {
     protected D_RangedAttackState stateData;
     protected GameObject projectile;
-    protected ArrowProjectile projectileScript;
+    protected Projectile projectileScript;
+
     public RangedAttackState(Entity entity, StateController stateController, string animBoolName, Transform attackPosition, D_RangedAttackState stateData) : base(entity, stateController, animBoolName, attackPosition)
     {
         this.stateData = stateData;
@@ -20,6 +21,7 @@ public class RangedAttackState : AttackState
     public override void Enter()
     {
         base.Enter();
+        entity.ResetVelocity();
     }
 
     public override void Exit()
@@ -47,7 +49,5 @@ public class RangedAttackState : AttackState
         base.TriggerAttack();
 
         projectile = GameObject.Instantiate(stateData.projectile, attackPosition.position, attackPosition.rotation);
-        projectileScript = projectile.GetComponent<ArrowProjectile>();
-        projectileScript.FireProjectile(stateData.projectileSpeed, stateData.projectileDamage);
     }
 }

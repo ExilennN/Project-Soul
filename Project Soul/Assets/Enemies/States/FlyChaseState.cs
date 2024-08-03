@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class FlyChaseState : State
 {
@@ -17,6 +18,7 @@ public class FlyChaseState : State
     protected bool performCloseRangeAction;
     protected bool performMidRangeAction;
     protected bool performLongRangeAction;
+    protected bool isPlayerInLOS;
 
     protected PathAgent agent;
     PathNode currentNode;
@@ -35,6 +37,7 @@ public class FlyChaseState : State
         performCloseRangeAction = entity.CheckPlayerInCloseRangeAction();
         performMidRangeAction = entity.CheckPlayerInMidRangeAction();
         performLongRangeAction = entity.CheckPlayerInLongRangeAction();
+        isPlayerInLOS = entity.CheckIfPlayerInLineOfSight();
 
     }
 

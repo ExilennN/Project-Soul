@@ -247,6 +247,8 @@ MonoBehaviour:
   moveStateData: {fileID: 11400000, guid: 154cc07a777654b4b8819114b1ae61c2, type: 2}
   playerDetectedStateData: {fileID: 11400000, guid: 270d88abf45ce75449de84b6b00c140b, type: 2}
   chaseStateData: {fileID: 11400000, guid: 9007f043de0b1724397ec077547976c4, type: 2}
+  rangedAttackStateData: {fileID: 11400000, guid: 1d78f47e6ae4d3541b109e440614cada, type: 2}
+  rangedAttackPosition: {fileID: 4963108949497725787}
 --- !u!1 &4405687125261330473
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,6 +279,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4404165033252766013}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4767301039079245376
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4963108949497725787}
+  m_Layer: 8
+  m_Name: RangedAttackPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4963108949497725787
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4767301039079245376}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.86, y: 0.115, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9093991836770134800}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6009348668446022368
 GameObject:
@@ -317,6 +350,7 @@ Transform:
   - {fileID: 3347567900636753767}
   - {fileID: 8304675404037530719}
   - {fileID: 3817981466156457334}
+  - {fileID: 4963108949497725787}
   m_Father: {fileID: 4404165033252766013}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4942596170293925231

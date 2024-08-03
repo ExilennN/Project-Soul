@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class E2_RangedAttackState : RangedAttackState
+public class L1E3_RangedMagicAttackState : RangedAttackState
 {
-    private Enemy2 enemy;
-    public E2_RangedAttackState(Entity entity, StateController stateController, string animBoolName, Transform attackPosition, D_RangedAttackState stateData, Enemy2 enemy) : base(entity, stateController, animBoolName, attackPosition, stateData)
+    private L1E3_Enemy enemy;
+    public L1E3_RangedMagicAttackState(Entity entity, StateController stateController, string animBoolName, Transform attackPosition, D_RangedAttackState stateData, L1E3_Enemy enemy) : base(entity, stateController, animBoolName, attackPosition, stateData)
     {
         this.enemy = enemy;
     }
@@ -18,8 +18,6 @@ public class E2_RangedAttackState : RangedAttackState
     public override void Enter()
     {
         base.Enter();
-        
-
     }
 
     public override void Exit()
@@ -51,7 +49,7 @@ public class E2_RangedAttackState : RangedAttackState
     {
         base.TriggerAttack();
 
-        projectileScript = projectile.GetComponent<ArrowProjectile>();
+        projectileScript = projectile.GetComponent<EnergyballProjectile>();
         projectileScript.FireProjectile(entity.GetPlayerLosPosition());
     }
 }

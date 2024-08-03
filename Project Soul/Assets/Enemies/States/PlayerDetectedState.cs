@@ -13,6 +13,7 @@ public class PlayerDetectedState : State
     protected bool performCloseRangeAction;
     protected bool performMidRangeAction;
     protected bool performLongRangeAction;
+    protected bool isPlayerInLOS;
     public PlayerDetectedState(Entity entity, StateController stateController, string animBoolName, D_PlayerDetectedState stateData) : base(entity, stateController, animBoolName)
     {
         this.stateData = stateData;
@@ -28,6 +29,7 @@ public class PlayerDetectedState : State
         performMidRangeAction = entity.CheckPlayerInMidRangeAction();
         performLongRangeAction = entity.CheckPlayerInLongRangeAction();
         isDetectingGround = entity.CheckGround();
+        isPlayerInLOS = entity.CheckIfPlayerInLineOfSight();
     }
 
     public override void Enter()
