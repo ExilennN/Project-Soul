@@ -62,7 +62,8 @@ public class FlyChaseState : State
 
         CustommUpdate();
 
-        FollowPath();
+        if (!StopChase()) { FollowPath(); }
+        else { entity.ResetVelocity(); }
     }
 
     protected virtual void CustommUpdate()
@@ -127,5 +128,10 @@ public class FlyChaseState : State
         {
             Debug.DrawLine(entity.seeker.GetGrid().GetCenterOfNode(entity.seeker.GetGrid().GetWorldPosition(agent.path[i].x, agent.path[i].y)), entity.seeker.GetGrid().GetCenterOfNode(entity.seeker.GetGrid().GetWorldPosition(agent.path[i + 1].x, agent.path[i + 1].y)), Color.red);
         }
+    }
+
+    protected virtual bool StopChase()
+    {
+        return false;
     }
 }

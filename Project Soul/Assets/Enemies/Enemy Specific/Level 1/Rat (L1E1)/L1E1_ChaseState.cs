@@ -47,4 +47,8 @@ public class L1E1_ChaseState : ChaseState
     {
         base.PhysicsUpdate();
     }
+    protected override bool StopChase()
+    {
+        return (performCloseRangeAction && isDetectingGround) || (performLongRangeAction && isDetectingGround & Time.time >= enemy.chargeLeapState.startTime + enemy.GetChargeLeapData().chargeCooldown);
+    }
 }

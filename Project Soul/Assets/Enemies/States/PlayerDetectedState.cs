@@ -35,7 +35,7 @@ public class PlayerDetectedState : State
     public override void Enter()
     {
         base.Enter();
-        entity.SetVelocity(0f);
+        entity.ResetVelocity();
     }
 
     public override void Exit()

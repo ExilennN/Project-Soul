@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class L1E2_ChaseState : ChaseState
+public class L1E4_IdleState : IdleState
 {
-    private L1E2_Enemy enemy;
-    public L1E2_ChaseState(Entity entity, StateController stateController, string animBoolName, D_ChaseState stateData, L1E2_Enemy enemy) : base(entity, stateController, animBoolName, stateData)
+    private L1E4_Enemy enemy;
+    public L1E4_IdleState(Entity entity, StateController stateController, string animBoolName, D_IdleState stateData, L1E4_Enemy enemy) : base(entity, stateController, animBoolName, stateData)
     {
         this.enemy = enemy;
     }
@@ -28,15 +28,13 @@ public class L1E2_ChaseState : ChaseState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
-        if (performCloseRangeAction && isDetectingGround)
+        if (isPlayerInMinAggroRange)
         {
-            stateController.ChangeState(enemy.meleeAttackState);
+            stateController.ChangeState(enemy.playerDetectedState);
         }
 
-        if (!isPlayerInBaseAggroArea & !isPlayerInMinAggroRange)
+        if (isIdleTimeOver)
         {
-            enemy.SetTrakingBack(true);
             stateController.ChangeState(enemy.moveState);
         }
     }
@@ -46,8 +44,8 @@ public class L1E2_ChaseState : ChaseState
         base.PhysicsUpdate();
     }
 
-    protected override bool StopChase()
+    protected override void NextPatrolPointHandle()
     {
-        return performCloseRangeAction && isDetectingGround;
+        base.NextPatrolPointHandle();
     }
 }

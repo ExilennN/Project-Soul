@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a811eb2330031945836f34f954a0739, type: 3}
-  m_Name: L1E3_BaseData
+  m_Name: L1E4_BaseData
   m_EditorClassIdentifier: 
   maxHealth: 5
   jumpForce: 10
   wallCheckDistance: 0.2
   groundCheckDistance: 0.4
-  minAggroDistance: 10
+  minAggroDistance: 7
   baseRadius: 10
   closeRangeActionDistance: 2
   midRangeActionDistance: 4
-  longRangeActionDistance: 10
+  longRangeActionDistance: 7
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64

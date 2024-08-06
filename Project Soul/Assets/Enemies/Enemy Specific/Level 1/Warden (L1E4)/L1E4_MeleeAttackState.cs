@@ -2,12 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class L1E3_IdleState : IdleState
+public class L1E4_MeleeAttackState : MeleeAttackState
 {
-    private L1E3_Enemy enemy;
-
-    private bool isPlayerInLOS;
-    public L1E3_IdleState(Entity entity, StateController stateController, string animBoolName, D_IdleState stateData, L1E3_Enemy enemy) : base(entity, stateController, animBoolName, stateData)
+    private L1E4_Enemy enemy;
+    public L1E4_MeleeAttackState(Entity entity, StateController stateController, string animBoolName, Transform attackPosition, D_MeleeAttackState stateData, L1E4_Enemy enemy) : base(entity, stateController, animBoolName, attackPosition, stateData)
     {
         this.enemy = enemy;
     }
@@ -15,7 +13,6 @@ public class L1E3_IdleState : IdleState
     public override void DoChecks()
     {
         base.DoChecks();
-        isPlayerInLOS = entity.CheckIfPlayerInLineOfSight();
     }
 
     public override void Enter()
@@ -28,18 +25,18 @@ public class L1E3_IdleState : IdleState
         base.Exit();
     }
 
+    public override void FinishAtack()
+    {
+        base.FinishAtack();
+    }
+
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-        if (isPlayerInLOS)
+        if (isAnimationFinished)
         {
             stateController.ChangeState(enemy.playerDetectedState);
-        }
-
-        if (isIdleTimeOver)
-        {
-            stateController.ChangeState(enemy.moveState);
         }
     }
 
@@ -48,8 +45,8 @@ public class L1E3_IdleState : IdleState
         base.PhysicsUpdate();
     }
 
-    protected override void NextPatrolPointHandle()
+    public override void TriggerAttack()
     {
-        base.NextPatrolPointHandle();
+        base.TriggerAttack();
     }
 }

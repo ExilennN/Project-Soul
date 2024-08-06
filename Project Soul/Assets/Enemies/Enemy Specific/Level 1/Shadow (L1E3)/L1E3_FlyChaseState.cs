@@ -52,4 +52,9 @@ public class L1E3_FlyChaseState : FlyChaseState
     {
         base.PhysicsUpdate();
     }
+
+    protected override bool StopChase()
+    {
+        return isPlayerInLOS;
+    }
 }

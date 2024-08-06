@@ -25,7 +25,7 @@ public class FlyMoveState : State
         base.DoChecks();
 
         isDetectingWall = entity.CheckWall();
-        isPlayerMinAggroRange = entity.CheckPlayerInMinAggroRange();
+        isPlayerMinAggroRange = entity.CheckIfPlayerInLineOfSight();
     }
 
     public override void Enter()

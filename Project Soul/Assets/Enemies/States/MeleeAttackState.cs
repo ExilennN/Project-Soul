@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class MeleeAttackState : AttackState
 {
     protected D_MeleeAttackState stateData;
     protected AttackDetails attackDetails;
+
+    protected float attackFinishedTime;
     public MeleeAttackState(Entity entity, StateController stateController, string animBoolName, Transform attackPosition, D_MeleeAttackState stateData) : base(entity, stateController, animBoolName, attackPosition)
     {
         this.stateData = stateData;
@@ -19,6 +22,7 @@ public class MeleeAttackState : AttackState
     public override void Enter()
     {
         base.Enter();
+
         attackDetails.damageAmout = stateData.attackDamage;
         attackDetails.position = entity.aliveGO.transform.position;
     }
@@ -26,6 +30,8 @@ public class MeleeAttackState : AttackState
     public override void Exit()
     {
         base.Exit();
+
+        attackFinishedTime = Time.time;
     }
 
     public override void FinishAtack()
