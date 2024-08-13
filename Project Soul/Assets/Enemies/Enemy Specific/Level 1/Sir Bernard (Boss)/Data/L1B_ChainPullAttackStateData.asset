@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7e16105f85f56248b67e3d636b084a0, type: 3}
+  m_Name: L1B_ChainPullAttackStateData
+  m_EditorClassIdentifier: 
+  damage: 1
+  attackCooldown: 8
+  chainPullAttack: {fileID: 4349001176724990556, guid: 94823cc7c0e360d47aac57dc665f624d, type: 3}

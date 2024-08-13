@@ -75,7 +75,8 @@ public class ChaseState : State
         //Set current node
         if (currentNode == null || currentNode != agent.currentNode) { currentNode = agent.GetNode(); }
 
-        entity.seeker.GetGrid().GetXY(entity.aliveGO.transform.position, out int xEnemy, out int yEnemy);
+        entity.seeker.GetGrid().GetXY(entity.GetEntityPositionOnGrid().position, out int xEnemy, out int yEnemy);
+
 
         //if we reached next node change current node to next
         if (xEnemy == agent.GetNextNode().x && yEnemy == agent.GetNextNode().y) { currentNode = agent.GetNode(); }

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43b7fd73bdd779b419f6d5e67c5bac36, type: 3}
   m_Name: L1E3_FlyChaseStateData
   m_EditorClassIdentifier: 
-  chaseSpeed: 35
+  chaseSpeed: 7

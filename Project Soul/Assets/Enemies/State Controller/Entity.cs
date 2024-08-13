@@ -80,12 +80,12 @@ public class Entity : MonoBehaviour
 
     public virtual void SetVelocity(float velocity)
     {
-        velocityWorkspace.Set(facingDirection * velocity * Time.deltaTime * 10, rb.velocity.y);
+        velocityWorkspace.Set(facingDirection * velocity, rb.velocity.y);
         rb.velocity = velocityWorkspace;
     }
     public virtual void SetVelocity(float velocity, Vector2 direction)
     {
-        velocityWorkspace = direction * velocity * Time.deltaTime * 10;
+        velocityWorkspace = direction * velocity;
         rb.velocity = velocityWorkspace;
     }
 
@@ -103,8 +103,6 @@ public class Entity : MonoBehaviour
     {
         return Physics2D.Raycast(groundCheck.position, Vector2.down, entityData.groundCheckDistance, entityData.whatIsGround);
     }
-
-
 
     public virtual void Damage(AttackDetails attackDetails)
     {
@@ -125,7 +123,7 @@ public class Entity : MonoBehaviour
     {
         if (currentPatrollPoint == patrollPoints.Length - 1) { pointStep = -1; currentPatrollPoint += pointStep; }
         else if (currentPatrollPoint == 0) { pointStep = 1; currentPatrollPoint += pointStep; }
-        else { currentPatrollPoint += pointStep;  }
+        else { currentPatrollPoint += pointStep; }
     }
 
     public virtual Transform GetCurrectPatrollPoint()
@@ -135,6 +133,10 @@ public class Entity : MonoBehaviour
     public virtual Vector3 GetPlayerPosition()
     {
         return playerPosition.position;
+    }
+    public virtual Transform GetPlayerPositionTransform()
+    {
+        return playerPosition;
     }
     public virtual Transform GetBasePosition()
     {
@@ -172,7 +174,7 @@ public class Entity : MonoBehaviour
     public virtual bool CheckPlayerInBaseAggroAreaRange()
     {
         return Physics2D.CircleCast(homePoint.position, entityData.baseRadius, Vector2.up, 0, entityData.whatIsPlayer);
-    }   
+    }
 
     public virtual bool CheckPlayerInCloseRangeAction()
     {

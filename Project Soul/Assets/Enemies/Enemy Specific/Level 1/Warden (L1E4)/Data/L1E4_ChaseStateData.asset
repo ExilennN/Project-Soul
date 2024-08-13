@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2d6f457bef9c8d4db439ee7ac25f0fc, type: 3}
   m_Name: L1E4_ChaseStateData
   m_EditorClassIdentifier: 
-  chaseSpeed: 25
+  chaseSpeed: 6.5
   jumpHeightInCells: 4

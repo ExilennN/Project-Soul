@@ -33,6 +33,8 @@ public class L1E4_MeleeSpecialAttackState : AttackState
 
         attackDetails.damageAmout = stateData.attackImpactDamage;
         attackDetails.position = entity.aliveGO.transform.position;
+
+        
     }
 
     public override void Exit()

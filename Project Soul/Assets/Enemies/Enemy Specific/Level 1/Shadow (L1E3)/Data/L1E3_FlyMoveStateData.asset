@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d75e8b47b2bf64e86b6a9670d46703, type: 3}
   m_Name: L1E3_FlyMoveStateData
   m_EditorClassIdentifier: 
-  movementSpeed: 20
+  movementSpeed: 6
