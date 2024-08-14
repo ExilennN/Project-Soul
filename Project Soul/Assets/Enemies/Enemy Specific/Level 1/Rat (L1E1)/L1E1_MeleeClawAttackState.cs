@@ -34,7 +34,6 @@ public class L1E1_MeleeClawAttackState : MeleeAttackState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
         if (isAnimationFinished)
         {
             stateController.ChangeState(enemy.playerDetectedState);

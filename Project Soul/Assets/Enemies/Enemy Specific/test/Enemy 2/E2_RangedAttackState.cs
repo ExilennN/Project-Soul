@@ -18,6 +18,8 @@ public class E2_RangedAttackState : RangedAttackState
     public override void Enter()
     {
         base.Enter();
+        
+
     }
 
     public override void Exit()
@@ -34,7 +36,7 @@ public class E2_RangedAttackState : RangedAttackState
     {
         base.LogicUpdate();
 
-        if (isAnimationFinished )
+        if (isAnimationFinished)
         {
             stateController.ChangeState(enemy.playerDetectedState);
         }
@@ -48,5 +50,8 @@ public class E2_RangedAttackState : RangedAttackState
     public override void TriggerAttack()
     {
         base.TriggerAttack();
+
+        projectileScript = projectile.GetComponent<ArrowProjectile>();
+        projectileScript.FireProjectile(entity.GetPlayerLosPosition());
     }
 }

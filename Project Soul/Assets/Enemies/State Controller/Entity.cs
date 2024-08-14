@@ -17,6 +17,7 @@ public class Entity : MonoBehaviour
     [SerializeField] private Transform playerCheck;
     [SerializeField] private Transform gridPosition;
 
+
     [Header("Other Positions")]
     [SerializeField] private Transform[] patrollPoints;
     [SerializeField] private Transform homePoint;
@@ -29,9 +30,9 @@ public class Entity : MonoBehaviour
 
     public int facingDirection { get; private set; }
 
-    public Rigidbody2D rb {  get; private set; }
-    public Animator anim { get; private set; }  
-    public GameObject aliveGO { get;private set; }
+    public Rigidbody2D rb { get; private set; }
+    public Animator anim { get; private set; }
+    public GameObject aliveGO { get; private set; }
     public Seeker seeker { get; private set; }
     public AnimationToStatecontroller atsc { get; private set; }
 
@@ -82,9 +83,16 @@ public class Entity : MonoBehaviour
         velocityWorkspace.Set(facingDirection * velocity, rb.velocity.y);
         rb.velocity = velocityWorkspace;
     }
-    public virtual void SetVelocity(float velocity, Vector2 angle, float direction)
+    public virtual void SetVelocity(float velocity, Vector2 direction)
     {
-        
+        velocityWorkspace = direction * velocity;
+        rb.velocity = velocityWorkspace;
+    }
+
+    public virtual void ResetVelocity()
+    {
+        velocityWorkspace.Set(0f, 0f);
+        rb.velocity = velocityWorkspace;
     }
     public virtual bool CheckWall()
     {
@@ -115,7 +123,7 @@ public class Entity : MonoBehaviour
     {
         if (currentPatrollPoint == patrollPoints.Length - 1) { pointStep = -1; currentPatrollPoint += pointStep; }
         else if (currentPatrollPoint == 0) { pointStep = 1; currentPatrollPoint += pointStep; }
-        else { currentPatrollPoint += pointStep;  }
+        else { currentPatrollPoint += pointStep; }
     }
 
     public virtual Transform GetCurrectPatrollPoint()
@@ -125,6 +133,10 @@ public class Entity : MonoBehaviour
     public virtual Vector3 GetPlayerPosition()
     {
         return playerPosition.position;
+    }
+    public virtual Transform GetPlayerPositionTransform()
+    {
+        return playerPosition;
     }
     public virtual Transform GetBasePosition()
     {
@@ -144,11 +156,25 @@ public class Entity : MonoBehaviour
         }
         return isPlayerInRange;
     }
-
+    public virtual Vector3 GetPlayerLosPosition()
+    {
+        return GameObject.Find("LOS").gameObject.transform.position;
+    }
+    public virtual bool CheckIfPlayerInLineOfSight()
+    {
+        bool isPlayerInLOS = false;
+        Vector3 direction = GetPlayerLosPosition() - transform.position;
+        RaycastHit2D hit = Physics2D.CircleCast(playerCheck.position, 0.5f, new Vector2(direction.x, direction.y).normalized, entityData.longRangeActionDistance, entityData.whatIsGround | entityData.whatIsPlayer);
+        if (hit.collider != null)
+        {
+            if ((entityData.whatIsPlayer.value & (1 << hit.collider.gameObject.layer)) != 0) { isPlayerInLOS = true; }
+        }
+        return isPlayerInLOS;
+    }
     public virtual bool CheckPlayerInBaseAggroAreaRange()
     {
         return Physics2D.CircleCast(homePoint.position, entityData.baseRadius, Vector2.up, 0, entityData.whatIsPlayer);
-    }   
+    }
 
     public virtual bool CheckPlayerInCloseRangeAction()
     {
@@ -160,9 +186,17 @@ public class Entity : MonoBehaviour
         return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.midRangeActionDistance, entityData.whatIsPlayer);
     }
 
+    public virtual bool CheckPlayerInLongRangeAction()
+    {
+        return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.longRangeActionDistance, entityData.whatIsPlayer);
+    }
     public virtual bool CheckDistanceFromHorizontalPointToPlayer(float distance)
     {
         return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, distance, entityData.whatIsPlayer);
+    }
+    public virtual bool CheckDistanceFromHorizontalPointToWall(float distance)
+    {
+        return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, distance, entityData.whatIsGround);
     }
     public virtual void OnDrawGizmos()
     {

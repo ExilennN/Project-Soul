@@ -32,7 +32,7 @@ public class L1E1_ChaseState : ChaseState
         {
             stateController.ChangeState(enemy.clawAttackState);
         }
-        else if (performMidRangeAction && isDetectingGround && Time.time >= enemy.chargeLeapState.startTime + enemy.GetChargeLeapData().chargeCooldown)
+        else if (performLongRangeAction && isDetectingGround && Time.time >= enemy.chargeLeapState.startTime + enemy.GetChargeLeapData().chargeCooldown)
         {
             stateController.ChangeState(enemy.chargeLeapState);
         }
@@ -46,5 +46,9 @@ public class L1E1_ChaseState : ChaseState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+    }
+    protected override bool StopChase()
+    {
+        return (performCloseRangeAction && isDetectingGround) || (performLongRangeAction && isDetectingGround & Time.time >= enemy.chargeLeapState.startTime + enemy.GetChargeLeapData().chargeCooldown);
     }
 }

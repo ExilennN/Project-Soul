@@ -7,9 +7,9 @@ using UnityEngine;
 public class D_ChargeLeapStateData : ScriptableObject
 {
     public float chargeSpeed = 8f;
-    public float leapDistance = 3f;
+    public float leapDistance = 6f;
     public float leapForce = 20f;
 
-    public float leapTime = 0.5f;
-    public float chargeCooldown = 4f;
+    public float leapTime = 1f;
+    public float chargeCooldown = 3f;
 }

@@ -49,4 +49,9 @@ public class PathNode
     {
         return base.GetHashCode();
     }
+
+    public override string ToString()
+    {
+        return $"{x} {y}";
+    }
 }

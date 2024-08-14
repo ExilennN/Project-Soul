@@ -34,6 +34,10 @@ public class L1E1_ChargeLeapState : ChargeLeapState
         {
             stateController.ChangeState(enemy.playerDetectedState);
         }
+        if (!enemy.CheckPlayerInLongRangeAction() && leapStart == -1)
+        {
+            stateController.ChangeState(enemy.playerDetectedState);
+        }
     }
 
     public override void PhysicsUpdate()

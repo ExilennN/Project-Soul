@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71f848008da107442b133b17e64f77f4, type: 3}
+  m_Name: L1E4_MeleeSpecialAttackStateData
+  m_EditorClassIdentifier: 
+  projectile: {fileID: 2774689613796936452, guid: 573fb207541a7364fb6a134cb51d1817, type: 3}
+  attackCooldown: 6
+  attackRadius: 0.7
+  attackImpactDamage: 1
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 8

@@ -35,7 +35,7 @@ public class L1E1_MoveState : MoveState
         }
         if (!enemy.isTrackingBack)
         {
-            if (Vector2.Distance(enemy.aliveGO.transform.position, enemy.GetCurrectPatrollPoint().transform.position) <= 0.5f)
+            if (Vector2.Distance(enemy.GetEntityPositionOnGrid().position, enemy.GetCurrectPatrollPoint().transform.position) <= 0.5f)
             {
                 stateController.ChangeState(enemy.idleState);
             }

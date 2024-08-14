@@ -11,6 +11,7 @@ public class ChaseState : State
     protected bool isPlayerInBaseAggroArea;
     protected bool performCloseRangeAction;
     protected bool performMidRangeAction;
+    protected bool performLongRangeAction;
     protected bool isDetectingGround;
 
     protected PathAgent agent;
@@ -29,6 +30,7 @@ public class ChaseState : State
         isPlayerInBaseAggroArea = entity.CheckPlayerInBaseAggroAreaRange();
         performCloseRangeAction = entity.CheckPlayerInCloseRangeAction();
         performMidRangeAction = entity.CheckPlayerInMidRangeAction();
+        performLongRangeAction = entity.CheckPlayerInLongRangeAction();
         isDetectingGround = entity.CheckGround();
     }
 
@@ -51,12 +53,15 @@ public class ChaseState : State
     {
         base.PhysicsUpdate();
 
+        
         entity.seeker.GetGrid().GetXY(entity.GetPlayerPosition(), out int xT, out int yT);
         yT--;
         entity.seeker.GetGrid().GetXY(entity.GetEntityPositionOnGrid().position, out int xO, out int yO);
         List<PathNode> localPath = entity.seeker.FindPath(new PathNode(xO, yO), new PathNode(xT, yT));
         if (localPath != null) { agent = new PathAgent(localPath); }
-        FollowPath();
+
+        if (!StopChase()) { FollowPath(); }
+        else { entity.ResetVelocity(); }
     }
 
     protected void FollowPath()
@@ -70,7 +75,8 @@ public class ChaseState : State
         //Set current node
         if (currentNode == null || currentNode != agent.currentNode) { currentNode = agent.GetNode(); }
 
-        entity.seeker.GetGrid().GetXY(entity.aliveGO.transform.position, out int xEnemy, out int yEnemy);
+        entity.seeker.GetGrid().GetXY(entity.GetEntityPositionOnGrid().position, out int xEnemy, out int yEnemy);
+
 
         //if we reached next node change current node to next
         if (xEnemy == agent.GetNextNode().x && yEnemy == agent.GetNextNode().y) { currentNode = agent.GetNode(); }
@@ -108,4 +114,8 @@ public class ChaseState : State
         }
     }
     
+    protected virtual bool StopChase()
+    {
+        return false;
+    }
 }
