@@ -9,6 +9,7 @@ public class State
     protected Entity entity;
 
     public float startTime { get; private set; } = 0;
+    public float endTime { get; private set; } = 0;
 
     protected string animBoolName;
 
@@ -30,6 +31,7 @@ public class State
 
     public virtual void Exit() 
     {
+        endTime = Time.time;
         entity.anim.SetBool(animBoolName, false);
     }
 

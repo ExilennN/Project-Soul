@@ -54,8 +54,7 @@ public class ChaseState : State
         base.PhysicsUpdate();
 
         
-        entity.seeker.GetGrid().GetXY(entity.GetPlayerPosition(), out int xT, out int yT);
-        yT--;
+        entity.seeker.GetGrid().GetXY(entity.GetPlayerPositionTransform().Find("GridPosition").transform.position, out int xT, out int yT);
         entity.seeker.GetGrid().GetXY(entity.GetEntityPositionOnGrid().position, out int xO, out int yO);
         List<PathNode> localPath = entity.seeker.FindPath(new PathNode(xO, yO), new PathNode(xT, yT));
         if (localPath != null) { agent = new PathAgent(localPath); }

@@ -37,8 +37,6 @@ public class L1B_WhirlwindAttackState : AttackState
         if (entity.aliveGO.transform.position.x < entity.GetPlayerPosition().x) { facingDirection = 1; }
         else if (entity.aliveGO.transform.position.x > entity.GetPlayerPosition().x) { facingDirection = -1; }
         if (facingDirection != entity.facingDirection && facingDirection != 0) { entity.Flip(); }
-
-        Debug.Log(attackCount);
     }
 
     public override void Exit()

@@ -200,7 +200,7 @@ public class Entity : MonoBehaviour
     }
     public virtual void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(wallCheck.position + (Vector3)(Vector2.right * facingDirection * entityData.wallCheckDistance), 0.2f);
+        Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * facingDirection * entityData.wallCheckDistance));
         Gizmos.DrawLine(groundCheck.position, groundCheck.position + (Vector3)(Vector2.down * entityData.groundCheckDistance));
         Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * facingDirection * entityData.minAggroDistance), 0.2f);
         Gizmos.DrawWireSphere(homePoint.position, entityData.baseRadius);
