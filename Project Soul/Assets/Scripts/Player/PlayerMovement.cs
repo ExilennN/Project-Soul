@@ -97,6 +97,8 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(Dash());
         }
 
+        if(isDashing) return;
+        
         // Handle jump input
         if (Input.GetButtonDown("Jump"))
         {
