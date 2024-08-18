@@ -15,8 +15,6 @@ public class PlayerMovement : MonoBehaviour
     private bool facingRight = true;
     private Vector3 originalScale;
 
-    [SerializeField] private bool useDynamicFalling = false;
-
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 17f;
     [SerializeField] private float deceleration = 65f;
@@ -36,8 +34,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpTimeToMaxHeight = 0.15f;
     [SerializeField] private float maxJumpSpeed = 20f;
     [SerializeField] private float maxFallSpeed = -20f;
-    [SerializeField] private float fallSpeed = -20f;
-    [SerializeField] private float gravityMultiplier = 7f;
     [SerializeField] private bool canDoubleJump = true;
 
     private bool isJumping = false;
