@@ -62,6 +62,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 427198203529430665}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2322920625460431007
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1482285150032664710}
+  m_Layer: 8
+  m_Name: SpikeWallPos1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1482285150032664710
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2322920625460431007}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -24.15, y: -2.45, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4830946553469793344}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2699448865796929914
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,6 +417,8 @@ Transform:
   - {fileID: 957875848757275190}
   - {fileID: 8926100375517232744}
   - {fileID: 135983769665123565}
+  - {fileID: 1482285150032664710}
+  - {fileID: 6067802422622995599}
   - {fileID: 427198203529430665}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -417,10 +450,13 @@ MonoBehaviour:
   chainPullAttackStateData: {fileID: 11400000, guid: a7850d40a2a5a8b41b4a02cba168f19c, type: 2}
   whirlwindAttackStateData: {fileID: 11400000, guid: 12f0d83f5200c91479f0926ff8828bc1, type: 2}
   floorSpikesAttackStateData: {fileID: 11400000, guid: 45a4c106b8bd55c4bb334e489479baaf, type: 2}
+  spikeWallAttackStateData: {fileID: 11400000, guid: 9490b0748f862c04bad2244e136e55f7, type: 2}
   attackRadiusCheckPosition: {fileID: 4477169274345368666}
   meleeAttackPosition: {fileID: 5375794687634967199}
   chainPullAttackPosition: {fileID: 8136624325584243398}
   floorSpikesAttackPosition: {fileID: 135983769665123565}
+  spikeWallPosition1: {fileID: 1482285150032664710}
+  spikeWallPosition2: {fileID: 6067802422622995599}
 --- !u!1 &4462744081792992043
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,6 +518,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 427198203529430665}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5337181018425228214
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6067802422622995599}
+  m_Layer: 8
+  m_Name: SpikeWallPos2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6067802422622995599
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5337181018425228214}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9.36, y: -2.45, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4830946553469793344}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5758929698033997597
 GameObject:

@@ -6,7 +6,7 @@ public class L1B_DirectionalFollowState : DirectionalFollowState
 {
     private L1B_Boss enemy;
 
-    private float timeBeforeAction = 3f;
+    private float timeBeforeAction = 7f;
     private float lastCheckTime = 0;
     private bool canUseSpecialAttack;
     private int maxChance = 2;
@@ -46,7 +46,11 @@ public class L1B_DirectionalFollowState : DirectionalFollowState
 
         if (canUseSpecialAttack) 
         {
-            if (Time.time >= enemy.GetWhirlWindAttackData().attackCooldown + enemy.whirlwindAttackState.endTime)
+            if (Time.time >= enemy.GetSpikeWalllAttackData().attackCooldown + enemy.spikeWallAttackState.endTime)
+            {
+                stateController.ChangeState(enemy.spikeWallAttackState);
+            }
+            else if (Time.time >= enemy.GetWhirlWindAttackData().attackCooldown + enemy.whirlwindAttackState.endTime)
             {
                 stateController.ChangeState(enemy.whirlwindAttackState);
             }

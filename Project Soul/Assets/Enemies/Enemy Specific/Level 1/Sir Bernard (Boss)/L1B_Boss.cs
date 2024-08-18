@@ -10,6 +10,7 @@ public class L1B_Boss : Entity
     public L1B_ChainPullAttackState chainPullAttackState { get; private set;}
     public L1B_WhirlwindAttackState whirlwindAttackState { get; private set; }
     public L1B_FloorSpikesAttackState floorSpikesAttackState { get; private set; }
+    public L1B_SpikeWallAttackState spikeWallAttackState { get; private set; }
 
     [Header("Data References")]
     [SerializeField] private D_IntroState introStateData;
@@ -18,12 +19,16 @@ public class L1B_Boss : Entity
     [SerializeField] private D_L1BChainPullAttackState chainPullAttackStateData;
     [SerializeField] private D_L1BWhirlwindAttackState whirlwindAttackStateData;
     [SerializeField] private D_L1BFloorSpikesAttackState floorSpikesAttackStateData;
+    [SerializeField] private D_L1BSpikeWallAttackState spikeWallAttackStateData;
 
     [Header("Attack Positions")]
     [SerializeField] private Transform attackRadiusCheckPosition;
     [SerializeField] private Transform meleeAttackPosition;
     [SerializeField] private Transform chainPullAttackPosition;
     [SerializeField] private Transform floorSpikesAttackPosition;
+
+    [SerializeField] private Transform spikeWallPosition1;
+    [SerializeField] private Transform spikeWallPosition2;
 
     public override void Start()
     {
@@ -36,6 +41,7 @@ public class L1B_Boss : Entity
         chainPullAttackState = new L1B_ChainPullAttackState(this, stateController, "chainPullAttack", chainPullAttackPosition, chainPullAttackStateData, this);
         whirlwindAttackState = new L1B_WhirlwindAttackState(this, stateController, "whirlwindAttack", attackRadiusCheckPosition, whirlwindAttackStateData, this);
         floorSpikesAttackState = new L1B_FloorSpikesAttackState(this, stateController, "floorSpikesAttack", floorSpikesAttackPosition, floorSpikesAttackStateData, this);
+        spikeWallAttackState = new L1B_SpikeWallAttackState(this, stateController, "spikeWallAttack", spikeWallPosition1, spikeWallPosition2, spikeWallAttackStateData, this);
 
         stateController.Initialize(introState);
     }
@@ -56,6 +62,7 @@ public class L1B_Boss : Entity
     public D_L1BWhirlwindAttackState GetWhirlWindAttackData() { return whirlwindAttackStateData; }
     public D_L1BChainPullAttackState GetChainPullAttackData() { return chainPullAttackStateData; }
     public D_L1BFloorSpikesAttackState GetFloorSpikesAttackData() { return floorSpikesAttackStateData; }
+    public D_L1BSpikeWallAttackState GetSpikeWalllAttackData() { return spikeWallAttackStateData; }
     public override void OnDrawGizmos()
     {
         base.OnDrawGizmos();
