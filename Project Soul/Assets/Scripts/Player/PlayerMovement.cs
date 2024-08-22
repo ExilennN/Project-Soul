@@ -44,8 +44,13 @@ public class PlayerMovement : MonoBehaviour
     #region WallMovementParametersRegion
     [Header("Wall Movement")]
     [SerializeField] private float wallSlideSpeed;
+    [SerializeField] private float wallJumpForce = 20f;
+    [SerializeField] private Vector2 wallJumpDirection = new Vector2(1, 1);
+
     private bool isWallSliding;
+    private bool isWallJumping;
     #endregion
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -93,17 +98,21 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(Dash());
         }
 
-        if(isDashing) return;
-        
+        if (isDashing) return;
+
         // Handle jump input
         if (Input.GetButtonDown("Jump"))
         {
-            if (playerCollision.IsGrounded || isWallSliding)
+            if (playerCollision.IsGrounded)
             {
                 isJumping = true;
                 hasDoubleJumped = false;
                 jumpTimeCounter = jumpTimeToMaxHeight;
                 Jump();
+            }
+            else if (isWallSliding)
+            {
+                WallJump();
             }
             else if (canDoubleJump && !hasDoubleJumped)
             {
@@ -138,6 +147,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void ApplyMovement()
     {
+        if (isWallJumping)
+        {
+            return;
+        }
+
         if (xAxis != 0)
         {
             currentVelocity = xAxis * moveSpeed;
@@ -163,6 +177,7 @@ public class PlayerMovement : MonoBehaviour
 
         rb.velocity = new Vector2(currentVelocity, rb.velocity.y);
     }
+
 
     private void CheckMovingDirection()
     {
@@ -247,7 +262,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
     private void HandleAirborneAnimation()
     {
         if (!playerCollision.IsGrounded)
@@ -262,4 +276,29 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
+    private void WallJump()
+    {
+        isWallJumping = true;
+
+        float xForce = wallJumpDirection.x * wallJumpForce * (facingRight ? -1 : 1);
+        float yForce = wallJumpDirection.y * wallJumpForce;
+
+        rb.velocity = new Vector2(xForce, yForce);
+
+        Flip(facingRight);
+
+        isWallSliding = false;
+        isJumping = true;
+        hasDoubleJumped = false;
+
+        StartCoroutine(RestoreControlAfterWallJump());
+    }
+
+    private IEnumerator RestoreControlAfterWallJump()
+    {
+        yield return new WaitForSeconds(0.15f);
+        isWallJumping = false;
+    }
+
 }
