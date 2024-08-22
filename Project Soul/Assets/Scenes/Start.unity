@@ -436,7 +436,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c047fa419bd869848b8821f8c7180383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useDynamicFalling: 0
   moveSpeed: 9
   deceleration: 70
   dashSpeed: 20
@@ -446,10 +445,10 @@ MonoBehaviour:
   jumpTimeToMaxHeight: 0.15
   maxJumpSpeed: 20
   maxFallSpeed: -20
-  fallSpeed: -20
-  gravityMultiplier: 8
   canDoubleJump: 1
   wallSlideSpeed: 1.5
+  wallJumpForce: 17
+  wallJumpDirection: {x: 0.6, y: 1.4}
 --- !u!114 &334920246
 MonoBehaviour:
   m_ObjectHideFlags: 0
