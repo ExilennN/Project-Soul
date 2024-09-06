@@ -10,17 +10,19 @@ public class PlayerMovement : MonoBehaviour
     private PlayerAnimation playerAnimation;
     private PlayerCollision playerCollision;
 
+    AudioManager audioManager;
+
     private float xAxis;
     private float currentVelocity;
     private bool facingRight = true;
     private Vector3 originalScale;
 
-    [Header("Movement")]
+    [Header("---- Movement ----")]
     [SerializeField] private float moveSpeed = 17f;
     [SerializeField] private float deceleration = 65f;
 
     #region DashParametersRegion
-    [Header("Dash")]
+    [Header("---- Dash ----")]
     [SerializeField] private float dashSpeed = 30f;
     [SerializeField] private float dashTime = 0.2f;
     [SerializeField] private float dashCooldown = 1f;
@@ -29,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     #region JumpParametersRegion
-    [Header("Jumping")]
+    [Header("---- Jumping ----")]
     [SerializeField] private float jumpForce = 17f;
     [SerializeField] private float jumpTimeToMaxHeight = 0.15f;
     [SerializeField] private float maxJumpSpeed = 20f;
@@ -42,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     #region WallMovementParametersRegion
-    [Header("Wall Movement")]
+    [Header("---- Wall Movement ----")]
     [SerializeField] private float wallSlideSpeed;
     [SerializeField] private float wallJumpForce = 20f;
     [SerializeField] private Vector2 wallJumpDirection = new Vector2(1, 1);
@@ -50,6 +52,11 @@ public class PlayerMovement : MonoBehaviour
     private bool isWallSliding;
     private bool isWallJumping;
     #endregion
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
 
     private void Start()
     {
@@ -157,6 +164,10 @@ public class PlayerMovement : MonoBehaviour
             currentVelocity = xAxis * moveSpeed;
             if (playerCollision.IsGrounded)
             {
+                // if (!audioManager.SFXSource.isPlaying || audioManager.SFXSource.clip != audioManager.run)
+                // {
+                //     audioManager.PlaySFX(audioManager.run);
+                // }
                 playerAnimation.SetRunAnimation();
             }
         }
@@ -166,6 +177,10 @@ public class PlayerMovement : MonoBehaviour
             if (playerCollision.IsGrounded)
             {
                 playerAnimation.SetIdleAnimation();
+                // if (audioManager.SFXSource.clip == audioManager.run)
+                // {
+                //     audioManager.SFXSource.Stop();
+                // }
             }
         }
 
