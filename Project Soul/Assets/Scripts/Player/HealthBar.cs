@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,17 +11,21 @@ public class HealthBar : MonoBehaviour
     private float health;
     private float lerpTimer = 0.05f;
 
-    // Start is called before the first frame update
+    private SpriteRenderer spriteRenderer;
+    private bool isFlashing = false;
+
+
     private void Start()
     {
         health = maxHealth;
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
     private void Update()
     {
         health = Mathf.Clamp(health, 0, maxHealth);
         UpdateHealthUI();
+
         if (Input.GetKeyDown(KeyCode.L))
         {
             TakeDamage(Random.Range(5, 10));
@@ -56,15 +58,34 @@ public class HealthBar : MonoBehaviour
     {
         health -= damage;
         lerpTimer = 0f;
+
+        if (!isFlashing)
+        {
+            StartCoroutine(FlashDamage());
+        }
     }
 
     private void ResetHealth()
-{
-    health = maxHealth;
-    lerpTimer = 0f;
+    {
+        health = maxHealth;
+        lerpTimer = 0f;
 
-    frontHealthBar.fillAmount = 1f;
-    backHealthBar.fillAmount = 1f;
-    backHealthBar.color = Color.white;
-}
+        frontHealthBar.fillAmount = 1f;
+        backHealthBar.fillAmount = 1f;
+        backHealthBar.color = Color.white;
+    }
+
+
+    private IEnumerator FlashDamage()
+    {
+        isFlashing = true;
+        for (int i = 0; i < 5; i++)
+        {
+            spriteRenderer.color = new Color(1f, 0f, 0f, 0.5f);
+            yield return new WaitForSeconds(0.1f);
+            spriteRenderer.color = Color.white;
+            yield return new WaitForSeconds(0.1f);
+        }
+        isFlashing = false;
+    }
 }

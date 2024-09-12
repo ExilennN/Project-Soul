@@ -5,19 +5,42 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     [Header("---- Audio Source ----")]
-    [SerializeField] AudioSource musicSource;
-    [SerializeField] public AudioSource SFXSource;
+    [SerializeField] private AudioSource musicSource;
+    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioSource shortSfxSource;
 
     [Header("---- Audio Clip ----")]
-    #region PLAYER
-    public AudioClip death;
-    public AudioClip jump;
-    public AudioClip run;
-    public AudioClip hit;
-    #endregion
+    [SerializeField] public AudioClip track;
+    [SerializeField] public AudioClip death;
+    [SerializeField] public AudioClip jump;
+    [SerializeField] public AudioClip run;
 
     public void PlaySFX(AudioClip clip)
     {
-        SFXSource.PlayOneShot(clip);
+        shortSfxSource.PlayOneShot(clip);
+    }
+
+    public void PlayLoopedSFX(AudioClip clip)
+    {
+        if (sfxSource.clip != clip || !sfxSource.isPlaying)
+        {
+            sfxSource.clip = clip;
+            sfxSource.loop = true;
+            sfxSource.Play();
+        }
+    }
+
+    public void StopLoopedSFX()
+    {
+        if (sfxSource.isPlaying)
+        {
+            sfxSource.Stop();
+            sfxSource.loop = false;
+        }
+    }
+
+    public AudioSource GetSFXSource()
+    {
+        return sfxSource;
     }
 }
