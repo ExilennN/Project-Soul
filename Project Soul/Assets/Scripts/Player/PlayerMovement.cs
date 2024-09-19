@@ -107,7 +107,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (isDashing) return;
 
-        // Handle jump input
         if (Input.GetButtonDown("Jump"))
         {
             if (playerCollision.IsGrounded)
@@ -137,9 +136,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (jumpTimeCounter > 0)
             {
-
-                float adjustedJumpForce = Mathf.Lerp(jumpForce, jumpForce, (jumpTimeToMaxHeight - jumpTimeCounter) / jumpTimeToMaxHeight);
-                adjustedJumpForce = Mathf.Clamp(adjustedJumpForce, 0, maxJumpSpeed);
+                float adjustedJumpForce = Mathf.Clamp(jumpForce, 0, maxJumpSpeed);
                 Jump(adjustedJumpForce);
                 jumpTimeCounter -= Time.deltaTime;
             }

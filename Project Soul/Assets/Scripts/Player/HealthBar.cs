@@ -14,11 +14,26 @@ public class HealthBar : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private bool isFlashing = false;
 
+    private PlayerDeath playerDeath;
 
     private void Start()
     {
         health = maxHealth;
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player != null)
+        {
+            spriteRenderer = player.GetComponent<SpriteRenderer>();
+            playerDeath = player.GetComponent<PlayerDeath>();
+
+            if (playerDeath == null)
+            {
+                Debug.LogError("PlayerDeath component not found on player!");
+            }
+        }
+        else
+        {
+            Debug.LogError("Player with tag 'Player' not found in the scene!");
+        }
     }
 
     private void Update()
@@ -39,7 +54,6 @@ public class HealthBar : MonoBehaviour
 
     private void UpdateHealthUI()
     {
-        Debug.Log("Health" + health);
         float fillFront = frontHealthBar.fillAmount;
         float fillBack = backHealthBar.fillAmount;
         float hFraction = health / maxHealth;
@@ -59,13 +73,27 @@ public class HealthBar : MonoBehaviour
         health -= damage;
         lerpTimer = 0f;
 
-        if (!isFlashing)
+        if (health <= 0)
         {
-            StartCoroutine(FlashDamage());
+            if (playerDeath != null)
+            {
+                playerDeath.Die();
+            }
+            else
+            {
+                Debug.LogError("Cannot call Die() because playerDeath is null!");
+            }
+        }
+        else
+        {
+            if (!isFlashing)
+            {
+                StartCoroutine(FlashDamage());
+            }
         }
     }
 
-    private void ResetHealth()
+    public void ResetHealth()
     {
         health = maxHealth;
         lerpTimer = 0f;
@@ -75,17 +103,18 @@ public class HealthBar : MonoBehaviour
         backHealthBar.color = Color.white;
     }
 
-
     private IEnumerator FlashDamage()
     {
         isFlashing = true;
         for (int i = 0; i < 5; i++)
         {
-            spriteRenderer.color = new Color(1f, 0f, 0f, 0.5f);
+            spriteRenderer.color = new Color(1f, 1f, 1f, 0.5f);
             yield return new WaitForSeconds(0.1f);
             spriteRenderer.color = Color.white;
             yield return new WaitForSeconds(0.1f);
         }
+        spriteRenderer.color = Color.white;
         isFlashing = false;
     }
+
 }

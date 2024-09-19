@@ -1,17 +1,18 @@
+using System;
 using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
     private Animator animator;
     private string currentState;
+    private bool isDead = false;
 
-    const string PLAYER_IDLE = "Player_idle";
-    const string PLAYER_RUN = "Player_run";
-
-    const string PLAYER_JUMP = "Jump_up";
-    const string PLAYER_FALL = "Jump_down";
-
-    const string PLAYER_DEFAULT_SLIDE = "Default_slide";
+    private const string PLAYER_IDLE = "Player_idle";
+    private const string PLAYER_RUN = "Player_run";
+    private const string PLAYER_JUMP = "Jump_up";
+    private const string PLAYER_FALL = "Jump_down";
+    private const string PLAYER_DEFAULT_SLIDE = "Default_slide";
+    private const string PLAYER_DEATH = "Player_death";
 
     void Awake()
     {
@@ -20,33 +21,65 @@ public class PlayerAnimation : MonoBehaviour
 
     public void ChangeAnimationState(string newState)
     {
+        if (isDead && newState != PLAYER_DEATH) return;
+
         if (currentState == newState) return;
+
         animator.Play(newState);
         currentState = newState;
     }
 
     public void SetIdleAnimation()
     {
-        ChangeAnimationState(PLAYER_IDLE);
+        if (!isDead)
+        {
+            ChangeAnimationState(PLAYER_IDLE);
+        }
     }
 
     public void SetRunAnimation()
     {
-        ChangeAnimationState(PLAYER_RUN);
+        if (!isDead)
+        {
+            ChangeAnimationState(PLAYER_RUN);
+        }
     }
 
     public void SetJumpAnimation()
     {
-        ChangeAnimationState(PLAYER_JUMP);
+        if (!isDead)
+        {
+            ChangeAnimationState(PLAYER_JUMP);
+        }
     }
 
     public void SetFallAnimation()
     {
-        ChangeAnimationState(PLAYER_FALL);
+        if (!isDead)
+        {
+            ChangeAnimationState(PLAYER_FALL);
+        }
     }
 
     public void SetSlideAnimation()
     {
-        ChangeAnimationState(PLAYER_DEFAULT_SLIDE);
+        if (!isDead)
+        {
+            ChangeAnimationState(PLAYER_DEFAULT_SLIDE);
+        }
+    }
+
+    public void SetDeathAnimation()
+    {
+        if (isDead) return;
+
+        isDead = true;
+        ChangeAnimationState(PLAYER_DEATH);
+    }
+
+    public void Respawn()
+    {
+        isDead = false;
+        SetIdleAnimation();
     }
 }
