@@ -10,5 +10,6 @@ public class D_MeleeAttackState : ScriptableObject
     public float attackCooldown = 1f;
     public float attackDuration = 1.5f;
 
+    public Vector3 attackZone = new Vector3(1, 1, 0);
     public LayerMask whatIsPlayer;
 }
