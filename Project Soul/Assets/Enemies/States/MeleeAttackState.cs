@@ -59,19 +59,21 @@ public class MeleeAttackState : AttackState
         {
             if (collider.CompareTag("Player"))
             {
-                PlayerHealthBar healthBar = collider.gameObject.GetComponentInChildren<PlayerHealthBar>();
 
-                if (healthBar != null)
-                {
-                    healthBar.TakeDamage(attackDetails.damageAmout);
+                //collider.GetComponent<HealthContoller>().SendMessage("Damage", attackDetails);
+                //PlayerHealthBar healthBar = collider.gameObject.GetComponentInChildren<PlayerHealthBar>();
 
-                    //TODO: make a logic so player recieves damage
-                    Debug.Log(collider.gameObject.name + " damaged for " + attackDetails.damageAmout);
-                }
-                else
-                {
-                    Debug.LogError("HealthBar component not found on player!");
-                }
+                //if (healthBar != null)
+                //{
+                //    healthBar.TakeDamage(attackDetails.damageAmout);
+
+                //    //TODO: make a logic so player recieves damage
+                //    Debug.Log(collider.gameObject.name + " damaged for " + attackDetails.damageAmout);
+                //}
+                //else
+                //{
+                //    Debug.LogError("HealthBar component not found on player!");
+                //}
             }
         }
     }
