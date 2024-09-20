@@ -822,12 +822,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicSource: {fileID: 1372143707}
-  sfxSource: {fileID: 0}
+  sfxSource: {fileID: 802158475}
   shortSfxSource: {fileID: 0}
   track: {fileID: 0}
   death: {fileID: 0}
-  jump: {fileID: 0}
-  run: {fileID: 0}
+  jump: {fileID: 8300000, guid: 3f97385dd77ae3c4e945c9b6e3e06f0f, type: 3}
+  run: {fileID: 8300000, guid: 4db130ba51097914fb6877f94a195a09, type: 3}
 --- !u!4 &515827081
 Transform:
   m_ObjectHideFlags: 0

@@ -15,6 +15,12 @@ public class AudioManager : MonoBehaviour
     [SerializeField] public AudioClip jump;
     [SerializeField] public AudioClip run;
 
+
+    private void Start()
+    {
+        PlaySFX(track);
+    }
+
     public void PlaySFX(AudioClip clip)
     {
         shortSfxSource.PlayOneShot(clip);

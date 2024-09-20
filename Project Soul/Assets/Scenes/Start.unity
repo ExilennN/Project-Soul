@@ -538,7 +538,7 @@ Transform:
   m_GameObject: {fileID: 334920235}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.7, y: -3.28, z: 0}
+  m_LocalPosition: {x: -15.35, y: -3.28, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -977,7 +977,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.055173, y: -1.6851255, z: -10.050867}
+  m_LocalPosition: {x: -18.705173, y: -1.6851255, z: -10.050867}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1544,7 +1544,7 @@ Transform:
   m_GameObject: {fileID: 1008653265}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.055173, y: -1.6851255, z: -10.050867}
+  m_LocalPosition: {x: -18.705173, y: -1.6851255, z: -10.050867}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1899,8 +1899,8 @@ MonoBehaviour:
   musicSource: {fileID: 346248591}
   sfxSource: {fileID: 856641286}
   shortSfxSource: {fileID: 1051362525}
-  track: {fileID: 0}
-  death: {fileID: 0}
+  track: {fileID: 8300000, guid: 0a0beee320cee704d9d908931920d1c0, type: 3}
+  death: {fileID: 8300000, guid: 0dd01875660b0d3488c904512e37d094, type: 3}
   jump: {fileID: 8300000, guid: 3f97385dd77ae3c4e945c9b6e3e06f0f, type: 3}
   run: {fileID: 8300000, guid: 4db130ba51097914fb6877f94a195a09, type: 3}
 --- !u!4 &1234778845

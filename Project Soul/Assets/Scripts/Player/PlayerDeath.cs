@@ -2,16 +2,22 @@ using UnityEngine;
 
 public class PlayerDeath : MonoBehaviour
 {
+    AudioManager audioManager;
     private PlayerAnimation playerAnimation;
     private bool isDead = false;
-    private HealthBar healthBar;
+    private PlayerHealthBar healthBar;
     private bool canRespawn = false;
 
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
+    
     private void Start()
     {
         playerAnimation = GetComponent<PlayerAnimation>();
         GameObject health = GameObject.FindWithTag("Health");
-        healthBar = health.GetComponent<HealthBar>();
+        healthBar = health.GetComponent<PlayerHealthBar>();
 
         if (playerAnimation == null)
         {
@@ -37,6 +43,7 @@ public class PlayerDeath : MonoBehaviour
         if (isDead) return;
 
         isDead = true;
+        audioManager.PlaySFX(audioManager.death);
         playerAnimation.SetDeathAnimation();
         Debug.Log("Player is dead");
 

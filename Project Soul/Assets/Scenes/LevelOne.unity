@@ -533,7 +533,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a4ac7ac464338747846db1323e813eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
 --- !u!212 &177982834
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15591,11 +15590,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicSource: {fileID: 1644674335}
-  SFXSource: {fileID: 2143893529}
+  sfxSource: {fileID: 2143893529}
+  shortSfxSource: {fileID: 0}
+  track: {fileID: 0}
   death: {fileID: 0}
-  jump: {fileID: 0}
-  run: {fileID: 0}
-  hit: {fileID: 0}
+  jump: {fileID: 8300000, guid: 3f97385dd77ae3c4e945c9b6e3e06f0f, type: 3}
+  run: {fileID: 8300000, guid: 4db130ba51097914fb6877f94a195a09, type: 3}
 --- !u!4 &808736344
 Transform:
   m_ObjectHideFlags: 0

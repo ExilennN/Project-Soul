@@ -6,6 +6,7 @@ public class PlayerAnimation : MonoBehaviour
     private Animator animator;
     private string currentState;
     private bool isDead = false;
+    private bool isAttacking = false;
 
     private const string PLAYER_IDLE = "Player_idle";
     private const string PLAYER_RUN = "Player_run";
@@ -13,6 +14,10 @@ public class PlayerAnimation : MonoBehaviour
     private const string PLAYER_FALL = "Jump_down";
     private const string PLAYER_DEFAULT_SLIDE = "Default_slide";
     private const string PLAYER_DEATH = "Player_death";
+
+    // ATTACK ANIMATIONS
+    private const string PLAYER_SWORD_ATTACK = "Player_sword_attack";
+    private const string PLAYER_SWORD_STAB = "Player_sword_stab";
 
     void Awake()
     {
@@ -31,7 +36,7 @@ public class PlayerAnimation : MonoBehaviour
 
     public void SetIdleAnimation()
     {
-        if (!isDead)
+        if (!isDead && !isAttacking)
         {
             ChangeAnimationState(PLAYER_IDLE);
         }
@@ -39,7 +44,7 @@ public class PlayerAnimation : MonoBehaviour
 
     public void SetRunAnimation()
     {
-        if (!isDead)
+        if (!isDead && !isAttacking)
         {
             ChangeAnimationState(PLAYER_RUN);
         }
@@ -47,7 +52,7 @@ public class PlayerAnimation : MonoBehaviour
 
     public void SetJumpAnimation()
     {
-        if (!isDead)
+        if (!isDead && !isAttacking)
         {
             ChangeAnimationState(PLAYER_JUMP);
         }
@@ -55,7 +60,7 @@ public class PlayerAnimation : MonoBehaviour
 
     public void SetFallAnimation()
     {
-        if (!isDead)
+        if (!isDead && !isAttacking)
         {
             ChangeAnimationState(PLAYER_FALL);
         }
@@ -63,7 +68,7 @@ public class PlayerAnimation : MonoBehaviour
 
     public void SetSlideAnimation()
     {
-        if (!isDead)
+        if (!isDead && !isAttacking)
         {
             ChangeAnimationState(PLAYER_DEFAULT_SLIDE);
         }
@@ -81,5 +86,25 @@ public class PlayerAnimation : MonoBehaviour
     {
         isDead = false;
         SetIdleAnimation();
+    }
+
+    // ATTACKS
+
+    public void SetSwordAttackAnimation()
+    {
+        if (!isDead && !isAttacking)
+        {
+            isAttacking = true;
+            ChangeAnimationState(PLAYER_SWORD_ATTACK);
+        }
+    }
+
+    public void SetSwordStabAnimation()
+    {
+        if (!isDead && !isAttacking)
+        {
+            isAttacking = true;
+            ChangeAnimationState(PLAYER_SWORD_STAB);
+        }
     }
 }
