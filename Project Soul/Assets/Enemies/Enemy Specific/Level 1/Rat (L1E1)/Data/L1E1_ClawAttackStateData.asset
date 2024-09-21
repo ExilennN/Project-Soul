@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: L1E1_ClawAttackStateData
   m_EditorClassIdentifier: 
   attackRadius: 1
-  attackDamage: 1
+  attackDamage: 25
+  attackCooldown: 1
+  attackDuration: 1.5
+  attackZone: {x: 1, y: 1, z: 0}
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 8

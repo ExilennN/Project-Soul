@@ -60,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        // Ініціалізація фізики, анімації та колізій гравця.
         rb = GetComponent<Rigidbody2D>();
         playerAnimation = GetComponent<PlayerAnimation>();
         playerCollision = GetComponent<PlayerCollision>();
@@ -77,18 +78,20 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // Якщо виконується ривок, змінюємо швидкість гравця відповідно до напрямку.
         if (isDashing)
         {
             rb.velocity = new Vector2((facingRight ? 1 : -1) * dashSpeed, rb.velocity.y);
         }
         else
         {
-            ApplyMovement();
+            ApplyMovement(); // Інакше застосовуємо звичайний рух.
         }
     }
 
     private void CheckIfWallSliding()
     {
+        // Перевіряємо, чи торкається гравець стіни, чи падає, і чи тримається певний горизонтальний ввід.
         bool isTouchingWall = playerCollision.IsTouchingWall;
         bool isFalling = rb.velocity.y < 0;
         bool isPressingHorizontal = (facingRight && xAxis > 0) || (!facingRight && xAxis < 0);
@@ -100,6 +103,7 @@ public class PlayerMovement : MonoBehaviour
     {
         xAxis = Input.GetAxisRaw("Horizontal");
 
+        // Якщо натиснуто клавішу для ривка і ривок доступний, запускаємо корутину.
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
             StartCoroutine(Dash());
@@ -107,6 +111,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (isDashing) return;
 
+        // Логіка стрибка, ривка і подвійного стрибка, залежно від вводу і стану гравця.
         if (Input.GetButtonDown("Jump"))
         {
             if (playerCollision.IsGrounded)
@@ -174,6 +179,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            // Інакше, застосовуємо гальмування.
             currentVelocity = Mathf.MoveTowards(currentVelocity, 0, deceleration * Time.fixedDeltaTime);
             if (playerCollision.IsGrounded)
             {
@@ -182,15 +188,16 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        // Якщо гравець ковзає по стіні, застосовуємо швидкість ковзання і анімацію.
         if (isWallSliding)
         {
             playerAnimation.SetSlideAnimation();
             rb.velocity = new Vector2(rb.velocity.x, -wallSlideSpeed);
         }
 
+        // Застосовуємо отриману швидкість до фізичного об'єкта гравця.
         rb.velocity = new Vector2(currentVelocity, rb.velocity.y);
     }
-
 
     private void CheckMovingDirection()
     {
