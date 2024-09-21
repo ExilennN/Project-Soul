@@ -439,10 +439,11 @@ GameObject:
   - component: {fileID: 334920238}
   - component: {fileID: 334920243}
   - component: {fileID: 334920242}
-  - component: {fileID: 334920247}
-  - component: {fileID: 334920246}
+  - component: {fileID: 334920244}
   - component: {fileID: 334920245}
+  - component: {fileID: 334920246}
   - component: {fileID: 334920248}
+  - component: {fileID: 334920247}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -603,6 +604,18 @@ CapsuleCollider2D:
   m_Offset: {x: -0.01678826, y: -0.06623179}
   m_Size: {x: 0.3423118, y: 0.8898555}
   m_Direction: 0
+--- !u!114 &334920244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 334920235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1845452116f6b964f9656198767cf02c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &334920245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -615,9 +628,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c047fa419bd869848b8821f8c7180383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 9
-  deceleration: 70
-  dashSpeed: 20
+  moveSpeed: 10
+  deceleration: 100
+  dashSpeed: 25
   dashTime: 0.25
   dashCooldown: 1
   jumpForce: 17
@@ -625,9 +638,9 @@ MonoBehaviour:
   maxJumpSpeed: 20
   maxFallSpeed: -20
   canDoubleJump: 1
-  wallSlideSpeed: 1.5
-  wallJumpForce: 17
-  wallJumpDirection: {x: 0.6, y: 1.4}
+  wallSlideSpeed: 0
+  wallJumpForce: 20
+  wallJumpDirection: {x: 1, y: 1}
 --- !u!114 &334920246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -641,7 +654,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundCheckDistance: 1
-  wallCheckDistance: 0.5
+  wallCheckDistance: 0.4
   groundLayer:
     serializedVersion: 2
     m_Bits: 64

@@ -1,0 +1,52 @@
+@font-face {
+    font-family: 'Pixelify Sans';
+    src: url('PixelifySans-Regular.eot');
+    src: local('Pixelify Sans Regular'), local('PixelifySans-Regular'),
+        url('PixelifySans-Regular.eot?#iefix') format('embedded-opentype'),
+        url('PixelifySans-Regular.woff2') format('woff2'),
+        url('PixelifySans-Regular.woff') format('woff'),
+        url('PixelifySans-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pixelify Sans';
+    src: url('PixelifySans-SemiBold.eot');
+    src: local('Pixelify Sans SemiBold'), local('PixelifySans-SemiBold'),
+        url('PixelifySans-SemiBold.eot?#iefix') format('embedded-opentype'),
+        url('PixelifySans-SemiBold.woff2') format('woff2'),
+        url('PixelifySans-SemiBold.woff') format('woff'),
+        url('PixelifySans-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pixelify Sans';
+    src: url('PixelifySans-Medium.eot');
+    src: local('Pixelify Sans Medium'), local('PixelifySans-Medium'),
+        url('PixelifySans-Medium.eot?#iefix') format('embedded-opentype'),
+        url('PixelifySans-Medium.woff2') format('woff2'),
+        url('PixelifySans-Medium.woff') format('woff'),
+        url('PixelifySans-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pixelify Sans';
+    src: url('PixelifySans-Bold.eot');
+    src: local('Pixelify Sans Bold'), local('PixelifySans-Bold'),
+        url('PixelifySans-Bold.eot?#iefix') format('embedded-opentype'),
+        url('PixelifySans-Bold.woff2') format('woff2'),
+        url('PixelifySans-Bold.woff') format('woff'),
+        url('PixelifySans-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+

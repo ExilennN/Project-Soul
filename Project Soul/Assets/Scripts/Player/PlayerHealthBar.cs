@@ -116,5 +116,4 @@ public class PlayerHealthBar : MonoBehaviour
         spriteRenderer.color = Color.white;
         isFlashing = false;
     }
-
 }
