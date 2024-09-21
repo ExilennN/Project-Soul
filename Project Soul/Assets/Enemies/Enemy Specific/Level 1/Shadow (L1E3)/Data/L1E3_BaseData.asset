@@ -17,7 +17,7 @@ MonoBehaviour:
   wallCheckDistance: 0.2
   groundCheckDistance: 0.4
   minAggroDistance: 10
-  baseRadius: 10
+  baseRadius: 20
   closeRangeActionDistance: 2
   midRangeActionDistance: 4
   longRangeActionDistance: 10
