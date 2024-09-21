@@ -15,12 +15,31 @@ public class AudioManager : MonoBehaviour
     [SerializeField] public AudioClip jump;
     [SerializeField] public AudioClip run;
 
-
     private void Start()
     {
-        PlaySFX(track);
+        PlayMusic(track);
     }
 
+    public void PlayMusic(AudioClip clip)
+    {
+        if (musicSource.clip != clip || !musicSource.isPlaying)
+        {
+            musicSource.clip = clip;
+            musicSource.loop = true;
+            musicSource.Play();
+        }
+    }
+
+    public void StopMusic()
+    {
+        if (musicSource.isPlaying)
+        {
+            musicSource.Stop();
+            musicSource.loop = false;
+        }
+    }
+
+    
     public void PlaySFX(AudioClip clip)
     {
         shortSfxSource.PlayOneShot(clip);

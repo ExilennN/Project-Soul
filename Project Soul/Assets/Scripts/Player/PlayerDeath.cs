@@ -12,7 +12,7 @@ public class PlayerDeath : MonoBehaviour
     {
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
-    
+
     private void Start()
     {
         playerAnimation = GetComponent<PlayerAnimation>();
@@ -40,28 +40,29 @@ public class PlayerDeath : MonoBehaviour
 
     public void Die()
     {
+        // Перевіряємо, чи вже мертвий гравець, якщо так — виходимо з методу.
         if (isDead) return;
 
         isDead = true;
         audioManager.PlaySFX(audioManager.death);
+
         playerAnimation.SetDeathAnimation();
         Debug.Log("Player is dead");
 
         GetComponent<PlayerMovement>().enabled = false;
-        // DisableOtherComponents();  
         canRespawn = true;
     }
 
     private void Respawn()
     {
         isDead = false;
+
         canRespawn = false;
         healthBar.ResetHealth();
+
         playerAnimation.Respawn();
         Debug.Log("Player respawned");
-
         GetComponent<PlayerMovement>().enabled = true;
-        // EnableOtherComponents();
     }
 
     // private void DisableOtherComponents() {}

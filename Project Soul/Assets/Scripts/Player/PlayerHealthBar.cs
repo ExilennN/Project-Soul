@@ -41,11 +41,6 @@ public class PlayerHealthBar : MonoBehaviour
         health = Mathf.Clamp(health, 0, maxHealth);
         UpdateHealthUI();
 
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            TakeDamage(Random.Range(5, 10));
-        }
-
         if (Input.GetKeyDown(KeyCode.R))
         {
             ResetHealth();
@@ -68,9 +63,9 @@ public class PlayerHealthBar : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(AttackDetails attackDetails)
     {
-        health -= damage;
+        health -= attackDetails.damageAmout;
         lerpTimer = 0f;
 
         if (health <= 0)

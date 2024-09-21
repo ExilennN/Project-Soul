@@ -440,10 +440,10 @@ GameObject:
   - component: {fileID: 334920243}
   - component: {fileID: 334920242}
   - component: {fileID: 334920247}
-  - component: {fileID: 334920246}
   - component: {fileID: 334920245}
-  - component: {fileID: 334920248}
+  - component: {fileID: 334920246}
   - component: {fileID: 334920249}
+  - component: {fileID: 334920248}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -714,7 +714,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
