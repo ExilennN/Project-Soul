@@ -1,14 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class AcidTrap : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D other)
+    public Tilemap acidTilemap; // —сылка на Tilemap с кислотой
+
+    void OnTriggerStay2D(Collider2D collision)
     {
-        if (other.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
-            Debug.Log("Player hit! Damage dealt.");
+            Vector3 playerPosition = collision.transform.position;
+            Vector3Int gridPosition = acidTilemap.WorldToCell(playerPosition);
+            TileBase tile = acidTilemap.GetTile(gridPosition);
+                Debug.Log("[ACIDTRAP] Player hit! Damage dealt.");
         }
     }
 }
