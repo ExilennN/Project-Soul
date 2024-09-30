@@ -120,12 +120,12 @@ public class PlayerMovement : MonoBehaviour
                 hasDoubleJumped = false;
                 jumpTimeCounter = jumpTimeToMaxHeight;
                 Jump();
-                audioManager.PlaySFX(audioManager.jump);
+                // audioManager.PlaySFX(audioManager.jump);
             }
             else if (isWallSliding)
             {
                 WallJump();
-                audioManager.PlaySFX(audioManager.jump);
+                // audioManager.PlaySFX(audioManager.jump);
             }
             else if (canDoubleJump && !hasDoubleJumped)
             {
@@ -133,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
                 hasDoubleJumped = true;
                 jumpTimeCounter = jumpTimeToMaxHeight;
                 Jump();
-                audioManager.PlaySFX(audioManager.jump);
+                // audioManager.PlaySFX(audioManager.jump);
             }
         }
 
@@ -169,12 +169,12 @@ public class PlayerMovement : MonoBehaviour
             currentVelocity = xAxis * moveSpeed;
             if (playerCollision.IsGrounded && !isJumping)
             {
-                audioManager.PlayLoopedSFX(audioManager.run);
+                // audioManager.PlayLoopedSFX(audioManager.run);
                 playerAnimation.SetRunAnimation();
             }
             else
             {
-                audioManager.StopLoopedSFX();
+                // audioManager.StopLoopedSFX();
             }
         }
         else
@@ -183,7 +183,7 @@ public class PlayerMovement : MonoBehaviour
             currentVelocity = Mathf.MoveTowards(currentVelocity, 0, deceleration * Time.fixedDeltaTime);
             if (playerCollision.IsGrounded)
             {
-                audioManager.StopLoopedSFX();
+                // audioManager.StopLoopedSFX();
                 playerAnimation.SetIdleAnimation();
             }
         }
