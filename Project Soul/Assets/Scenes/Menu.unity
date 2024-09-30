@@ -3897,7 +3897,7 @@ GameObject:
   - component: {fileID: 1222297962}
   - component: {fileID: 1222297961}
   m_Layer: 5
-  m_Name: Window Mode
+  m_Name: Fullscreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6102,7 +6102,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1813942755}
-  - component: {fileID: 1813942756}
   - component: {fileID: 1813942757}
   m_Layer: 0
   m_Name: AudioManager
@@ -6128,18 +6127,6 @@ Transform:
   - {fileID: 1586492638}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1813942756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1813942754}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef3a69ffbf0ee364daa5780df19ae6e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1813942757
 MonoBehaviour:
   m_ObjectHideFlags: 0
