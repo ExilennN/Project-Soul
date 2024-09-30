@@ -22,11 +22,11 @@ public class EnemyProjectile : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name != "Trigger2" && collision.gameObject.name != "Trigger1" && collision.gameObject.name != "Trigger3" && collision.gameObject.name != "Trigger4" && collision.gameObject.name != "Trigger5" && collision.gameObject.name != "TriggerTrap1")
+        if (collision.gameObject.name != "Trigger2")
         {
             if (collision.CompareTag("Player"))
             {
-                Debug.Log("[ARROWTRAP] Player hit! Damage dealt.");
+                Debug.Log("Player hit! Damage dealt.");
             }
             gameObject.SetActive(false);
         }
