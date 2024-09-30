@@ -44,7 +44,7 @@ public class PlayerDeath : MonoBehaviour
         if (isDead) return;
 
         isDead = true;
-        // audioManager.PlaySFX(audioManager.death);
+        audioManager.PlaySFX(audioManager.death);
 
         playerAnimation.SetDeathAnimation();
         Debug.Log("Player is dead");
