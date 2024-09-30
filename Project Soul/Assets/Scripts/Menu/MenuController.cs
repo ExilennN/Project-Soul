@@ -34,7 +34,7 @@ public class MenuController : MonoBehaviour
 
     public void LoadScene()
     {
-        SceneManager.LoadScene("Start");
+        SceneManager.LoadScene("LevelOne");
     }
 
     public void QuitGame()
