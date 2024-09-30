@@ -6,7 +6,7 @@ public class SpikeTrap : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player hit! Damage dealt.");
+            Debug.Log("[SPIKETRAP] Player hit! Damage dealt.");
         }
     }
 }

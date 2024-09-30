@@ -5,7 +5,7 @@ public class SectionActivatorWithFade : MonoBehaviour
 {
     public GameObject[] objectsToActivate;
     public ScreenFader screenFader;
-    private bool sectionActive = false;  // Отслеживание состояния секции
+    private bool sectionActive = false;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -25,9 +25,9 @@ public class SectionActivatorWithFade : MonoBehaviour
 
     private IEnumerator ActivateSectionWithFade()
     {
-        sectionActive = true;  // Отмечаем, что секция активна
+        sectionActive = true;
         screenFader.FadeOut();
-        yield return new WaitForSeconds(screenFader.fadeDuration);  // Ждем завершения затемнения
+        yield return new WaitForSeconds(screenFader.fadeDuration);
         ActivateSection();
         screenFader.FadeIn();
     }
@@ -35,10 +35,10 @@ public class SectionActivatorWithFade : MonoBehaviour
     private IEnumerator DeactivateSectionWithFade()
     {
         screenFader.FadeOut();
-        yield return new WaitForSeconds(screenFader.fadeDuration);  // Ждем завершения затемнения
+        yield return new WaitForSeconds(screenFader.fadeDuration);
         DeactivateSection();
         screenFader.FadeIn();
-        sectionActive = false;  // Отмечаем, что секция больше не активна
+        sectionActive = false;
     }
 
     private void ActivateSection()
