@@ -7,8 +7,17 @@ public class MenuController : MonoBehaviour
     [Header("Confirmation")]
     [SerializeField] private GameObject confirmationPrompt = null;
 
+    [Header("Video")]
+    public VideoManager videoManager;
+
     [Header("Audio")]
     public AudioManager audioManager;
+
+    public void ApplyVideoSettings()
+    {
+        videoManager.ApplySettings();
+        StartCoroutine(ConfirmationBox());
+    }
 
     public void ApplyVolumeSettings()
     {
