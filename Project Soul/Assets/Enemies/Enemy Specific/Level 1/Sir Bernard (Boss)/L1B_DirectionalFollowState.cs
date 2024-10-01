@@ -46,20 +46,23 @@ public class L1B_DirectionalFollowState : DirectionalFollowState
 
         if (canUseSpecialAttack) 
         {
-            if (Time.time >= enemy.GetSpikeWalllAttackData().attackCooldown + enemy.spikeWallAttackState.endTime)
+            if (Time.time >= enemy.GetWhirlWindAttackData().attackCooldown + enemy.whirlwindAttackState.endTime)
             {
-                stateController.ChangeState(enemy.spikeWallAttackState);
-            }
-            else if (Time.time >= enemy.GetWhirlWindAttackData().attackCooldown + enemy.whirlwindAttackState.endTime)
-            {
+                canUseSpecialAttack = false;
                 stateController.ChangeState(enemy.whirlwindAttackState);
             }
+            else if (Time.time >= enemy.GetSpikeWalllAttackData().attackCooldown + enemy.spikeWallAttackState.endTime)
+            {
+                canUseSpecialAttack = false;
+                stateController.ChangeState(enemy.spikeWallAttackState);
+            } 
             else if (Time.time >= enemy.GetFloorSpikesAttackData().attackCooldown + enemy.floorSpikesAttackState.endTime)
             {
+                canUseSpecialAttack = false;
                 stateController.ChangeState(enemy.floorSpikesAttackState);
             }
 
-            canUseSpecialAttack = false;
+            
         }
         
         else if (isPlayerInCloseRange)

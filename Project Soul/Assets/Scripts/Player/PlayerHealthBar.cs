@@ -11,6 +11,8 @@ public class PlayerHealthBar : MonoBehaviour
     private float health;
     private float lerpTimer = 0.05f;
 
+    public bool isInvunurable = false;
+
     private SpriteRenderer spriteRenderer;
     private bool isFlashing = false;
 
@@ -65,6 +67,8 @@ public class PlayerHealthBar : MonoBehaviour
 
     public void TakeDamage(AttackDetails attackDetails)
     {
+        if (isInvunurable) { return; }
+
         health -= attackDetails.damageAmout;
         lerpTimer = 0f;
 
@@ -100,6 +104,7 @@ public class PlayerHealthBar : MonoBehaviour
 
     private IEnumerator FlashDamage()
     {
+        isInvunurable = true;
         isFlashing = true;
         for (int i = 0; i < 5; i++)
         {
@@ -110,5 +115,6 @@ public class PlayerHealthBar : MonoBehaviour
         }
         spriteRenderer.color = Color.white;
         isFlashing = false;
+        isInvunurable = false;
     }
 }

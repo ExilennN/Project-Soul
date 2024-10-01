@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7e16105f85f56248b67e3d636b084a0, type: 3}
   m_Name: L1B_ChainPullAttackStateData
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 15
   attackCooldown: 8
   chainPullAttack: {fileID: 4349001176724990556, guid: 94823cc7c0e360d47aac57dc665f624d, type: 3}

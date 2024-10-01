@@ -17,6 +17,9 @@ public class PlayerMovement : MonoBehaviour
     private bool facingRight = true;
     private Vector3 originalScale;
 
+    [Header("---- Health Controller ----")]
+    [SerializeField] private PlayerHealthBar healthBar;
+
     [Header("---- Movement ----")]
     [SerializeField] private float moveSpeed = 17f;
     [SerializeField] private float deceleration = 65f;
@@ -225,6 +228,7 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator Dash()
     {
+        healthBar.isInvunurable = true;
         isDashing = true;
         canDash = false;
 
@@ -238,6 +242,7 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(dashTime);
         rb.gravityScale = originalGravityScale;
         isDashing = false;
+        healthBar.isInvunurable = false;
 
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;

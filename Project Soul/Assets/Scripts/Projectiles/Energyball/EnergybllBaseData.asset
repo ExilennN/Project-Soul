@@ -15,4 +15,4 @@ MonoBehaviour:
   livingTime: 10
   projectileSpeed: 25
   damagePointRadius: 0.5
-  damage: 1
+  damage: 15

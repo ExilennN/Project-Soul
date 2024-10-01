@@ -11,7 +11,7 @@ public class EnergyballProjectile : Projectile
         base.Start();
         rb.gravityScale = 0f;
 
-        rb.velocity = new Vector2(direction.x, direction.y).normalized * baseData.projectileSpeed * Time.deltaTime * 10;
+        rb.velocity = new Vector2(direction.x, direction.y).normalized * baseData.projectileSpeed;
         transform.rotation = Quaternion.Euler(0, 0, angle + 90);
     }
     public override void FixedUpdate()
@@ -22,9 +22,7 @@ public class EnergyballProjectile : Projectile
 
         if (damageHit)
         {
-            //TODO player revies damage
-
-            Debug.Log("player hitted by prj for " + attackDetails.damageAmout);
+            damageHit.GetComponent<HealthContoller>().SendMessage("Damage", attackDetails);
             Destroy(gameObject);
         }
 

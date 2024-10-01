@@ -214,7 +214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc72b42c4f9d5524bbed211627a70303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colideDamge: 1
+  colideDamge: 10
 --- !u!1 &6100142899236759853
 GameObject:
   m_ObjectHideFlags: 0

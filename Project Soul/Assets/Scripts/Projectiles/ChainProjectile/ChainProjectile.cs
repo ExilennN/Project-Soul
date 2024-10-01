@@ -22,7 +22,6 @@ public class ChainProjectile : MonoBehaviour
     private float angle;
 
 
-
     void Start()
     {
         StartCoroutine(FireChain());
@@ -44,8 +43,7 @@ public class ChainProjectile : MonoBehaviour
             Collider2D damageHit = Physics2D.OverlapCircle(damagePoint.position, 0.2f, whatIsPlayer);
             if (damageHit)
             {
-                Debug.Log("player hitted by prj for " + 1);
-                
+                damageHit.GetComponent<HealthContoller>().SendMessage("Damage", new AttackDetails() { damageAmout = 15, position = rb.position });
                 break;
             }
             // Check if enough distance has been covered to spawn a new segment

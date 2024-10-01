@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class HealthContoller : MonoBehaviour
 {
-    public int health = 100;
-    
+    [SerializeField] private PlayerHealthBar healthBar;
     public void Damage(AttackDetails attackDetails)
     {
-        health -= attackDetails.damageAmout;
+        healthBar.TakeDamage(attackDetails);
     }
 }

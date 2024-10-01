@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68ba8b8c4ea0ff048bb93244d254f2c6, type: 3}
   m_Name: L1B_WhirlwindAttackStateData
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 30
   movementSpeed: 25
   attackCooldown: 20
   knockbackForce: 10

@@ -134,7 +134,7 @@ MonoBehaviour:
   initialSpeed: 4
   maxSpeed: 40
   acceleration: 10
-  damage: 1
+  damage: 35
   currentScale: {x: 0, y: 0, z: 0, w: 0}
   initialScale: {x: 0.8, y: 0.6, z: 1}
   maxScale: {x: 0.8, y: 3, z: 1}

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ColideDamage : MonoBehaviour
 {
-    public int colideDamge = 1;
+    public int colideDamge = 10;
     private AttackDetails attackDetails;
 
     private void Start()
@@ -15,8 +15,7 @@ public class ColideDamage : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            //TODO damage player
-            Debug.Log("Player collide and recieve " + attackDetails.damageAmout);
+            collision.GetComponent<HealthContoller>().SendMessage("Damage", attackDetails);
         }
     }
 }
