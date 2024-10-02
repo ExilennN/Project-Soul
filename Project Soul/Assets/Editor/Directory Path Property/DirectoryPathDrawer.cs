@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-public class DirectoryAttribute : PropertyAttribute { }
+
 
 [CustomPropertyDrawer(typeof(DirectoryAttribute))]
 public class DirectoryPathDrawer : PropertyDrawer

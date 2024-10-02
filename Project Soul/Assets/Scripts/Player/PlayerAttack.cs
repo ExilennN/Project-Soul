@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    [SerializeField] private float weakAttackDamage = 15f;
-    [SerializeField] private float strongAttackDamage = 30f;
+    [SerializeField] private int weakAttackDamage = 15;
+    [SerializeField] private int strongAttackDamage = 30;
     [SerializeField] private float attackRange = 1f;
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private PlayerAnimation playerAnimation;
@@ -29,12 +29,7 @@ public class PlayerAttack : MonoBehaviour
 
         foreach (Collider2D enemy in hitEnemies)
         {
-            EnemyHealthBar enemyHealth = enemy.GetComponent<EnemyHealthBar>();
-            if (enemyHealth != null)
-            {
-                enemyHealth.TakeDamage(weakAttackDamage);
-                Debug.Log("Hit enemy with weak attack: " + weakAttackDamage + " damage");
-            }
+            enemy.transform.parent.SendMessage("Damage", new AttackDetails() { damageAmout = weakAttackDamage, position = transform.position });
         }
     }
 
@@ -46,12 +41,7 @@ public class PlayerAttack : MonoBehaviour
 
         foreach (Collider2D enemy in hitEnemies)
         {
-            EnemyHealthBar enemyHealth = enemy.GetComponent<EnemyHealthBar>();
-            if (enemyHealth != null)
-            {
-                enemyHealth.TakeDamage(strongAttackDamage);
-                Debug.Log("Hit enemy with strong attack: " + strongAttackDamage + " damage");
-            }
+            enemy.transform.parent.SendMessage("Damage", new AttackDetails() { damageAmout = strongAttackDamage, position = transform.position });
         }
     }
 

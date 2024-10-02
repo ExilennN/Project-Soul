@@ -115,6 +115,6 @@ public class ChaseState : State
     
     protected virtual bool StopChase()
     {
-        return false;
+        return entity.isDamaged;
     }
 }

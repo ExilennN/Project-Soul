@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
-using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
@@ -44,6 +43,7 @@ public class Entity : MonoBehaviour
     private Vector2 velocityWorkspace;
 
     protected bool isDead;
+    public bool isDamaged;
     public bool isTrackingBack { get; private set; }
 
     public virtual void Start()
@@ -52,6 +52,7 @@ public class Entity : MonoBehaviour
         currentHealth = entityData.maxHealth;
 
         isDead = false;
+        isDamaged = false;
         isTrackingBack = false;
 
         aliveGO = transform.Find("Alive").gameObject;
@@ -69,12 +70,15 @@ public class Entity : MonoBehaviour
 
     public virtual void Update()
     {
+        if (isDead) { Destroy(gameObject); }
+
         stateController.currentState.LogicUpdate();
 
     }
 
     public virtual void FixedUpdate()
     {
+        if (isDead) { Destroy(gameObject); }
         stateController.currentState.PhysicsUpdate();
     }
 
@@ -106,8 +110,10 @@ public class Entity : MonoBehaviour
 
     public virtual void Damage(AttackDetails attackDetails)
     {
+        isDamaged = true;
         currentHealth -= attackDetails.damageAmout;
-
+        rb.AddForce(attackDetails.position.normalized * 2f * -1, ForceMode2D.Impulse);
+        isDamaged = false;
         if (currentHealth <= 0) { isDead = true; }
     }
 
