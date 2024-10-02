@@ -136,6 +136,8 @@ public class PlayerMovement : MonoBehaviour
                 hasDoubleJumped = true;
                 jumpTimeCounter = jumpTimeToMaxHeight;
                 Jump();
+                
+                playerAnimation.SetDoubleJumpAnimation();
                 // audioManager.PlaySFX(audioManager.jump);
             }
         }

@@ -7,10 +7,13 @@ public class PlayerDeath : MonoBehaviour
     private bool isDead = false;
     private PlayerHealthBar healthBar;
     private bool canRespawn = false;
+    private Rigidbody2D rb;
+    [SerializeField] private Transform respawnPoint;
 
     private void Awake()
     {
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Start()
@@ -28,10 +31,20 @@ public class PlayerDeath : MonoBehaviour
         {
             Debug.LogError("HealthBar component is missing on the player!");
         }
+
+        if (respawnPoint == null)
+        {
+            Debug.LogError("Respawn point is not set!");
+        }
     }
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            Die();
+        }
+
         if (isDead && canRespawn && Input.GetKeyDown(KeyCode.O))
         {
             Respawn();
@@ -40,7 +53,6 @@ public class PlayerDeath : MonoBehaviour
 
     public void Die()
     {
-        // Перевіряємо, чи вже мертвий гравець, якщо так — виходимо з методу.
         if (isDead) return;
 
         isDead = true;
@@ -49,22 +61,25 @@ public class PlayerDeath : MonoBehaviour
         playerAnimation.SetDeathAnimation();
         Debug.Log("Player is dead");
 
+        healthBar.SetHealth(0);
+
         GetComponent<PlayerMovement>().enabled = false;
+        rb.velocity = new Vector2(0, rb.velocity.y);
+
         canRespawn = true;
     }
 
     private void Respawn()
     {
         isDead = false;
-
         canRespawn = false;
+
         healthBar.ResetHealth();
 
         playerAnimation.Respawn();
         Debug.Log("Player respawned");
-        GetComponent<PlayerMovement>().enabled = true;
-    }
 
-    // private void DisableOtherComponents() {}
-    // private void EnableOtherComponents() {}
+        GetComponent<PlayerMovement>().enabled = true;
+        transform.position = respawnPoint.position;
+    }
 }

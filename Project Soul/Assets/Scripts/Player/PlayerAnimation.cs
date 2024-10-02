@@ -12,6 +12,7 @@ public class PlayerAnimation : MonoBehaviour
     private const string PLAYER_RUN = "Player_run";
     private const string PLAYER_JUMP = "Jump_up";
     private const string PLAYER_FALL = "Jump_down";
+    private const string PLAYER_DOUBLE_JUMP = "Double_jump";
     private const string PLAYER_DEFAULT_SLIDE = "Default_slide";
     private const string PLAYER_DEATH = "Player_death";
 
@@ -66,6 +67,14 @@ public class PlayerAnimation : MonoBehaviour
         }
     }
 
+    public void SetDoubleJumpAnimation()
+    {
+        if (!isDead && !isAttacking)
+        {
+            ChangeAnimationState(PLAYER_DOUBLE_JUMP);
+        }
+    }
+
     public void SetSlideAnimation()
     {
         if (!isDead && !isAttacking)
@@ -106,5 +115,11 @@ public class PlayerAnimation : MonoBehaviour
             isAttacking = true;
             ChangeAnimationState(PLAYER_SWORD_STAB);
         }
+    }
+
+    public void ReturnToIdle()
+    {
+        isAttacking = false;
+        SetIdleAnimation();
     }
 }
