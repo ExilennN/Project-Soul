@@ -71,20 +71,20 @@ public class FlyChaseState : State
         frameCount++;
         if (frameCount >= frameInterval)
         {
+            frameCount = 0;
             entity.seeker.GetGrid().GetXY(entity.GetPlayerPosition(), out int xT, out int yT);
-            entity.seeker.GetGrid().GetXYFlyGrid(entity.GetEntityPositionOnGrid().position, out int xO, out int yO);
+            entity.seeker.GetGrid().GetXY(entity.GetEntityPositionOnGrid().position, out int xO, out int yO);
             if (xO != 999999) { xEnemy = xO; }
             if (yO != 999999) { yEnemy = yO; }
             List<PathNode> localPath = entity.seeker.FindPath(new PathNode(xEnemy, yEnemy), new PathNode(xT, yT));
             if (localPath != null) { agent = new PathAgent(localPath); }
-            frameCount = 0;
         }
 
     }
 
     protected void FollowPath()
     {
-        DrawDebugPath();
+        //DrawDebugPath();
 
         //Check if path is finised
         if (agent.isPathFinished) { entity.SetVelocity(0f); return; }

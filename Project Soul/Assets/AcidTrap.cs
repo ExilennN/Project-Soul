@@ -14,7 +14,7 @@ public class AcidTrap : MonoBehaviour
             Vector3 playerPosition = collision.transform.position;
             Vector3Int gridPosition = acidTilemap.WorldToCell(playerPosition);
             TileBase tile = acidTilemap.GetTile(gridPosition);
-                Debug.Log("[ACIDTRAP] Player hit! Damage dealt.");
+            collision.GetComponent<HealthContoller>().SendMessage("Damage", new AttackDetails() { damageAmout = 5, position = transform.position });
         }
     }
 }

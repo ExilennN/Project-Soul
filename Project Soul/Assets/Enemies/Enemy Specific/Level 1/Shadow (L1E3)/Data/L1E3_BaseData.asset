@@ -16,11 +16,11 @@ MonoBehaviour:
   jumpForce: 10
   wallCheckDistance: 0.2
   groundCheckDistance: 0.4
-  minAggroDistance: 10
+  minAggroDistance: 15
   baseRadius: 20
   closeRangeActionDistance: 2
   midRangeActionDistance: 4
-  longRangeActionDistance: 10
+  longRangeActionDistance: 15
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
