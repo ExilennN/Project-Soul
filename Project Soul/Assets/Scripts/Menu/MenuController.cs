@@ -28,13 +28,21 @@ public class MenuController : MonoBehaviour
     private IEnumerator ConfirmationBox()
     {
         confirmationPrompt.SetActive(true);
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSecondsRealtime(2);
         confirmationPrompt.SetActive(false);
     }
 
-    public void LoadScene()
+    public void LoadNextScene()
     {
-        SceneManager.LoadScene("LevelOne");
+        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(nextSceneIndex);
+        }
+        else
+        {
+            Debug.LogWarning("No more scenes in build settings.");
+        }
     }
 
     public void QuitGame()
