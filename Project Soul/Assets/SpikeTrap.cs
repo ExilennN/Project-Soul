@@ -6,7 +6,7 @@ public class SpikeTrap : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("[SPIKETRAP] Player hit! Damage dealt.");
+            other.GetComponent<HealthContoller>().SendMessage("Damage", new AttackDetails() { damageAmout = 10, position = transform.position });
         }
     }
 }

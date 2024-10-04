@@ -26,7 +26,7 @@ public class EnemyProjectile : MonoBehaviour
         {
             if (collision.CompareTag("Player"))
             {
-                Debug.Log("[ARROWTRAP] Player hit! Damage dealt.");
+               collision.GetComponent<HealthContoller>().SendMessage("Damage", new AttackDetails() { damageAmout = 15, position = transform.position });
             }
             gameObject.SetActive(false);
         }

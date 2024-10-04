@@ -7,6 +7,7 @@ TagManager:
   - WorldTextDebug
   - Audio
   - Health
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Colider
   - BossPlatforms
   - Health
-  - 
+  - Trap
   - 
   - 
   - 
