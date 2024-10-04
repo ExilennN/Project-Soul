@@ -7,6 +7,9 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float attackRange = 1f;
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private PlayerAnimation playerAnimation;
+    [SerializeField] private PlayerHealthBar playerHealthBar;
+    [SerializeField] private float manaGainWeakAttack = 0.33f;
+    [SerializeField] private float manaGainStrongAttack = 0.5f;
 
     private void Update()
     {
@@ -30,6 +33,7 @@ public class PlayerAttack : MonoBehaviour
         foreach (Collider2D enemy in hitEnemies)
         {
             enemy.transform.parent.SendMessage("Damage", new AttackDetails() { damageAmout = weakAttackDamage, position = transform.position });
+            playerHealthBar.GainMana(manaGainWeakAttack);
         }
     }
 
@@ -42,6 +46,7 @@ public class PlayerAttack : MonoBehaviour
         foreach (Collider2D enemy in hitEnemies)
         {
             enemy.transform.parent.SendMessage("Damage", new AttackDetails() { damageAmout = strongAttackDamage, position = transform.position });
+            playerHealthBar.GainMana(manaGainStrongAttack);
         }
     }
 
