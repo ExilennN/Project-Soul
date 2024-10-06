@@ -54,19 +54,21 @@ public class PlayerDeath : MonoBehaviour
     public void Die()
     {
         if (isDead) return;
-
         isDead = true;
         // audioManager.PlaySFX(audioManager.death);
-
         playerAnimation.SetDeathAnimation();
         Debug.Log("Player is dead");
-
         healthBar.SetHealth(0);
-
         GetComponent<PlayerMovement>().enabled = false;
         rb.velocity = new Vector2(0, rb.velocity.y);
-
         canRespawn = true;
+        Invoke("Respawn", 1f); // respawn cherez 1 secundu
+    }
+
+    public void SetRespawnPoint(Transform newRespawnPoint)
+    {
+        respawnPoint = newRespawnPoint;
+        Debug.Log("New respawn point set at: " + respawnPoint.position);
     }
 
     private void Respawn()
@@ -77,9 +79,10 @@ public class PlayerDeath : MonoBehaviour
         healthBar.ResetHealth();
 
         playerAnimation.Respawn();
-        Debug.Log("Player respawned");
+        Debug.Log("Player respawned at: " + respawnPoint.position);
 
         GetComponent<PlayerMovement>().enabled = true;
         transform.position = respawnPoint.position;
     }
+
 }
