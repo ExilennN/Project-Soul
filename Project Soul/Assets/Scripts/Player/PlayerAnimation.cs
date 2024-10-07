@@ -8,6 +8,7 @@ public class PlayerAnimation : MonoBehaviour
     private bool isDead = false;
     private bool isAttacking = false;
     private bool isHealing = false;
+    private bool isAtCheckpoint = false;
 
     private const string PLAYER_IDLE = "Player_idle";
     private const string PLAYER_RUN = "Player_run";
@@ -17,6 +18,7 @@ public class PlayerAnimation : MonoBehaviour
     private const string PLAYER_DEFAULT_SLIDE = "Default_slide";
     private const string PLAYER_DEATH = "Player_death";
     private const string PLAYER_HEAL = "Player_heal";
+    private const string PLAYER_CHECKPOINT = "Player_checkpoint";
 
     // ATTACK ANIMATIONS
     private const string PLAYER_SWORD_ATTACK = "Player_sword_attack";
@@ -31,6 +33,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         if (isDead && newState != PLAYER_DEATH) return;
         if (isHealing && newState != PLAYER_HEAL) return;
+        if (isAtCheckpoint && newState != PLAYER_CHECKPOINT) return;
         if (currentState == newState) return;
 
         animator.Play(newState);
@@ -39,7 +42,7 @@ public class PlayerAnimation : MonoBehaviour
 
     public void SetIdleAnimation()
     {
-        if (!isDead && !isAttacking && !isHealing)
+        if (!isDead && !isAttacking && !isHealing && !isAtCheckpoint)
         {
             ChangeAnimationState(PLAYER_IDLE);
         }
@@ -47,7 +50,7 @@ public class PlayerAnimation : MonoBehaviour
 
     public void SetRunAnimation()
     {
-        if (!isDead && !isAttacking && !isHealing)
+        if (!isDead && !isAttacking && !isHealing && !isAtCheckpoint)
         {
             ChangeAnimationState(PLAYER_RUN);
         }
@@ -55,7 +58,7 @@ public class PlayerAnimation : MonoBehaviour
 
     public void SetJumpAnimation()
     {
-        if (!isDead && !isAttacking && !isHealing)
+        if (!isDead && !isAttacking && !isHealing && !isAtCheckpoint)
         {
             ChangeAnimationState(PLAYER_JUMP);
         }
@@ -63,7 +66,7 @@ public class PlayerAnimation : MonoBehaviour
 
     public void SetFallAnimation()
     {
-        if (!isDead && !isAttacking && !isHealing)
+        if (!isDead && !isAttacking && !isHealing && !isAtCheckpoint)
         {
             ChangeAnimationState(PLAYER_FALL);
         }
@@ -71,7 +74,7 @@ public class PlayerAnimation : MonoBehaviour
 
     public void SetDoubleJumpAnimation()
     {
-        if (!isDead && !isAttacking && !isHealing)
+        if (!isDead && !isAttacking && !isHealing && !isAtCheckpoint)
         {
             ChangeAnimationState(PLAYER_DOUBLE_JUMP);
         }
@@ -79,7 +82,7 @@ public class PlayerAnimation : MonoBehaviour
 
     public void SetSlideAnimation()
     {
-        if (!isDead && !isAttacking && !isHealing)
+        if (!isDead && !isAttacking && !isHealing && !isAtCheckpoint)
         {
             ChangeAnimationState(PLAYER_DEFAULT_SLIDE);
         }
@@ -96,37 +99,32 @@ public class PlayerAnimation : MonoBehaviour
     public void Respawn()
     {
         isDead = false;
+        isAtCheckpoint = false;
         SetIdleAnimation();
     }
 
     public void SetHealAnimation()
     {
-        if (!isDead && !isHealing)
+        if (!isDead && !isHealing && !isAtCheckpoint)
         {
             isHealing = true;
             ChangeAnimationState(PLAYER_HEAL);
         }
     }
 
-    public void OnHealAnimationEvent()
+    public void SetCheckpointAnimation()
     {
-        GameObject healthObj = GameObject.FindWithTag("Health");
-        if (healthObj != null)
+        if (!isDead && !isAttacking && !isHealing && !isAtCheckpoint)
         {
-            PlayerHealthBar healthBar = healthObj.GetComponentInChildren<PlayerHealthBar>();
-            if (healthBar != null)
-            {
-                healthBar.RegenerateHealth();
-            }
-            else
-            {
-                Debug.LogError("PlayerHealthBar component not found on Health object!");
-            }
+            isAtCheckpoint = true;
+            ChangeAnimationState(PLAYER_CHECKPOINT);
         }
-        else
-        {
-            Debug.LogError("Health object not found!");
-        }
+    }
+
+    public void EndCheckpointAnimation()
+    {
+        isAtCheckpoint = false;
+        SetIdleAnimation();
     }
 
     public void EndHealing()
@@ -138,7 +136,7 @@ public class PlayerAnimation : MonoBehaviour
 
     public void SetSwordAttackAnimation()
     {
-        if (!isDead && !isAttacking && !isHealing)
+        if (!isDead && !isAttacking && !isHealing && !isAtCheckpoint)
         {
             isAttacking = true;
             ChangeAnimationState(PLAYER_SWORD_ATTACK);
@@ -147,7 +145,7 @@ public class PlayerAnimation : MonoBehaviour
 
     public void SetSwordStabAnimation()
     {
-        if (!isDead && !isAttacking && !isHealing)
+        if (!isDead && !isAttacking && !isHealing && !isAtCheckpoint)
         {
             isAttacking = true;
             ChangeAnimationState(PLAYER_SWORD_STAB);

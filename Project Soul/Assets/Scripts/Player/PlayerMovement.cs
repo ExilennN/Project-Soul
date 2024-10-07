@@ -214,6 +214,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public bool IsMoving()
+    {
+        return Mathf.Abs(xAxis) > 0.1f;
+    }
+
     private void Flip(bool faceRight)
     {
         facingRight = faceRight;
