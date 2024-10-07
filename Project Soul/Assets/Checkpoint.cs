@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class Checkpoint : MonoBehaviour
 {
     [SerializeField] private Sprite lampOnSprite;
     [SerializeField] private Sprite lampOffSprite;
+    [SerializeField] private Light2D light;
     private SpriteRenderer spriteRenderer;
     private bool isActivated = false;
 
@@ -27,6 +29,7 @@ public class Checkpoint : MonoBehaviour
             if (playerDeath != null)
             {
                 playerDeath.SetRespawnPoint(transform);
+                light.enabled = true;
                 isActivated = true;
                 spriteRenderer.sprite = lampOnSprite;
                 Debug.Log("Checkpoint activated");
