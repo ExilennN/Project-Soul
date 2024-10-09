@@ -112,6 +112,36 @@ public class PlayerAnimation : MonoBehaviour
         }
     }
 
+    public void OnHealAnimationEvent()
+    {
+        GameObject hud = GameObject.Find("HUD");
+        if (hud != null)
+        {
+            Transform healthTransform = hud.transform.Find("Health");
+            if (healthTransform != null)
+            {
+                PlayerHealthBar healthBar = healthTransform.GetComponent<PlayerHealthBar>();
+                if (healthBar != null)
+                {
+                    healthBar.RegenerateHealth();
+                }
+                else
+                {
+                    Debug.LogError("PlayerHealthBar component not found on Health object!");
+                }
+            }
+            else
+            {
+                Debug.LogError("Health object not found in HUD!");
+            }
+        }
+        else
+        {
+            Debug.LogError("HUD not found in the scene!");
+        }
+    }
+
+
     public void SetCheckpointAnimation()
     {
         if (!isDead && !isAttacking && !isHealing && !isAtCheckpoint)

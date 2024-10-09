@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerAnimation playerAnimation;
     private PlayerCollision playerCollision;
+    private SpriteRenderer spriteRenderer;
 
     AudioManager audioManager;
 
@@ -68,6 +69,15 @@ public class PlayerMovement : MonoBehaviour
         playerAnimation = GetComponent<PlayerAnimation>();
         playerCollision = GetComponent<PlayerCollision>();
         originalScale = transform.localScale;
+
+        if (PlayerPrefs.HasKey("CheckpointX") && PlayerPrefs.HasKey("CheckpointY") && PlayerPrefs.HasKey("CheckpointZ"))
+        {
+            float checkpointX = PlayerPrefs.GetFloat("CheckpointX");
+            float checkpointY = PlayerPrefs.GetFloat("CheckpointY");
+            float checkpointZ = PlayerPrefs.GetFloat("CheckpointZ");
+
+            transform.position = new Vector3(checkpointX, checkpointY, checkpointZ);
+        }
     }
 
     private void Update()

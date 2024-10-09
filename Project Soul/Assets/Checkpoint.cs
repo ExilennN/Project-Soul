@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -7,22 +5,34 @@ public class Checkpoint : MonoBehaviour
 {
     [SerializeField] private Sprite lampOnSprite;
     [SerializeField] private Sprite lampOffSprite;
-    [SerializeField] private Light2D light;
+    [SerializeField] private Light2D light2D;
     private SpriteRenderer spriteRenderer;
     private bool isActivated = false;
     private bool playerInRange = false;
-    private PlayerAnimation playerAnimation;
+
+    private string checkpointKey;
 
     private void Start()
     {
-        playerAnimation = GetComponent<PlayerAnimation>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer == null)
         {
             Debug.LogError("SpriteRenderer is missing on the checkpoint");
         }
-        spriteRenderer.sprite = lampOffSprite;
-        light.enabled = false;
+
+        checkpointKey = gameObject.name + "_Activated";
+
+        if (PlayerPrefs.HasKey(checkpointKey) && PlayerPrefs.GetInt(checkpointKey) == 1)
+        {
+            isActivated = true;
+            spriteRenderer.sprite = lampOnSprite;
+            light2D.enabled = true;
+        }
+        else
+        {
+            spriteRenderer.sprite = lampOffSprite;
+            light2D.enabled = false;
+        }
     }
 
     private void Update()
@@ -30,11 +40,6 @@ public class Checkpoint : MonoBehaviour
         if (playerInRange && !isActivated && Input.GetKeyDown(KeyCode.E))
         {
             ActivateCheckpoint();
-
-            if (playerAnimation != null)
-            {
-                playerAnimation.SetCheckpointAnimation();
-            }
         }
     }
 
@@ -43,12 +48,6 @@ public class Checkpoint : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = true;
-
-            playerAnimation = other.GetComponent<PlayerAnimation>();
-            if (playerAnimation == null)
-            {
-                Debug.LogError("PlayerAnimation component is missing on the player!");
-            }
         }
     }
 
@@ -57,7 +56,6 @@ public class Checkpoint : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
-            playerAnimation = null;
         }
     }
 
@@ -65,8 +63,13 @@ public class Checkpoint : MonoBehaviour
     {
         isActivated = true;
         spriteRenderer.sprite = lampOnSprite;
-        light.enabled = true;
-        Debug.Log("Checkpoint activated");
+        light2D.enabled = true;
+
+        PlayerPrefs.SetInt(checkpointKey, 1);
+
+        PlayerPrefs.SetFloat("CheckpointX", transform.position.x);
+        PlayerPrefs.SetFloat("CheckpointY", transform.position.y);
+        PlayerPrefs.SetFloat("CheckpointZ", transform.position.z);
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
@@ -77,5 +80,7 @@ public class Checkpoint : MonoBehaviour
                 playerDeath.SetRespawnPoint(transform);
             }
         }
+
+        PlayerPrefs.Save();
     }
 }
