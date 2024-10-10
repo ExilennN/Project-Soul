@@ -64,6 +64,7 @@ public class PlayerHealthBar : MonoBehaviour
                     PlayerAnimation playerAnimation = player.GetComponent<PlayerAnimation>();
                     if (playerAnimation != null)
                     {
+                        RegenerateHealth();
                         playerAnimation.SetHealAnimation();
                     }
                 }
@@ -77,11 +78,6 @@ public class PlayerHealthBar : MonoBehaviour
                 Debug.Log("Cannot regenerate: Health is full or not enough mana.");
             }
         }
-
-        // if (Input.GetKeyDown(KeyCode.R))
-        // {
-        //     ResetHealth();
-        // }
     }
 
     private void UpdateHealthUI()
@@ -167,7 +163,7 @@ public class PlayerHealthBar : MonoBehaviour
 
     public void RegenerateHealth()
     {
-        if (mana >= manaCost)
+        if (mana >= manaCost && health < maxHealth)
         {
             mana -= manaCost;
             health += healthRegenAmount;
@@ -180,7 +176,7 @@ public class PlayerHealthBar : MonoBehaviour
         }
         else
         {
-            Debug.Log("Not enough mana to regenerate health.");
+            Debug.Log("Cannot regenerate health: Not enough mana or health is full.");
         }
     }
 

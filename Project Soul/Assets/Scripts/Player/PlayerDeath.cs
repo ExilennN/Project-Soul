@@ -40,11 +40,6 @@ public class PlayerDeath : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            Die();
-        }
-
         if (isDead && canRespawn && Input.GetKeyDown(KeyCode.O))
         {
             Respawn();

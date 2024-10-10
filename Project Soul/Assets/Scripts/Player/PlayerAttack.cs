@@ -13,6 +13,10 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
+        if (playerAnimation.isAtCheckpoint)
+        {
+            return;
+        }
         if (Input.GetMouseButtonDown(0))
         {
             WeakAttack();

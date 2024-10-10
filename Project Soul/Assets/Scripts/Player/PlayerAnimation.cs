@@ -8,7 +8,7 @@ public class PlayerAnimation : MonoBehaviour
     private bool isDead = false;
     private bool isAttacking = false;
     private bool isHealing = false;
-    private bool isAtCheckpoint = false;
+    public bool isAtCheckpoint = false;
     private Checkpoint currentCheckpoint;
 
     private const string PLAYER_IDLE = "Player_idle";

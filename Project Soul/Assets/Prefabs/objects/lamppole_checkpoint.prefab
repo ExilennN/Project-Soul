@@ -146,7 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lampOnSprite: {fileID: -1910750370, guid: 7fb11d7fadb511b4fb79443e9fb525ef, type: 3}
   lampOffSprite: {fileID: -1503827578, guid: 7fb11d7fadb511b4fb79443e9fb525ef, type: 3}
-  light: {fileID: 7475638483489488071}
+  light2D: {fileID: 0}
 --- !u!114 &7475638483489488071
 MonoBehaviour:
   m_ObjectHideFlags: 0

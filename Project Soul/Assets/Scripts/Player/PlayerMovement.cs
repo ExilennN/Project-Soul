@@ -114,6 +114,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckInput()
     {
+        if (playerAnimation.isAtCheckpoint)
+        {
+            return;
+        }
+        
         xAxis = Input.GetAxisRaw("Horizontal");
 
         // Якщо натиснуто клавішу для ривка і ривок доступний, запускаємо корутину.
