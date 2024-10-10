@@ -45,8 +45,7 @@ public class Checkpoint : MonoBehaviour
         }
         else
         {
-            spriteRenderer.sprite = lampOffSprite;
-            light2D.enabled = false;
+            ResetCheckpoint();
         }
     }
 
@@ -100,5 +99,12 @@ public class Checkpoint : MonoBehaviour
         }
 
         PlayerPrefs.Save();
+    }
+
+    public void ResetCheckpoint()
+    {
+        isActivated = false;
+        spriteRenderer.sprite = lampOffSprite;
+        light2D.enabled = false;
     }
 }
