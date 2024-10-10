@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a811eb2330031945836f34f954a0739, type: 3}
   m_Name: L1E4_BaseData
   m_EditorClassIdentifier: 
-  maxHealth: 170
+  maxHealth: 240
   jumpForce: 10
   wallCheckDistance: 0.2
   groundCheckDistance: 0.4
