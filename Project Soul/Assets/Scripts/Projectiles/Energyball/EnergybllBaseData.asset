@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: EnergybllBaseData
   m_EditorClassIdentifier: 
   livingTime: 10
-  projectileSpeed: 25
+  projectileSpeed: 15
   damagePointRadius: 0.5
   damage: 15
