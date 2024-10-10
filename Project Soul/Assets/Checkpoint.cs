@@ -9,11 +9,26 @@ public class Checkpoint : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private bool isActivated = false;
     private bool playerInRange = false;
+    private PlayerAnimation playerAnimation;
 
     private string checkpointKey;
 
     private void Start()
     {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            playerAnimation = player.GetComponent<PlayerAnimation>();
+            if (playerAnimation == null)
+            {
+                Debug.LogError("PlayerAnimation component not found on Player!");
+            }
+        }
+        else
+        {
+            Debug.LogError("Player object not found in the scene!");
+        }
+
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer == null)
         {
@@ -39,7 +54,10 @@ public class Checkpoint : MonoBehaviour
     {
         if (playerInRange && !isActivated && Input.GetKeyDown(KeyCode.E))
         {
-            ActivateCheckpoint();
+            if (playerAnimation != null)
+            {
+                playerAnimation.SetCheckpointAnimation(this);
+            }
         }
     }
 
@@ -59,7 +77,7 @@ public class Checkpoint : MonoBehaviour
         }
     }
 
-    private void ActivateCheckpoint()
+    public void ActivateCheckpoint()
     {
         isActivated = true;
         spriteRenderer.sprite = lampOnSprite;

@@ -9,6 +9,7 @@ public class PlayerAnimation : MonoBehaviour
     private bool isAttacking = false;
     private bool isHealing = false;
     private bool isAtCheckpoint = false;
+    private Checkpoint currentCheckpoint;
 
     private const string PLAYER_IDLE = "Player_idle";
     private const string PLAYER_RUN = "Player_run";
@@ -141,14 +142,29 @@ public class PlayerAnimation : MonoBehaviour
         }
     }
 
-
-    public void SetCheckpointAnimation()
+    public void SetCheckpointAnimation(Checkpoint checkpoint)
     {
         if (!isDead && !isAttacking && !isHealing && !isAtCheckpoint)
         {
             isAtCheckpoint = true;
+            currentCheckpoint = checkpoint; // Сохраняем ссылку на чекпоинт
             ChangeAnimationState(PLAYER_CHECKPOINT);
         }
+    }
+
+    // Этот метод вызывается через Animation Event для активации чекпоинта
+    public void OnCheckpointAnimationEvent()
+    {
+        if (currentCheckpoint != null)
+        {
+            currentCheckpoint.ActivateCheckpoint();
+        }
+        else
+        {
+            Debug.LogError("Checkpoint component not found!");
+        }
+
+        EndCheckpointAnimation();
     }
 
     public void EndCheckpointAnimation()
